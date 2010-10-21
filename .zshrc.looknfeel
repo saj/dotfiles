@@ -1,0 +1,57 @@
+autoload -U add-zsh-hook
+
+# Tab-completion on crack.
+autoload -U compinit
+compinit
+
+setopt AUTO_LIST
+setopt AUTO_PUSHD
+setopt EXTENDED_HISTORY
+setopt HIST_REDUCE_BLANKS
+setopt LIST_PACKED
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_TO_HOME
+
+export HISTFILE=${HOME}/.history
+export HISTSIZE=1000
+export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S  '
+export HIST_FCNTL_LOCK=1
+export HIST_FIND_NO_DUPS=1
+export HIST_IGNORE_DUPS=0
+export SAVEHIST=1000
+
+bindkey -v
+bindkey '^r' history-incremental-search-backward
+
+# Dynamic window titles in `screen' require this escape sequence.
+#export PROMPT_COMMAND='echo -n -e "\033k\033\134"'
+
+
+# Prompt tomfoolery ####################################################
+
+# Requires zsh-git
+# http://github.com/jcorbin/zsh-git
+#
+# I find zsh-git's default prompt too invasive -- define my own, using 
+# zsh-git's underlying shell library.
+autoload -U zgitinit
+zgitinit
+
+setopt promptsubst
+
+# Only handle git repos for now.  I barely have a use for svn these 
+# days, and have none for hg.
+repo_status() {
+    zgit_isgit || return
+    p=`zgit_head`
+    zremote=`zgit_tracking_remote`
+    if [ ! -z $zremote ]; then
+        p+=" on $zremote"
+    fi
+    p+=" (g)"
+    echo "$p"
+}
+
+#export PS1="%n/h%hj%js%?@%m%# "
+export PROMPT="%n@%m %# "
+export RPROMPT="\$(repo_status)"
