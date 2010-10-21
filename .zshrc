@@ -38,6 +38,7 @@ trunc() {
     done
 }
 
+export ACK_PAGER='less -r'
 export BLOCKSIZE=1k
 export EDITOR='vim'
 export GIT_PAGER='less -r'
