@@ -1,1 +1,1 @@
-au BufRead,BufNewFile *.pp set noet filetype=puppet ts=4 
+au BufRead,BufNewFile *.pp set noet ft=puppet ts=4 

@@ -1,1 +1,1 @@
-au BufRead,BufNewFile *.py setfiletype python
+au BufRead,BufNewFile *.py set et ft=python sts=4

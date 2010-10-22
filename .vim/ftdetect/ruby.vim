@@ -1,1 +1,1 @@
-au BufRead,BufNewFile *.rb set noet filetype=ruby ts=4 
+au BufRead,BufNewFile *.rb set et ft=ruby sts=4 
