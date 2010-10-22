@@ -50,6 +50,7 @@ alias c='cd'
 alias cls='clear'
 alias d='dirs'
 alias g="${gvisual}"
+alias gd='git diff'
 alias gs='git status'
 alias h='fc -fl -20'
 alias hist='fc -fl 1'
