@@ -14,7 +14,7 @@ if ! has ("gui_running")
     " I shouldn't have to force this...
     set t_Co=256
 endif
-colorscheme zenburn
+colorscheme kellys
 syntax on
 
 if exists ("c_comment_strings")
