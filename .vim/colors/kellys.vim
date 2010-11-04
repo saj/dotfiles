@@ -102,8 +102,8 @@ endif
 
 hi! link Boolean		Constant
 hi! link Character		Constant
-hi! link Conditional	Statement
-hi! link CursorColumn	CursorLine
+hi! link Conditional		Statement
+hi! link CursorColumn		CursorLine
 hi! link Debug			Special	
 hi! link Define			PreProc
 hi! link Delimiter		Special
@@ -120,7 +120,7 @@ hi! link IncSearch		Search
 hi! link Include		PreProc
 hi! link Keyword		Statement
 hi! link Label			Statement
-hi! link LineNr			Comment
+hi! link LineNr			CursorLine
 hi! link Macro			PreProc
 hi! link MoreMsg		ModeMsg
 hi! link NonText		Comment
@@ -130,14 +130,14 @@ hi! link PreCondit		PreProc
 hi! link Question		MoreMsg
 hi! link Repeat			Statement
 hi! link SignColumn		FoldColumn
-hi! link SpecialChar	Special
-hi! link SpecialComment	Special
+hi! link SpecialChar		Special
+hi! link SpecialComment		Special
 hi! link SpecialKey		Special
 hi! link SpellBad		Error
 hi! link SpellCap		Error
 hi! link SpellLocal		Error
 hi! link SpellRare		Error
-hi! link StorageClass	Type
+hi! link StorageClass		Type
 hi! link String			Constant
 hi! link Structure		Type
 hi! link Tag			Special
