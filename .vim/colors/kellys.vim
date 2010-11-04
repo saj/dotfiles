@@ -41,7 +41,7 @@ let colors_name = "kellys"
 " tabline
 
 if has("gui_running")
-	hi Comment		guifg=#67686b	guibg=#2a2b2f	gui=none
+	hi Comment		guifg=#de4a73	guibg=#2a2b2f	gui=none
 	hi Cursor 		guifg=#2a2b2f	guibg=#e1e0e5	gui=none
 	hi Constant 	guifg=#d1c79e	guibg=#2a2b2f	gui=none
 	hi CursorLine		          	guibg=#303132	gui=none
@@ -70,7 +70,7 @@ if has("gui_running")
 	hi Wildmenu		guifg=#62acce	guibg=#2a2b2f	gui=bold
 else
 	if &t_Co == 256
-		hi Comment		ctermfg=239	ctermbg=235	cterm=none
+		hi Comment		ctermfg=197	ctermbg=235	cterm=none
 		hi Cursor 		ctermfg=235	ctermbg=254	cterm=none
 		hi Constant 	ctermfg=144	ctermbg=235	cterm=none
 		hi CursorLine		       	ctermbg=236	cterm=none
