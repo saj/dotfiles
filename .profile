@@ -8,6 +8,12 @@ if [ -d /sw ]; then
     fi
 fi
 
+for DIST in 2009 2010; do
+    if [ -d /usr/local/texlive/$DIST/bin/universal-darwin ]; then
+        PATH=$PATH:/usr/local/texlive/2009/bin/universal-darwin
+    fi
+done
+
 if [ -d ~/.gem/ruby/1.8/bin ]; then
     PATH=$PATH:~/.gem/ruby/1.8/bin
 fi
