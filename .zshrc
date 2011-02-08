@@ -49,6 +49,7 @@ alias '..'='cd ..'
 alias c='cd'
 alias cls='clear'
 alias d='dirs'
+alias flushdns='dscacheutil -flushcache'
 alias g="${gvisual}"
 alias gd='git diff'
 alias gs='git status'
