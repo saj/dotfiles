@@ -55,3 +55,5 @@ repo_status() {
 #export PS1="%n/h%hj%js%?@%m%# "
 export PROMPT="%n@%m %# "
 export RPROMPT="\$(repo_status)"
+
+alias copymode='unset RPROMPT'
