@@ -56,4 +56,4 @@ repo_status() {
 export PROMPT="%n@%m %# "
 export RPROMPT="\$(repo_status)"
 
-alias copymode='unset RPROMPT'
+alias copymode='unset RPROMPT; export PROMPT="%# "'
