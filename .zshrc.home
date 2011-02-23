@@ -1,6 +1,5 @@
 mp3() {
-    ssh -f -L6600:localhost:6600 ernie \
-      "while true; do sleep 60; done"
+    ssh -f -L6600:localhost:6600 -N ernie
     open /Applications/Theremin.app
 }
 
