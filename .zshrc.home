@@ -1,4 +1,5 @@
-alias -g SRC='~/Documents/src'
+hash -d src='~/Documents/src'
+hash -d work='~/Documents/Anchor'
 
 alias dnb='streamripper http://radio1.internode.on.net:8000/31 -M 4096 -k 1 -m 3'
 alias fetch='launchctl start local.midgar.gonzo.fetchmail'
