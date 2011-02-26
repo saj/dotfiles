@@ -1,8 +1,3 @@
-mp3() {
-    ssh -f -L6600:localhost:6600 -N ernie
-    open /Applications/Theremin.app
-}
-
 alias -g SRC='~/Documents/src'
 
 alias dnb='streamripper http://radio1.internode.on.net:8000/31 -M 4096 -k 1 -m 3'
