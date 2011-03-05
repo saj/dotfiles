@@ -81,7 +81,7 @@ alias v='vim'
 alias vh='if [ `id -u` -eq 0 ]; then ${=EDITOR} /etc/hosts; else sudo ${EDITOR} /etc/hosts; fi'
 
 # Debian packages ack as ack-grep.  A Kanji converter won out.
-if which ack-grep; then
+if which ack-grep >/dev/null 2>&1; then
     alias ack="`which ack-grep`"
 fi
 
