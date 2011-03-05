@@ -1,3 +1,5 @@
+setopt noglobalrcs
+
 local less='less -CQin'
 local ls='ls -F'
 local ls_long="${ls} -hl"
