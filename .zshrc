@@ -80,6 +80,11 @@ alias top='top -s 5'
 alias v='vim'
 alias vh='if [ `id -u` -eq 0 ]; then ${=EDITOR} /etc/hosts; else sudo ${EDITOR} /etc/hosts; fi'
 
+# Debian packages ack as ack-grep.  A Kanji converter won out.
+if which ack-grep; then
+    alias ack="`which ack-grep`"
+fi
+
 # tmux's command-line interface requires too much typing.
 alias tat='tmux attach-session -t'
 alias tls='tmux list-sessions'
