@@ -7,6 +7,16 @@ else
     local gvisual="gvim"
 fi
 
+# Colourise ls output.  Not all platforms do this the same way.
+case `uname -s` in
+    Darwin)
+        export CLICOLOR=true
+        ;;
+    Linux)
+        ls="${ls} --color=auto"
+        ;;
+esac
+
 # Humanise UNIX timestamps.
 epoch() {
     perl -e "print scalar localtime(\"${1}\") . \"\n\";"
@@ -84,16 +94,6 @@ alias vh='if [ `id -u` -eq 0 ]; then ${=EDITOR} /etc/hosts; else sudo ${EDITOR} 
 if which ack-grep >/dev/null 2>&1; then
     alias ack="`which ack-grep`"
 fi
-
-# Colourise ls output.  Not all platforms do this the same way.
-case `uname -s` in
-    Darwin)
-        export CLICOLOR=true
-        ;;
-    Linux)
-        ls="${ls} --color=auto"
-        ;;
-esac
 
 # tmux's command-line interface requires too much typing.
 alias tat='tmux attach-session -t'
