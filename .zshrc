@@ -110,9 +110,14 @@ tnew() {
 
 umask 0022
 
-if [ $(hostname -s) = "gonzo" ]; then
-    . ~/.zshrc.home
-fi
+case $(hostname -s) in
+    gonzo)
+        . ~/.zshrc.home
+        ;;
+    reno)
+        . ~/.zshrc.loot
+        ;;
+esac
 
 if [ $(basename $SHELL) = "zsh" ]; then
     . ~/.zshrc.looknfeel
