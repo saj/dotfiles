@@ -1,11 +1,14 @@
 nzb() {
-    scp "$1" reno:/srv/loot/.hellanzb/nzb/daemon.queue/
-    base=$(basename "$1")
-    if [[ "$base" =~ \.zip ]] ; then
-        ssh reno "unzip -j -d /srv/loot/.hellanzb/nzb/daemon.queue \
-          \"/srv/loot/.hellanzb/nzb/daemon.queue/${base}\" '*.nzb' && \
-          rm \"/srv/loot/.hellanzb/nzb/daemon.queue/${base}\""
-    fi
+    local DEST="/srv/loot/.hellanzb/nzb/daemon.queue"
+    for nzb in $*; do
+        scp "$nzb" reno:/srv/loot/.hellanzb/nzb/daemon.queue/
+        base=$(basename "$nzb")
+        if [[ "$base" =~ \.zip ]] ; then
+            ssh reno "unzip -j -d $DEST \"${DEST}/${base}\" '*.nzb' && \
+              rm \"${DEST}/${base}\"" && \
+              rm "$nzb"
+        fi
+    done
 }
 
 hash -d src="$HOME/Documents/src"
