@@ -68,11 +68,6 @@ map <F5>     :set paste!<CR>:echo &paste<CR>
 " This should be default behaviour!
 map Y y$
 
-" Remove trailing spaces in Python scripts...
-autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
-" ...and Puppet manifests.
-autocmd BufWritePre *.pp normal m`:%s/\s\+$//e ``
-
 set autoindent
 set backspace=indent,eol,start
 "set comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-,f:\\"\\"\\",e:\\"\\"\\"
