@@ -11,6 +11,9 @@ nzb() {
     done
 }
 
+export PIP_REQUIRE_VIRTUALENV=true
+export PIP_RESPECT_VIRTUALENV=true
+
 hash -d src="$HOME/Documents/src"
 hash -d work="$HOME/Documents/Anchor"
 
