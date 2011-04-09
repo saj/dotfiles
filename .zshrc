@@ -88,7 +88,6 @@ alias serial='screen /dev/tty.PL2303-* 9600'
 alias sho='ssh -o StrictHostKeyChecking=no'
 alias sps='svn ps svn:keywords "Id URL"'
 alias sup='svn update'
-alias top='top -s 5'
 alias v='vim'
 alias vh='if [ `id -u` -eq 0 ]; then ${=EDITOR} /etc/hosts; else sudo ${EDITOR} /etc/hosts; fi'
 
