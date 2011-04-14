@@ -24,13 +24,17 @@ epoch() {
     perl -e "print scalar localtime(\"${1}\") . \"\n\";"
 }
 
-# List files, recursively, ignoring VCS crap.
+# List files, recursively, ignoring Mac, Vim, and VCS crap.
 f() {
     p="$1"
     if [ -z "$p" ]; then
         p="."
     fi
-    find "$p" -mindepth 1 -not \( -path "*.svn*" -or -path "*.git*" \)
+    find "$p" -mindepth 1 -not \( \
+      -name '.*.swp' -or \
+      -name '.DS_Store' -or \
+      -path "*.svn*" -or \
+      -path "*.git*" \)
 }
 
 # A long file listing with paging.
