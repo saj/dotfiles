@@ -19,6 +19,11 @@ case `uname -s` in
         ;;
 esac
 
+# Colourise grep output.
+if grep --version | head -1 | grep -q GNU ; then
+    grep="grep --color=auto"
+fi
+
 # Humanise UNIX timestamps.
 epoch() {
     perl -e "print scalar localtime(\"${1}\") . \"\n\";"
@@ -68,6 +73,7 @@ alias d='dirs'
 alias flushdns='dscacheutil -flushcache'
 alias g="${gvisual}"
 alias gd='git diff'
+alias grep="${grep}"
 alias gs='git status'
 alias h='fc -fl -20'
 alias hist='fc -fl 1'
