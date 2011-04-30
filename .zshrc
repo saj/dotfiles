@@ -47,14 +47,24 @@ lll() {
     ${=ls_long} ${@} | ${=less}
 }
 
+# Pull everything under args to the PWD
+surface() {
+    for ARG in ${@}; do
+        if [ -d "$ARG" ]; then
+            find "$ARG" -mindepth 1 -maxdepth 1 -exec mv "{}" . \;
+            rmdir "$ARG"
+        fi
+    done
+}
+
 # Truncate files to nothingness.
 trunc() {
-    for FILE in ${@}; do
-        if [ -f "${FILE}" ]; then
-            cat /dev/null >"${FILE}"
-            echo "${FILE}"
+    for ARG in ${@}; do
+        if [ -f "$ARG" ]; then
+            cat /dev/null >"$ARG"
+            echo "$ARG"
         else
-            echo "trunc: ${FILE}: No such file or directory" >/dev/stderr
+            echo "trunc: ${ARG}: No such file or directory" >/dev/stderr
         fi
     done
 }
