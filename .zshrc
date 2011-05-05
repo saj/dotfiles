@@ -83,6 +83,7 @@ alias d='dirs'
 alias flushdns='dscacheutil -flushcache'
 alias g="${gvisual}"
 alias gd='git diff'
+alias gl='git log --oneline | head'
 alias grep="${grep}"
 alias gs='git status'
 alias h='fc -fl -20'
