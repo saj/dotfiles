@@ -74,7 +74,7 @@ set backspace=indent,eol,start
 set ch=2
 set expandtab
 "set foldmethod=indent
-"set formatlistpat=^\\<\\(\\d\\+[\\]:.)}\\t\ ]\\\|[o-]\\)\\>
+set formatlistpat=^\\s*[\\d#A-Za-z]\\+[\\]:.)}\\t\ ]\\s*
 set formatoptions=acnoqrw
 set hidden
 set history=100
