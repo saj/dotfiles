@@ -1,0 +1,49 @@
+# Humanise UNIX timestamps.
+epoch() {
+    perl -e "print scalar localtime(\"${1}\") . \"\n\";"
+}
+
+# List files, recursively, ignoring Mac, Vim, and VCS crap.
+f() {
+    p="$1"
+    if [ -z "$p" ]; then
+        p="."
+    fi
+    find "$p" -mindepth 1 -not \( \
+      -name '.*.swp' -or \
+      -name '.DS_Store' -or \
+      -path "*.svn*" -or \
+      -path "*.git*" \)
+}
+
+gl() {
+    git log --oneline ${@} | head
+}
+
+lll() {
+    ${=ls_long} ${@} | ${=less}
+}
+
+# Pull everything under args to the PWD.
+surface() {
+    for ARG in ${@}; do
+        if [ -d "$ARG" ]; then
+            find "$ARG" -mindepth 1 -maxdepth 1 -exec mv "{}" . \;
+            rmdir "$ARG"
+        fi
+    done
+}
+
+# Truncate files to nothingness.
+trunc() {
+    for ARG in ${@}; do
+        if [ -f "$ARG" ]; then
+            cat /dev/null >"$ARG"
+            echo "$ARG"
+        else
+            echo "trunc: ${ARG}: No such file or directory" >/dev/stderr
+        fi
+    done
+}
+
+# vim:ft=zsh

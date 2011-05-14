@@ -26,16 +26,27 @@ bindkey '^r' history-incremental-search-backward
 # Dynamic window titles in `screen' require this escape sequence.
 #export PROMPT_COMMAND='echo -n -e "\033k\033\134"'
 
+# Purty colours ########################################################
+
+case `uname -s` in
+    Darwin) export CLICOLOR=true ;;
+    Linux) local ls="${ls} --color=auto" ;;
+esac
+
+if grep --version | head -1 | grep -q GNU ; then
+    local grep="grep --color=auto"
+fi
 
 # Prompt tomfoolery ####################################################
 
 # Requires zsh-git
 # http://github.com/jcorbin/zsh-git
-#
+
+fpath[$(($#fpath+1))]=$HOME/.zsh/zsh-git/functions
+
 # I find zsh-git's default prompt too invasive -- define my own, using 
 # zsh-git's underlying shell library.
-autoload -U zgitinit
-zgitinit
+autoload -U zgitinit ; zgitinit
 
 setopt promptsubst
 
@@ -48,12 +59,16 @@ repo_status() {
     if [ ! -z $zremote ]; then
         p+=" on $zremote"
     fi
+
+    # g = it's a git repo
     p+=" (g)"
+
     echo "$p"
 }
 
-#export PS1="%n/h%hj%js%?@%m%# "
 export PROMPT="%n@%m %# "
 export RPROMPT="\$(repo_status)"
 
 alias copymode='unset RPROMPT; export PROMPT="%# "'
+
+# vim:ft=zsh
