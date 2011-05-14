@@ -35,12 +35,14 @@ if has ("win32")
     map <S-Insert> <MiddleMouse>
 endif
 
+" Quick word obliteration.
+map <BS> bdw
+
+cmap w!! w !sudo tee % >/dev/null
+
 imap \sign <ESC>o<C-R>=strftime("%a %b %d %Y %H:%M:%S")<CR> sgoonatilleke<ESC>
 imap \sco ---------------------------------- 8< ----------------------------------<ESC>0
 imap \scc ---------------------------------- >8 ----------------------------------<ESC>0
-
-" Quick word obliteration.
-map <BS> bdw
 
 " Delete/yank from marker F to cursor and put in buffer F.  (F because
 " that's under my left index finger; don't clobber A, which I use out of
