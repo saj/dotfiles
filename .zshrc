@@ -130,15 +130,8 @@ tnew() {
 
 umask 0022
 
-case $(hostname -s) in
-    gonzo)
-        . ~/.zshrc.home
-        ;;
-    reno)
-        . ~/.zshrc.loot
-        ;;
-esac
-
-if [ $(basename $SHELL) = "zsh" ]; then
-    . ~/.zshrc.looknfeel
+if [ -f ~/.zshrc.$(hostname -s) ]; then
+    . ~/.zshrc.$(hostname -s)
 fi
+
+. ~/.zshrc.looknfeel
