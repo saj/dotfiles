@@ -40,7 +40,7 @@ map <BS> bdw
 
 cmap w!! w !sudo tee % >/dev/null
 
-imap \sign <ESC>o<C-R>=strftime("%a %b %d %Y %H:%M:%S")<CR> sgoonatilleke<ESC>
+imap \ds <ESC>o -- Saj Goonatilleke <sg@redu.cx>  <C-R>=strftime("%a, %d %b %Y %T %z")<ESC>
 imap \sco ---------------------------------- 8< ----------------------------------<ESC>0
 imap \scc ---------------------------------- >8 ----------------------------------<ESC>0
 
