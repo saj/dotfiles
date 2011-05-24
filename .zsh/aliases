@@ -6,6 +6,7 @@ alias g="${gvisual}"
 alias gd='git diff'
 alias grep="${grep}"
 alias gb='git branch'
+alias gc='git checkout'
 alias gs='git status'
 alias h='fc -fl -20'
 alias history='fc -fl 1'
