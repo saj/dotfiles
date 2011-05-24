@@ -78,6 +78,7 @@ set expandtab
 "set foldmethod=indent
 set formatlistpat=^\\s\\+[#A-Za-z0-9]\\{1,3\\}[\\]:\\.)}\\t]\\s*
 set formatoptions=acnoqrw
+set foldnestmax=3
 set hidden
 set history=100
 set ignorecase
