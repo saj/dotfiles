@@ -125,11 +125,11 @@ syn keyword pythonTodo		TODO FIXME XXX contained
 
 " Docstrings - treat them like comments
 " http://www.mail-archive.com/vim_use@googlegroups.com/msg06545/python.vim
-"syn match  pythonBlock		":$" nextgroup=pythonDocString skipempty skipwhite
-"syn region pythonDocString	matchgroup=Normal start=+[uU]\='+ end=+'+ skip=+\\\\\|\\'+ contains=pythonEscape,@Spell contained
-"syn region pythonDocString	matchgroup=Normal start=+[uU]\="+ end=+"+ skip=+\\\\\|\\"+ contains=pythonEscape,@Spell contained
-"syn region pythonDocString	matchgroup=Normal start=+[uU]\="""+ end=+"""+ contains=pythonEscape,@Spell contained
-"syn region pythonDocString	matchgroup=Normal start=+[uU]\='''+ end=+'''+ contains=pythonEscape,@Spell contained
+syn match  pythonBlock		":$" nextgroup=pythonDocString skipempty skipwhite
+syn region pythonDocString	matchgroup=Normal start=+[uU]\='+ end=+'+ skip=+\\\\\|\\'+ contains=pythonEscape,@Spell contained
+syn region pythonDocString	matchgroup=Normal start=+[uU]\="+ end=+"+ skip=+\\\\\|\\"+ contains=pythonEscape,@Spell contained
+syn region pythonDocString	matchgroup=Normal start=+[uU]\="""+ end=+"""+ contains=pythonEscape,@Spell contained
+syn region pythonDocString	matchgroup=Normal start=+[uU]\='''+ end=+'''+ contains=pythonEscape,@Spell contained
 
 " Errors
 " syn match pythonError		"\<\d\+\D\+\>" display
@@ -149,10 +149,10 @@ if exists("python_highlight_space_errors") && python_highlight_space_errors != 0
 endif
 
 " Strings
-syn region pythonString		start=+'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend contains=pythonEscape,pythonEscapeError,@Spell
-syn region pythonString		start=+"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend contains=pythonEscape,pythonEscapeError,@Spell
-syn region pythonString		start=+"""+ end=+"""+ keepend contains=pythonEscape,pythonEscapeError,pythonDocTest2,pythonSpaceError,@Spell
-syn region pythonString		start=+'''+ end=+'''+ keepend contains=pythonEscape,pythonEscapeError,pythonDocTest,pythonSpaceError,@Spell
+syn region pythonString		start=+'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend contains=pythonEscape,pythonEscapeError
+syn region pythonString		start=+"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend contains=pythonEscape,pythonEscapeError
+syn region pythonString		start=+"""+ end=+"""+ keepend contains=pythonEscape,pythonEscapeError,pythonDocTest2,pythonSpaceError
+syn region pythonString		start=+'''+ end=+'''+ keepend contains=pythonEscape,pythonEscapeError,pythonDocTest,pythonSpaceError
 
 syn match  pythonEscape		    +\\[abfnrtv'"\\]+ display contained
 syn match  pythonEscape		    "\\\o\o\=\o\=" display contained
@@ -311,7 +311,7 @@ if version >= 508 || !exists("did_python_syn_inits")
   HiLink pythonDot		Normal
 
   HiLink pythonComment		Comment
-"  HiLink pythonDocString	Comment
+  HiLink pythonDocString	Comment
   HiLink pythonCoding		Special
   HiLink pythonRun		Special
   HiLink pythonTodo		Todo
