@@ -2,6 +2,10 @@
 
 set nocompatible
 
+if ! (has("win32") || has("win64"))
+    set directory=/var/tmp
+end
+
 if &diff
     " Who uses macros in diff mode, anyway?
     map q :qall!<CR>
@@ -30,7 +34,7 @@ if version >= 700
     autocmd InsertEnter * set cul
 endif
 
-if has ("win32")
+if has("win32") || has("win64")
     behave xterm
     map <S-Insert> <MiddleMouse>
 endif
