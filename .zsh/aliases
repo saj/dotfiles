@@ -18,7 +18,6 @@ alias less="${less}"
 alias ll="${ls_long}"
 alias ls="${ls}"
 alias mk='mkdir'
-alias mutt='mutt -f ~/Maildir'
 alias mx='dig +short mx'
 alias ns='dig +short ns'
 alias p='pwd'
