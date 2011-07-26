@@ -20,6 +20,7 @@ alias ls="${ls}"
 alias mk='mkdir'
 alias mx='dig +short mx'
 alias ns='dig +short ns'
+alias nohist='export SAVEHIST=0'
 alias p='pwd'
 alias pake='smithy'
 alias re='vim -Rn'
