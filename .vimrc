@@ -17,12 +17,9 @@ else
     "set nowrap
 endif
 
-if ! has ("gui_running")
-    " I shouldn't have to force this...
-    set t_Co=256
-endif
-colorscheme kellys
 syntax on
+set background=dark
+colorscheme solarized
 
 if exists ("c_comment_strings")
     unlet c_comment_strings
