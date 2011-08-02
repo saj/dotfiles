@@ -112,4 +112,8 @@ set textwidth=72
 map <F2> :NERDTreeToggle<CR>
 let g:NERDTreeQuitOnOpen = 1
 
+if has('gui_running')
+    let g:syntastic_enable_signs = 1
+endif
+
 " vim:et
