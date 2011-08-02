@@ -39,6 +39,9 @@ if has("win32") || has("win64")
     map <S-Insert> <MiddleMouse>
 endif
 
+" Kill the current buffer.
+map <ESC>w :bdel<CR>
+
 " Quick word obliteration.
 map <BS> bdw
 
