@@ -14,8 +14,8 @@ for DIST in 2009 2010; do
     fi
 done
 
-if [ -d ~/.gem/ruby/1.8/bin ]; then
-    PATH=$PATH:~/.gem/ruby/1.8/bin
+if [ -d ~/local/lib/ruby/gems/1.8/bin ]; then
+    PATH=$PATH:~/local/lib/ruby/gems/1.8/bin
 fi
 
 ENV=$HOME/.kshrc
