@@ -2,7 +2,10 @@
 
 set nocompatible
 
-if ! (has("win32") || has("win64"))
+source ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim
+call pathogen#infect()
+
+if !(has("win32") || has("win64"))
     set directory=/var/tmp
 end
 
