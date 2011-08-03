@@ -161,6 +161,7 @@ syn region pythonString		start=+'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+
 syn region pythonString		start=+"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend contains=pythonEscape,pythonEscapeError,@Spell
 syn region pythonString		start=+"""+ end=+"""+ keepend contains=pythonEscape,pythonEscapeError,pythonDocTest2,pythonSpaceError,@Spell
 syn region pythonString		start=+'''+ end=+'''+ keepend contains=pythonEscape,pythonEscapeError,pythonDocTest,pythonSpaceError,@Spell
+syn region pythonDocString	start=+[uU]\="""+ end=+"""+ contains=pythonEscape,pythonEscapeError,pythonDocTest2,pythonSpaceError,@Spell
 
 syn match  pythonEscape		    +\\[abfnrtv'"\\]+ display contained
 syn match  pythonEscape		    "\\\o\o\=\o\=" display contained
@@ -332,6 +333,7 @@ if version >= 508 || !exists("did_python_syn_inits")
   HiLink pythonSpaceError	Error
 
   HiLink pythonString		String
+  HiLink pythonDocString	Comment
   HiLink pythonRawString	String
   HiLink pythonEscape			Special
   HiLink pythonEscapeError		Error
