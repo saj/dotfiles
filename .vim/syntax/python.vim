@@ -2,9 +2,9 @@
 " Language:	Python
 " Maintainer:	Dmitry Vasiliev <dima@hlabs.spb.ru>
 " URL:		http://www.hlabs.spb.ru/vim/python3.0.vim
-" Last Change:	2009-07-24
+" Last Change:	2010-11-14
 " Filenames:	*.py
-" Version:	3.0.2
+" Version:	3.0.6
 "
 " Based on python.vim (from Vim 6.1 distribution)
 " by Neil Schemenauer <nas@python.ca>
@@ -20,6 +20,11 @@
 "        for the patch fixing small typo
 "    Caleb Adamantine
 "        for the patch fixing highlighting for decorators
+"    Andrea Riciputi
+"        for the patch with new configuration options
+"    Anton Butanaev
+"        for the patch fixing bytes literals highlighting
+"        for the patch fixing str.format syntax highlighting
 
 "
 " Options:
@@ -31,6 +36,12 @@
 "
 "    For highlight builtin functions:
 "       python_highlight_builtins
+"
+"    For highlight builtin objects:
+"       python_highlight_builtin_objs
+"
+"    For highlight builtin funtions:
+"       python_highlight_builtin_funcs
 "
 "    For highlight standard exceptions:
 "       python_highlight_exceptions
@@ -71,7 +82,12 @@ endif
 if exists("python_highlight_all") && python_highlight_all != 0
   " Not override previously set options
   if !exists("python_highlight_builtins")
-    let python_highlight_builtins = 1
+    if !exists("python_highlight_builtin_objs")
+      let python_highlight_builtin_objs = 1
+    endif
+    if !exists("python_highlight_builtin_funcs")
+      let python_highlight_builtin_funcs = 1
+    endif
   endif
   if !exists("python_highlight_exceptions")
     let python_highlight_exceptions = 1
@@ -123,16 +139,8 @@ syn match   pythonRun		"\%^#!.*$"
 syn match   pythonCoding	"\%^.*\%(\n.*\)\?#.*coding[:=]\s*[0-9A-Za-z-_.]\+.*$"
 syn keyword pythonTodo		TODO FIXME XXX contained
 
-" Docstrings - treat them like comments
-" http://www.mail-archive.com/vim_use@googlegroups.com/msg06545/python.vim
-syn match  pythonBlock		":$" nextgroup=pythonDocString skipempty skipwhite
-syn region pythonDocString	matchgroup=Normal start=+[uU]\='+ end=+'+ skip=+\\\\\|\\'+ contains=pythonEscape,@Spell contained
-syn region pythonDocString	matchgroup=Normal start=+[uU]\="+ end=+"+ skip=+\\\\\|\\"+ contains=pythonEscape,@Spell contained
-syn region pythonDocString	matchgroup=Normal start=+[uU]\="""+ end=+"""+ contains=pythonEscape,@Spell contained
-syn region pythonDocString	matchgroup=Normal start=+[uU]\='''+ end=+'''+ contains=pythonEscape,@Spell contained
-
 " Errors
-" syn match pythonError		"\<\d\+\D\+\>" display
+syn match pythonError		"\<\d\+\D\+\>" display
 syn match pythonError		"[$?]" display
 syn match pythonError		"[&|]\{2,}" display
 syn match pythonError		"[=]\{3,}" display
@@ -149,10 +157,10 @@ if exists("python_highlight_space_errors") && python_highlight_space_errors != 0
 endif
 
 " Strings
-syn region pythonString		start=+'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend contains=pythonEscape,pythonEscapeError
-syn region pythonString		start=+"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend contains=pythonEscape,pythonEscapeError
-syn region pythonString		start=+"""+ end=+"""+ keepend contains=pythonEscape,pythonEscapeError,pythonDocTest2,pythonSpaceError
-syn region pythonString		start=+'''+ end=+'''+ keepend contains=pythonEscape,pythonEscapeError,pythonDocTest,pythonSpaceError
+syn region pythonString		start=+'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend contains=pythonEscape,pythonEscapeError,@Spell
+syn region pythonString		start=+"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend contains=pythonEscape,pythonEscapeError,@Spell
+syn region pythonString		start=+"""+ end=+"""+ keepend contains=pythonEscape,pythonEscapeError,pythonDocTest2,pythonSpaceError,@Spell
+syn region pythonString		start=+'''+ end=+'''+ keepend contains=pythonEscape,pythonEscapeError,pythonDocTest,pythonSpaceError,@Spell
 
 syn match  pythonEscape		    +\\[abfnrtv'"\\]+ display contained
 syn match  pythonEscape		    "\\\o\o\=\o\=" display contained
@@ -168,21 +176,21 @@ syn match  pythonEscape	        "\\N{[A-Z ]\+}" display contained
 syn match  pythonEscapeError	"\\N{[^A-Z ]\+}" display contained
 
 " Raw strings
-syn region pythonRawString	start=+[rR]'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend contains=pythonRawEscape,@Spell
-syn region pythonRawString	start=+[rR]"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend contains=pythonRawEscape,@Spell
-syn region pythonRawString	start=+[rR]"""+ end=+"""+ keepend contains=pythonDocTest2,pythonSpaceError,@Spell
-syn region pythonRawString	start=+[rR]'''+ end=+'''+ keepend contains=pythonDocTest,pythonSpaceError,@Spell
+syn region pythonRawString	start=+[bB]\=[rR]'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend contains=pythonRawEscape,@Spell
+syn region pythonRawString	start=+[bB]\=[rR]"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend contains=pythonRawEscape,@Spell
+syn region pythonRawString	start=+[bB]\=[rR]"""+ end=+"""+ keepend contains=pythonDocTest2,pythonSpaceError,@Spell
+syn region pythonRawString	start=+[bB]\=[rR]'''+ end=+'''+ keepend contains=pythonDocTest,pythonSpaceError,@Spell
 
 syn match pythonRawEscape	+\\['"]+ display transparent contained
 
 " Bytes
-syn region pythonBytes		start=+[bB]'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend contains=pythonBytesContent,pythonBytesError,pythonBytesEscape,pythonBytesEscapeError,@Spell
-syn region pythonBytes		start=+[bB]"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend contains=pythonBytesContent,pythonBytesError,pythonBytesEscape,pythonBytesEscapeError,@Spell
-syn region pythonBytes		start=+[bB]"""+ end=+"""+ keepend contains=pythonBytesContent,pythonBytesError,pythonBytesEscape,pythonBytesEscapeError,pythonDocTest2,pythonSpaceError,@Spell
-syn region pythonBytes		start=+[bB]'''+ end=+'''+ keepend contains=pythonBytesContent,pythonBytesError,pythonBytesEscape,pythonBytesEscapeError,pythonDocTest,pythonSpaceError,@Spell
+syn region pythonBytes		start=+[bB]'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend contains=pythonBytesError,pythonBytesContent,@Spell
+syn region pythonBytes		start=+[bB]"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend contains=pythonBytesError,pythonBytesContent,@Spell
+syn region pythonBytes		start=+[bB]"""+ end=+"""+ keepend contains=pythonBytesError,pythonBytesContent,pythonDocTest2,pythonSpaceError,@Spell
+syn region pythonBytes		start=+[bB]'''+ end=+'''+ keepend contains=pythonBytesError,pythonBytesContent,pythonDocTest,pythonSpaceError,@Spell
 
-syn match pythonBytesContent    "[\u0001-\u007f]\+" display contained
-syn match pythonBytesError    "[^\u0001-\u007f]\+" display contained
+syn match pythonBytesError    ".\+" display contained
+syn match pythonBytesContent    "[\u0000-\u00ff]\+" display contained contains=pythonBytesEscape,pythonBytesEscapeError
 
 syn match pythonBytesEscape	    +\\[abfnrtv'"\\]+ display contained
 syn match pythonBytesEscape	    "\\\o\o\=\o\=" display contained
@@ -200,7 +208,7 @@ endif
 if exists("python_highlight_string_format") && python_highlight_string_format != 0
   " str.format syntax
   syn match pythonStrFormat "{{\|}}" contained containedin=pythonString,pythonRawString
-  syn match pythonStrFormat	"{\%(\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\|\d\+\)\%(\.\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_*\)\|\[\%(\d\+\|[^!:\}]\+\)\]\)*\%(![rsa]\)\=\%(:\%({\%(\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\|\d\+\)}\|\%([^}]\=[<>=^]\)\=[ +-]\=#\=0\=\d*\%(\.\d\+\)\=[bcdeEfFgGnoxX%]\=\)\=\)\=}" contained containedin=pythonString,pythonRawString
+  syn match pythonStrFormat	"{\%(\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\|\d\+\)\=\%(\.\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\|\[\%(\d\+\|[^!:\}]\+\)\]\)*\%(![rsa]\)\=\%(:\%({\%(\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\|\d\+\)}\|\%([^}]\=[<>=^]\)\=[ +-]\=#\=0\=\d*,\=\%(\.\d\+\)\=[bcdeEfFgGnosxX%]\=\)\=\)\=}" contained containedin=pythonString,pythonRawString
 endif
 
 if exists("python_highlight_string_templates") && python_highlight_string_templates != 0
@@ -223,10 +231,11 @@ syn match   pythonHexNumber	"\<0[xX]\x\+\>" display
 syn match   pythonOctNumber "\<0[oO]\o\+\>" display
 syn match   pythonBinNumber "\<0[bB][01]\+\>" display
 
+syn match   pythonNumberError	"\<\d\+\D\>" display
+syn match   pythonNumberError	"\<0\d\+\>" display
 syn match   pythonNumber	"\<\d\>" display
 syn match   pythonNumber	"\<[1-9]\d\+\>" display
 syn match   pythonNumber	"\<\d\+[jJ]\>" display
-syn match   pythonNumberError	"\<0\d\+\>" display
 
 syn match   pythonFloat		"\.\d\+\%([eE][+-]\=\d\+\)\=[jJ]\=\>" display
 syn match   pythonFloat		"\<\d\+[eE][+-]\=\d\+[jJ]\=\>" display
@@ -235,17 +244,20 @@ syn match   pythonFloat		"\<\d\+\.\d*\%([eE][+-]\=\d\+\)\=[jJ]\=" display
 syn match   pythonOctError	"\<0[oO]\=\o*[8-9]\d*\>" display
 syn match   pythonBinError	"\<0[bB][01]*[2-9]\d*\>" display
 
-if exists("python_highlight_builtins") && python_highlight_builtins != 0
-  " Builtin functions, types and objects
+if exists("python_highlight_builtin_objs") && python_highlight_builtin_objs != 0
+  " Builtin objects and types
   syn keyword pythonBuiltinObj	Ellipsis NotImplemented
   syn keyword pythonBuiltinObj	__debug__ __doc__ __file__ __name__ __package__
+endif
 
+if exists("python_highlight_builtin_funcs") && python_highlight_builtin_funcs != 0
+  " Builtin functions
   syn keyword pythonBuiltinFunc	__import__ abs all any ascii
   syn keyword pythonBuiltinFunc	bin bool bytearray bytes
   syn keyword pythonBuiltinFunc	chr classmethod cmp compile complex
   syn keyword pythonBuiltinFunc	delattr dict dir divmod enumerate eval
   syn keyword pythonBuiltinFunc	exec filter float format frozenset getattr
-  syn keyword pythonBuiltinFunc	globals hasattr hash hex id 
+  syn keyword pythonBuiltinFunc	globals hasattr hash hex id
   syn keyword pythonBuiltinFunc	input int isinstance
   syn keyword pythonBuiltinFunc	issubclass iter len list locals map max
   syn keyword pythonBuiltinFunc	memoryview min next object oct open ord
@@ -308,10 +320,9 @@ if version >= 508 || !exists("did_python_syn_inits")
 
   HiLink pythonDecorator	Define
   HiLink pythonDottedName	Function
-  HiLink pythonDot		Normal
+  HiLink pythonDot          Normal
 
   HiLink pythonComment		Comment
-  HiLink pythonDocString	Comment
   HiLink pythonCoding		Special
   HiLink pythonRun		Special
   HiLink pythonTodo		Todo
@@ -322,18 +333,18 @@ if version >= 508 || !exists("did_python_syn_inits")
 
   HiLink pythonString		String
   HiLink pythonRawString	String
-  HiLink pythonEscape		Special
-  HiLink pythonEscapeError	Error
+  HiLink pythonEscape			Special
+  HiLink pythonEscapeError		Error
 
-  HiLink pythonBytes		String
-  HiLink pythonBytesContent	String
-  HiLink pythonBytesError	Error
-  HiLink pythonBytesEscape	Special
+  HiLink pythonBytes		    String
+  HiLink pythonBytesContent	    String
+  HiLink pythonBytesError	    Error
+  HiLink pythonBytesEscape		Special
   HiLink pythonBytesEscapeError	Error
 
   HiLink pythonStrFormatting	Special
   HiLink pythonStrFormat    	Special
-  HiLink pythonStrTemplate	Special
+  HiLink pythonStrTemplate	    Special
 
   HiLink pythonDocTest		Special
   HiLink pythonDocTest2		Special
@@ -343,15 +354,15 @@ if version >= 508 || !exists("did_python_syn_inits")
   HiLink pythonOctNumber	Number
   HiLink pythonBinNumber	Number
   HiLink pythonFloat		Float
-  HiLink pythonNumberError	Error
-  HiLink pythonOctError		Error
+  HiLink pythonNumberError  Error
+  HiLink pythonOctError	    Error
   HiLink pythonHexError		Error
   HiLink pythonBinError		Error
 
   HiLink pythonBuiltinObj	Structure
   HiLink pythonBuiltinFunc	Function
 
-  HiLink pythonExClass		Structure
+  HiLink pythonExClass	Structure
 
   delcommand HiLink
 endif
