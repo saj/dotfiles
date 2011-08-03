@@ -91,6 +91,8 @@ if version >= 700
     set spellfile=~/.en.latin1.add
 endif
 
+map <F8> :set hlsearch!<CR>:echo &hlsearch<CR>
+
 " Quick word obliteration.
 map <BS> bdw
 
