@@ -40,7 +40,11 @@ if has("win32") || has("win64")
 endif
 
 " Kill the current buffer.
-map <ESC>w :bdel<CR>
+if has('gui_running')
+    map ∑ :bdel<CR>
+else
+    map <ESC>w :bdel<CR>
+endif
 
 " Quick word obliteration.
 map <BS> bdw
