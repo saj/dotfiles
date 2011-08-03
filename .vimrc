@@ -5,6 +5,54 @@ set nocompatible
 source ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
 
+set autoindent
+set backspace=indent,eol,start
+set ch=2
+set copyindent
+set expandtab
+set foldmethod=indent
+set foldnestmax=2
+set formatlistpat=^\\s*\\(\\([#A-Za-z]\\\\|[0-9]\\{1,2\\}\\)[\\]:\\.)}\\t]\\\\|-\\)\\s*
+set formatoptions=acnoqrw
+set hidden
+set history=100
+set ignorecase
+set incsearch
+set modeline
+set nobackup
+set noequalalways
+set nohlsearch
+set nostartofline
+set nowritebackup
+set nu
+set preserveindent
+set ruler
+set scrolloff=2
+set shiftwidth=4
+set showcmd
+set showmatch
+set smartcase
+set smartindent
+set softtabstop=4
+set tabstop=8
+set textwidth=72
+set winaltkeys=no
+
+" With fo+=c, Vim's autoformatting will only consider text that matches 
+" the following setting.  Syntax highlighter classifiers are not 
+" factored into the algorithm.  Unfortunately, this makes it difficult 
+" (impossible?) to autoformat Python docstrings as proper comments.  
+" This line was my last attempt.  It has been left here as a reminder.
+"set comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-,f:\\"\\"\\",e:\\"\\"\\"
+
+filetype on
+filetype plugin on
+filetype plugin indent on
+
+syntax on
+set background=dark
+colorscheme solarized
+
 if !(has("win32") || has("win64"))
     set directory=/var/tmp
 end
@@ -17,16 +65,8 @@ else
     "set nowrap
 endif
 
-syntax on
-set background=dark
-colorscheme solarized
-
 if exists ("c_comment_strings")
     unlet c_comment_strings
-endif
-
-if exists ("php_htmlInStrings")
-    php_htmlInStrings = 0
 endif
 
 if version >= 700
@@ -39,21 +79,27 @@ if has("win32") || has("win64")
     map <S-Insert> <MiddleMouse>
 endif
 
+" This should be default behaviour!
+map Y y$
+
+map <F1> :NERDTreeToggle<CR>
+map <F5> :set paste!<CR>:echo &paste<CR>
+
+" Toggle spell checking.
+if version >= 700
+    map <F6> :setlocal spell! spelllang=en_au<CR>
+    set spellfile=~/.en.latin1.add
+endif
+
+" Quick word obliteration.
+map <BS> bdw
+
 " Kill the current buffer.
 if has('gui_running')
     map ∑ :bdel<CR>
 else
     map <ESC>w :bdel<CR>
 endif
-
-" Quick word obliteration.
-map <BS> bdw
-
-cmap w!! w !sudo tee % >/dev/null
-
-imap \ds <ESC>o -- Saj Goonatilleke <sg@redu.cx>  <C-R>=strftime("%a, %d %b %Y %T %z")<ESC>
-imap \sco ---------------------------------- 8< ----------------------------------<ESC>0
-imap \scc ---------------------------------- >8 ----------------------------------<ESC>0
 
 " Delete/yank from marker F to cursor and put in buffer F.  (F because
 " that's under my left index finger; don't clobber A, which I use out of
@@ -66,54 +112,17 @@ nmap yf :silent 'f,.y f<CR>
 " Delete to the end of the sentence.
 nmap ds d/[.?!:]<CR>
 
-" Toggle spell checking.
-if version >= 700
-    map <F3> :setlocal spell! spelllang=en_au<CR>
-    set spellfile=~/.en.latin1.add
-endif
+cmap w!! w !sudo tee % >/dev/null
 
-map <F4><F4> :set shiftwidth?<CR>
-map <F4>2    :set shiftwidth=2<CR>:set softtabstop=2<CR>
-map <F4>4    :set shiftwidth=4<CR>:set softtabstop=4<CR>
-map <F4>8    :set shiftwidth=8<CR>:set softtabstop=0<CR>
-map <F5>     :set paste!<CR>:echo &paste<CR>
+" Don't force comments to start on column 1.
+inoremap # X#
 
-" This should be default behaviour!
-map Y y$
-
-set autoindent
-set backspace=indent,eol,start
-"set comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-,f:\\"\\"\\",e:\\"\\"\\"
-set ch=2
-set expandtab
-"set foldmethod=indent
-set formatlistpat=^\\s\\+[#A-Za-z0-9]\\{1,3\\}[\\]:\\.)}\\t]\\s*
-set formatoptions=acnoqrw
-set foldnestmax=2
-set hidden
-set history=100
-set ignorecase
-set incsearch
-set modeline
-set nobackup
-set nohlsearch
-set nostartofline
-set nowritebackup
-set nu
-set ruler
-set scrolloff=2
-set shiftwidth=4
-set showcmd
-set showmatch
-set smartcase
-set smartindent
-set softtabstop=4
-set tabstop=8
-set textwidth=72
+imap \ds <ESC>o -- Saj Goonatilleke <sg@redu.cx>  <C-R>=strftime("%a, %d %b %Y %T %z")<ESC>
+imap \sco ---------------------------------- 8< ----------------------------------<ESC>0
+imap \scc ---------------------------------- >8 ----------------------------------<ESC>0
 
 " Plug-in settings
 
-map <F2> :NERDTreeToggle<CR>
 let g:NERDTreeQuitOnOpen = 1
 
 if has('gui_running')
