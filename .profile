@@ -1,23 +1,5 @@
 PATH=~/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/usr/local/bin:/usr/local/sbin:/usr/games
 
-# Fink ports
-if [ -d /sw ]; then
-    PATH=$PATH:/sw/bin:/sw/sbin
-    if [ -d /sw/lib/git-core ]; then
-        PATH=$PATH:/sw/lib/git-core
-    fi
-fi
-
-for DIST in 2009 2010; do
-    if [ -d /usr/local/texlive/$DIST/bin/universal-darwin ]; then
-        PATH=$PATH:/usr/local/texlive/2009/bin/universal-darwin
-    fi
-done
-
-if [ -d ~/local/lib/ruby/gems/1.8/bin ]; then
-    PATH=$PATH:~/local/lib/ruby/gems/1.8/bin
-fi
-
 ENV=$HOME/.kshrc
 if [ -e $HOME/.zshrc ]; then
     ENV=$HOME/.zshrc
