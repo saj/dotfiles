@@ -35,9 +35,9 @@ syn keyword kickstartOption autostep auth[config] bootloader contained
 syn keyword kickstartOption clearpart device[probe] driverdisk contained
 syn keyword kickstartOption firewall install interactive keyboard contained
 syn keyword kickstartOption lang[support] lilo[check] logvol contained
-syn keyword kickstartOption mouse network part[ition] raid contained
-syn keyword kickstartOption reboot rootpw skipx text timezone contained
-syn keyword kickstartOption upgrade xconfig volgroup zerombr contained
+syn keyword kickstartOption mouse network part[ition] poweroff raid contained
+syn keyword kickstartOption reboot rootpw selinux skipx shutdown text contained
+syn keyword kickstartOption timezone upgrade xconfig volgroup zerombr contained
 syn keyword kickstartInstallMethod cdrom harddrive nfs url contained
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
 " Options of options :-) {{{
@@ -56,7 +56,7 @@ syn match kickstartOption2 "\s\zs--\(opts\)\>=\=" contains=kickstartEquals
 " driverdisk
 syn match kickstartOption2 "\s\zs--\(type\)\>=\=" contains=kickstartEquals
 " firewall
-syn match kickstartOption2 "\s\zs--\(high\|medium\|disabled\|dhcp\|ssh\|telnet\|smtp\|http\|ftp\)\>"
+syn match kickstartOption2 "\s\zs--\(high\|medium\|enabled\|disabled\|dhcp\|ssh\|telnet\|smtp\|http\|ftp\)\>"
 syn match kickstartOption2 "\s\zs--\(trust\|port\)\>=\=" contains=kickstartEquals
 " install
 syn match kickstartOption2 "\s\zs--\(partition\|server\|dir\)\>=\=" contains=kickstartEquals
