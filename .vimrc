@@ -127,8 +127,6 @@ imap \scc ---------------------------------- >8 --------------------------------
 
 let g:NERDTreeQuitOnOpen = 1
 
-if has('gui_running')
-    let g:syntastic_enable_signs = 1
-endif
+let g:syntastic_enable_signs = 1
 
 " vim:et
