@@ -37,7 +37,8 @@ syn keyword kickstartOption firewall install interactive keyboard contained
 syn keyword kickstartOption lang[support] lilo[check] logvol contained
 syn keyword kickstartOption mouse network part[ition] poweroff raid contained
 syn keyword kickstartOption reboot rootpw selinux skipx shutdown text contained
-syn keyword kickstartOption timezone upgrade xconfig volgroup zerombr contained
+syn keyword kickstartOption timezone upgrade user xconfig volgroup contained
+syn keyword kickstartOption zerombr contained
 syn keyword kickstartInstallMethod cdrom harddrive nfs url contained
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
 " Options of options :-) {{{
@@ -94,6 +95,8 @@ syn match kickstartOption2 "\s\zs--\(level\|device\|spares\|fstype\|noformat\)\>
 syn match kickstartOption2 "\s\zs--\(iscrypted\)\>"
 " timezone
 syn match kickstartOption2 "\s\zs--\(utc\)\>"
+" user
+syn match kickstartOption2 "\s\zs--\(gecos\)\>=\=" contains=kickstartEquals
 " xconfig
 syn match kickstartOption2 "\s\zs--\(noprobe\|startxonboot\)\>"
 syn match kickstartOption2 "\s\zs--\(card\|videoram\|monitor\|hsync\|vsync\|defaultdesktop\|resolution\|depth\)\>=\=" contains=kickstartEquals
