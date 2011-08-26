@@ -36,9 +36,9 @@ syn keyword kickstartOption clearpart device[probe] driverdisk contained
 syn keyword kickstartOption firewall install interactive keyboard contained
 syn keyword kickstartOption lang[support] lilo[check] logvol contained
 syn keyword kickstartOption mouse network part[ition] poweroff raid contained
-syn keyword kickstartOption reboot rootpw selinux skipx shutdown text contained
-syn keyword kickstartOption timezone upgrade user xconfig volgroup contained
-syn keyword kickstartOption zerombr contained
+syn keyword kickstartOption reboot repo rootpw selinux skipx shutdown contained
+syn keyword kickstartOption text timezone upgrade user xconfig contained
+syn keyword kickstartOption volgroup zerombr contained
 syn keyword kickstartInstallMethod cdrom harddrive nfs url contained
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
 " Options of options :-) {{{
@@ -91,6 +91,8 @@ syn match kickstartOption2 "\s\zs--\(recommended\|grow\|noformat\|asprimary\|bad
 syn match kickstartOption2 "\s\zs--\(size\|maxsize\|onpart\|usepart\|ondisk\|ondrive\|bytes-per-inode\|fstype\|start\|end\)\>=\=" contains=kickstartEquals
 " raid
 syn match kickstartOption2 "\s\zs--\(level\|device\|spares\|fstype\|noformat\)\>=\=" contains=kickstartEquals
+" repo
+syn match kickstartOption2 "\s\zs--\(baseurl\|mirrorlist\|cost\|excludepkgs\|includepkgs\|proxy\|ignoregroups\|noverifyssl\)\>"
 " rootpw
 syn match kickstartOption2 "\s\zs--\(iscrypted\)\>"
 " timezone
