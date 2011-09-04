@@ -24,6 +24,11 @@ lll() {
     ${=ls_long} ${@} | ${=less}
 }
 
+mkcd() {
+    if [ $# -gt 1 ]; then echo "One directory only, please" >&2; return 1; fi
+    mkdir "$1" && cd "$1"
+}
+
 # Pull everything under args to the PWD.
 surface() {
     for ARG in ${@}; do
