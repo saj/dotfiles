@@ -125,7 +125,7 @@ imap \scc ---------------------------------- >8 --------------------------------
 
 " Plug-in settings
 
-let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeQuitOnOpen = 0
 
 let g:syntastic_enable_signs = 1
 
