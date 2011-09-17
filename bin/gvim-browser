@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -e
+
+~/bin/gvim -f \
+  -c 'set columns=120 fo+=t noai nosi paste' \
+  -c 'setlocal spell' \
+  -i $HOME/.vim/info/browser \
+  "$@"

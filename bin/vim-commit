@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -e
+
+vim \
+  -c 'set et fo+=tw noai nosi' \
+  -c 'setlocal spell' \
+  -i $HOME/.vim/info/commit \
+  $@

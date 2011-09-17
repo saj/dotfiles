@@ -1,0 +1,54 @@
+#!/usr/bin/perl -w
+
+# My iTerm2 configuration uses this script.  See the `mutt' profile.
+
+# http://tools.ietf.org/html/rfc2368
+
+use URI::Escape;
+
+use strict;
+
+my $mailto_url = uri_unescape($ARGV[0]);
+
+# This pattern does not come close to meeting the specifications in 
+# RFC-2368 or RFC-822.  It is, however, good enough for me.
+if ($mailto_url =~ /^mailto:(?:
+    \/\/
+  )?( # Recipient(s) (comma separated)
+    (?:
+      [\w\.\-]+@[\w\.\-]+
+    )
+    (?:
+      ,[\w\.\-]+@[\w\.\-]+
+    )*
+  )(?:
+    \?( # Headers
+      (?:
+        [^&=]+=[^&=]+
+      )
+      (?:
+        &[^&=]+=[^&=]+
+      )*
+    )
+  )?/ix) {
+    my @recipients = split(/,/, $1);
+
+    my (%headers, %all_headers);
+    %all_headers = map { split(/=/) } split(/&/, $2) if $2;
+    foreach (qw(to cc bcc subject)) {
+        $headers{lc($_)} = $all_headers{$_} if ($all_headers{$_});
+    }
+
+    push(@recipients, $headers{'to'}) if $headers{'to'};
+
+    my @args = ('/usr/local/bin/mutt');
+    push(@args, ('-b', $headers{'bcc'})) if $headers{'bcc'};
+    push(@args, ('-c', $headers{'cc'})) if $headers{'cc'};
+    push(@args, ('-s', $headers{'subject'})) if $headers{'subject'};
+    push(@args, '--');
+    push(@args, @recipients);
+
+    $ENV{'PATH'}='/bin:/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin';
+
+    exec @args;
+}
