@@ -57,7 +57,10 @@ colorscheme solarized
 
 if !(has("win32") || has("win64"))
     set directory=/var/tmp
-end
+    if isdirectory(expand("~") . "/.vim/info")
+        let &viminfo=&viminfo . ",n" . expand("~") . "/.vim/info/general"
+    endif
+endif
 
 if &diff
     " Who uses macros in diff mode, anyway?
@@ -81,7 +84,7 @@ if has("win32") || has("win64")
     map <S-Insert> <MiddleMouse>
 endif
 
-" This should be default behaviour!
+" This should be default behaviour!  (Matches D behaviour.)
 map Y y$
 
 map <F1> :NERDTreeToggle<CR>
