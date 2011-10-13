@@ -17,7 +17,19 @@ f() {
 }
 
 gl() {
-    git log --oneline ${@} | head
+    if [ $# -eq 0 ]; then
+        git log --color --oneline | head
+    else
+        git log --oneline ${@}
+    fi
+}
+
+# Show short log of commits since last push
+glo() {
+    local branch remote
+    branch=$(zgit_branch)
+    remote=$(zgit_tracking_remote)
+    gl "${remote}/${branch}..${branch}"
 }
 
 lll() {
