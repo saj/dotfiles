@@ -29,7 +29,7 @@ glo() {
     local branch remote
     branch=$(zgit_branch)
     remote=$(zgit_tracking_remote)
-    gl "${remote}/${branch}..${branch}"
+    gl "${remote:=origin}/${branch}..${branch}"
 }
 
 lll() {
