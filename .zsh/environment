@@ -1,8 +1,8 @@
-export ACK_PAGER='less -r'
+export ACK_PAGER=$less
 export BLOCKSIZE=1k
 export EDITOR='vim'
-export GIT_PAGER='less -r'
-export PAGER=${less}
+export GIT_PAGER=$less
+export PAGER=$less
 export VISUAL='vim'
 
 # vim:ft=zsh
