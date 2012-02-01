@@ -55,13 +55,6 @@ syntax on
 set background=dark
 colorscheme solarized
 
-if !(has("win32") || has("win64"))
-    set directory=/var/tmp
-    if isdirectory(expand("~") . "/.vim/info")
-        let &viminfo=&viminfo . ",n" . expand("~") . "/.vim/info/general"
-    endif
-endif
-
 if &diff
     " Who uses macros in diff mode, anyway?
     map q :qall!<CR>
@@ -87,10 +80,9 @@ endif
 " This should be default behaviour!  (Matches D behaviour.)
 map Y y$
 
-map <F1> :NERDTreeToggle<CR>
 map <F5> :set paste!<CR>:echo &paste<CR>
 
-" Toggle spell checking.
+" Toggle spell checking
 if version >= 700
     map <F6> :setlocal spell! spelllang=en_au<CR>
     set spellfile=~/.en.latin1.add
@@ -98,10 +90,10 @@ endif
 
 map <F8> :set hlsearch!<CR>:echo &hlsearch<CR>
 
-" Quick word obliteration.
+" Quick word obliteration
 map <BS> bdw
 
-" Kill the current buffer.
+" Kill the current buffer
 if has('gui_running')
     map ∑ :bdel<CR>
 else
@@ -116,22 +108,41 @@ endif
 nmap df :silent 'f,.d f<CR>
 nmap yf :silent 'f,.y f<CR>
 
-" Delete to the end of the sentence.
+" Delete to the end of the sentence
 nmap ds d/[.?!:]<CR>
 
 cmap w!! w !sudo tee % >/dev/null
 
-" Don't force comments to start on column 1.
+" Don't force comments to start on column 1
 inoremap # X#
 
+" Shortcut to sign off on Debian changelogs (think 'Debian sign')
 imap \ds <ESC>o -- Saj Goonatilleke <sg@redu.cx>  <C-R>=strftime("%a, %d %b %Y %T %z")<ESC>
+
+" 'Scissor open' and 'scissor close'
 imap \sco ---------------------------------- 8< ----------------------------------<ESC>0
 imap \scc ---------------------------------- >8 ----------------------------------<ESC>0
 
+
 " Plug-in settings
 
+let g:mwAutoLoadMarks = 1
+let g:mwAutoSaveMarks = 1
+set viminfo+=!
+map <F7> :MarkClear<CR>
+
 let g:NERDTreeQuitOnOpen = 0
+map <F1> :NERDTreeToggle<CR>
 
 let g:syntastic_enable_signs = 1
+
+
+" Has to happen after all other changes to the viminfo global.
+if !(has("win32") || has("win64"))
+    set directory=/var/tmp
+    if isdirectory(expand("~") . "/.vim/info")
+        let &viminfo=&viminfo . ",n" . expand("~") . "/.vim/info/general"
+    endif
+endif
 
 " vim:et
