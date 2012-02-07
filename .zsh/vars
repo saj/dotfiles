@@ -1,4 +1,5 @@
 local less='less -CQin'
+local less_noclear='less -FQin'
 local ls='ls -F'
 local ls_long="${ls} -hl"
 

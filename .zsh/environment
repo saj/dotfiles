@@ -1,7 +1,7 @@
-export ACK_PAGER=$less
+export ACK_PAGER=$less_noclear
 export BLOCKSIZE=1k
 export EDITOR='vim'
-export GIT_PAGER='less -FQin'
+export GIT_PAGER=$less_noclear
 export PAGER=$less
 export VISUAL='vim'
 
