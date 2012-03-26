@@ -353,7 +353,7 @@ endfunction
 " InsertDate() {{{2
 " Insert today's date.
 function InsertDate(ba)
-	let @x = strftime("%Y-%m-%d")
+	let @x = strftime("%a %Y-%m-%d")
 	if a:ba == "0"
 		normal! "xp
 	else
