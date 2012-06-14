@@ -41,6 +41,18 @@ mkcd() {
     mkdir -p "$1" && cd "$1"
 }
 
+opendot() {
+    local dot="$1"
+    local png="$(mktemp -t opendot)"
+    local newpng="${png}.png"
+    mv "$png" "$newpng"
+    png="$newpng"
+    dot -Tpng:quartz:quartz "$dot" >"$png"
+    open "$png"
+    sleep 2
+    rm -f "$png"
+}
+
 # Pull everything under args to the PWD.
 surface() {
     for ARG in ${@}; do
