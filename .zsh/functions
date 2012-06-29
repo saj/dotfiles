@@ -32,6 +32,16 @@ glo() {
     gl "${remote:=origin}/${branch}..${branch}"
 }
 
+lc() {
+    local arg
+    for arg in ${@}; do
+        local lcname="$(echo "$arg" | tr A-Z a-z)"
+        # Workaround case-insensitive HFS+.
+        mv -n "$arg" "$lcname\~"
+        mv -n "$lcname\~" "$lcname"
+    done
+}
+
 lll() {
     ${=ls_long} ${@} | ${=less}
 }
@@ -55,23 +65,35 @@ opendot() {
 
 # Pull everything under args to the PWD.
 surface() {
-    for ARG in ${@}; do
-        if [ -d "$ARG" ]; then
-            find "$ARG" -mindepth 1 -maxdepth 1 -exec mv "{}" . \;
-            rmdir "$ARG"
+    local arg
+    for arg in ${@}; do
+        if [ -d "$arg" ]; then
+            find "$arg" -mindepth 1 -maxdepth 1 -exec mv "{}" . \;
+            rmdir "$arg"
         fi
     done
 }
 
 # Truncate files to nothingness.
 trunc() {
-    for ARG in ${@}; do
-        if [ -f "$ARG" ]; then
-            cat /dev/null >"$ARG"
-            echo "$ARG"
+    local arg
+    for arg in ${@}; do
+        if [ -f "$arg" ]; then
+            cat /dev/null >"$arg"
+            echo "$arg"
         else
-            echo "trunc: ${ARG}: No such file or directory" >/dev/stderr
+            echo "trunc: ${arg}: No such file or directory" >/dev/stderr
         fi
+    done
+}
+
+uc() {
+    local arg
+    for arg in ${@}; do
+        local ucname="$(echo "$arg" | tr a-z A-Z)"
+        # Workaround case-insensitive HFS+.
+        mv -n "$arg" "$ucname\~"
+        mv -n "$ucname\~" "$ucname"
     done
 }
 
