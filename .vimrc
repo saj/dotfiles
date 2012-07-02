@@ -13,7 +13,7 @@ set ch=2
 set copyindent
 set expandtab
 set foldmethod=indent
-set foldnestmax=2
+set foldnestmax=3
 set formatlistpat=^\\s*\\(\\([#A-Za-z]\\\\|[0-9]\\{1,2\\}\\)[\\]:\\.)}\\t]\\\\|-\\)\\s*
 set formatoptions=acnoqrw
 set hidden
