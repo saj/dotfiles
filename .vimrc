@@ -14,7 +14,6 @@ set copyindent
 set expandtab
 set foldmethod=indent
 set foldnestmax=3
-set formatlistpat=^\\s*\\(\\([#A-Za-z]\\\\|[0-9]\\{1,2\\}\\)[\\]:\\.)}\\t]\\\\|-\\)\\s*
 set formatoptions=acnoqrw
 set hidden
 set history=100
@@ -39,6 +38,10 @@ set softtabstop=4
 set tabstop=8
 set textwidth=72
 set winaltkeys=no
+
+" Matches alphabetically-labelled ordered lists -- a. a) -- and 
+" unordered lists that use a dash.
+set formatlistpat=^\\s*\\(\\([A-Za-z]\\\\|[0-9]\\{1,2\\}\\)[\\]:\\.)}\\t]\\\\|-\\)\\s*
 
 " With fo+=c, Vim's autoformatting will only consider text that matches 
 " the following setting.  Syntax highlighter classifiers are not 
