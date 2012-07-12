@@ -1,6 +1,8 @@
 alias '..'='cd ..'
+alias amend='git commit --amend'
 alias c='cd'
 alias cls='clear'
+alias commit='git commit'
 alias d='dirs'
 alias g='git'
 alias ga='git add'
