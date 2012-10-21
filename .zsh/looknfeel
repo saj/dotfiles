@@ -26,9 +26,10 @@ bindkey '^r' history-incremental-search-backward
 # Dynamic window titles in `screen' require this escape sequence.
 #export PROMPT_COMMAND='echo -n -e "\033k\033\134"'
 
+
 # Purty colours ########################################################
 
-case `uname -s` in
+case "$(uname -s)" in
     Darwin) export CLICOLOR=true ;;
     Linux) local ls="${ls} --color=auto" ;;
 esac
@@ -36,6 +37,7 @@ esac
 if grep --version | head -1 | grep -q GNU ; then
     local grep="grep --color=auto"
 fi
+
 
 # Prompt tomfoolery ####################################################
 

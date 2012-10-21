@@ -1,0 +1,5 @@
+alias sd='svn diff'
+alias sps='svn ps svn:keywords "Id URL"'
+alias sup='svn update'
+
+# vim:ft=zsh

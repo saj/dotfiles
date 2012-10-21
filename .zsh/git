@@ -1,0 +1,28 @@
+alias amend='git commit --amend'
+alias commit='git commit'
+alias g='git'
+alias ga='git add'
+alias gb='git branch'
+alias gc='git checkout'
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gs='git status'
+alias stash='git stash'
+
+gl() {
+    if [ $# -eq 0 ]; then
+        git log --color --oneline | head
+    else
+        git log --oneline ${@}
+    fi
+}
+
+# Show short log of commits since last push
+glo() {
+    local branch remote
+    branch=$(zgit_branch)
+    remote=$(zgit_tracking_remote)
+    gl "${remote:=origin}/${branch}..${branch}"
+}
+
+# vim:ft=zsh

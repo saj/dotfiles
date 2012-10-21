@@ -1,8 +1,3 @@
-# Humanise UNIX timestamps.
-epoch() {
-    perl -e "print scalar localtime(\"${1}\") . \"\n\";"
-}
-
 # List files, recursively, ignoring Mac, Vim, and VCS crap.
 f() {
     p="$1"
@@ -16,22 +11,7 @@ f() {
       -path "*.git*" \)
 }
 
-gl() {
-    if [ $# -eq 0 ]; then
-        git log --color --oneline | head
-    else
-        git log --oneline ${@}
-    fi
-}
-
-# Show short log of commits since last push
-glo() {
-    local branch remote
-    branch=$(zgit_branch)
-    remote=$(zgit_tracking_remote)
-    gl "${remote:=origin}/${branch}..${branch}"
-}
-
+# Convert a file name to lowercase.
 lc() {
     local arg
     for arg in ${@}; do
@@ -42,25 +22,15 @@ lc() {
     done
 }
 
+# Page through a directory listing.
 lll() {
     ${=ls_long} ${@} | ${=less}
 }
 
+# Make a directory then descend into it.
 mkcd() {
     if [ $# -gt 1 ]; then echo "One directory only, please" >&2; return 1; fi
     mkdir -p "$1" && cd "$1"
-}
-
-opendot() {
-    local dot="$1"
-    local png="$(mktemp -t opendot)"
-    local newpng="${png}.png"
-    mv "$png" "$newpng"
-    png="$newpng"
-    dot -Tpng:quartz:quartz "$dot" >"$png"
-    open "$png"
-    sleep 2
-    rm -f "$png"
 }
 
 # Pull everything under args to the PWD.
@@ -87,6 +57,7 @@ trunc() {
     done
 }
 
+# Convert a file name to uppercase.
 uc() {
     local arg
     for arg in ${@}; do

@@ -1,17 +1,8 @@
 alias '..'='cd ..'
-alias amend='git commit --amend'
 alias c='cd'
 alias cls='clear'
-alias commit='git commit'
 alias d='dirs'
-alias g='git'
-alias ga='git add'
-alias gd='git diff'
-alias gdc='git diff --cached'
 alias grep="${grep}"
-alias gb='git branch'
-alias gc='git checkout'
-alias gs='git status'
 alias h='fc -fl -20'
 alias history='fc -fl 1'
 alias irc='irssi'
@@ -23,20 +14,14 @@ alias ll="${ls_long}"
 alias ls="${ls}"
 alias mk='mkdir'
 alias mx='dig +short mx'
-alias ns='dig +short ns'
 alias nohist='export SAVEHIST=0'
+alias ns='dig +short ns'
 alias p='pwd'
 alias pake='smithy'
 alias re='vim -Rn'
-alias rl='host'
 alias s='TERM=xterm ssh'
 alias sco='scp -o StrictHostKeyChecking=no'
-alias sd='svn diff'
-alias serial='screen /dev/tty.PL2303-* 9600'
 alias sho='s -o StrictHostKeyChecking=no'
-alias sps='svn ps svn:keywords "Id URL"'
-alias stash='git stash'
-alias sup='svn update'
 alias v='vim'
 alias vh='if [ `id -u` -eq 0 ]; then ${=EDITOR} /etc/hosts; else sudo ${EDITOR} /etc/hosts; fi'
 
@@ -44,16 +29,5 @@ alias vh='if [ `id -u` -eq 0 ]; then ${=EDITOR} /etc/hosts; else sudo ${EDITOR} 
 if which ack-grep >/dev/null 2>&1; then
     alias ack="`which ack-grep`"
 fi
-
-# tmux's command-line interface is very wordy.
-alias tat='tmux attach-session -t'
-alias tls='tmux list-sessions'
-tnew() {
-    if [ $# -ge 1 ]; then
-        tmux -2 new-session -s "$*"
-    else
-        tmux -2 new-session
-    fi
-}
 
 # vim:ft=zsh
