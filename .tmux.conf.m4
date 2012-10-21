@@ -1,4 +1,12 @@
-set  -g  default-command "reattach-to-user-namespace -l zsh"
+divert(-1)
+
+define(`os_name', patsubst(esyscmd(`uname -s'), `
+'))
+
+divert`'dnl
+ifelse(os_name, `Darwin', `dnl
+set  -g  default-command "reattach-to-user-namespace -l zsh"dnl
+')
 set  -g  default-terminal "screen-256color"
 set  -gs escape-time 0
 set  -g  history-limit 1000
@@ -29,8 +37,10 @@ bind - split-window -v
 bind \ split-window -h
 
 bind C-a last-window
+ifelse(os_name, `Darwin', `dnl
 bind C-c run "tmux save-buffer - | reattach-to-user-namespace pbcopy"
-bind C-v run "reattach-to-user-namespace pbpaste | tmux load-buffer - && tmux paste-buffer"
+bind C-v run "reattach-to-user-namespace pbpaste | tmux load-buffer - && tmux paste-buffer"dnl
+')
 bind m command-prompt "split-window 'exec man %%'"
 bind r source-file ~/.tmux.conf
 bind S command-prompt "new-window -n %1 'ssh %1'"
