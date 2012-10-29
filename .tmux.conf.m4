@@ -28,6 +28,12 @@ setw -g  window-status-fg red
 unbind C-b
 bind a send-prefix
 
+# So do old Vim habits.
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
 # Defaults for horizontal and vertical split.  Hard to remember.
 unbind %
 unbind '"'
