@@ -134,10 +134,16 @@ let g:mwAutoSaveMarks = 1
 set viminfo+=!
 map <F7> :MarkClear<CR>
 
+" NERDTree
 let g:NERDTreeQuitOnOpen = 0
 map <F1> :NERDTreeToggle<CR>
 
+" Syntastic
 let g:syntastic_enable_signs = 1
+
+" VimClojure
+let vimclojure#HighlightBuiltins=1
+let vimclojure#ParenRainbow=1
 
 
 " Has to happen after all other changes to the viminfo global.

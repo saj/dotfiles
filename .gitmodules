@@ -19,3 +19,6 @@
 [submodule ".zsh/zsh-git"]
 	path = .zsh/zsh-git
 	url = git://github.com/jcorbin/zsh-git.git
+[submodule ".vim/bundle/vimclojure"]
+	path = .vim/bundle/vimclojure
+	url = git://github.com/vim-scripts/VimClojure.git
