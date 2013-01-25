@@ -138,6 +138,12 @@ map <F7> :MarkClear<CR>
 let g:NERDTreeQuitOnOpen = 0
 map <F1> :NERDTreeToggle<CR>
 
+" Rainbow parentheses
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
 " Syntastic
 let g:syntastic_enable_signs = 1
 
