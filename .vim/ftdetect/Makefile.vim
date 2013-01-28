@@ -1,1 +1,2 @@
-au BufRead,BufNewFile Makefile set noet ft=make ts=4 
+au BufRead,BufNewFile Makefile setlocal ft=make
+au BufRead,BufNewFile Makefile setlocal noet ts=4

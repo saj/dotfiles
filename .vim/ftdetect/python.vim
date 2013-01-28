@@ -1,2 +1,2 @@
-au BufRead,BufNewFile *.py set ft=python
-au BufRead,BufNewFile *.py set et sts=4
+au BufRead,BufNewFile *.py setlocal ft=python
+au BufRead,BufNewFile *.py setlocal et sts=4

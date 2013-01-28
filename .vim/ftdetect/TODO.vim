@@ -1,1 +1,1 @@
-au BufRead,BufNewFile TODO set fo+=t
+au BufRead,BufNewFile TODO setlocal fo+=t

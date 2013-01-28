@@ -1,1 +1,2 @@
-au BufRead,BufNewFile *.rb set et ft=ruby sts=2 sw=2
+au BufRead,BufNewFile *.rb setlocal ft=ruby
+au BufRead,BufNewFile *.rb setlocal et sts=2 sw=2

@@ -1,2 +1,2 @@
-au BufRead,BufNewFile *.aug set ft=augeas
-au BufRead,BufNewFile *.aug set et sts=2
+au BufRead,BufNewFile *.aug setlocal ft=augeas
+au BufRead,BufNewFile *.aug setlocal et sts=2

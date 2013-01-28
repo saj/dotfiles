@@ -1,1 +1,1 @@
-au BufRead,BufNewFile README set fo+=t
+au BufRead,BufNewFile README setlocal fo+=t

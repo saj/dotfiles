@@ -1,1 +1,1 @@
-au BufRead,BufNewFile COMMIT_EDITMSG set ft=gitcommit
+au BufRead,BufNewFile COMMIT_EDITMSG setlocal ft=gitcommit
