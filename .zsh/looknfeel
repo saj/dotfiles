@@ -41,36 +41,38 @@ fi
 
 # Prompt tomfoolery ####################################################
 
+export PROMPT="%n@%m %# "
+
 # Requires zsh-git
 # http://github.com/jcorbin/zsh-git
+opt_zshgit() {
+    fpath[$(($#fpath+1))]=$HOME/.zsh/zsh-git/functions
 
-fpath[$(($#fpath+1))]=$HOME/.zsh/zsh-git/functions
+    # I find zsh-git's default prompt too invasive -- define my own, using 
+    # zsh-git's underlying shell library.
+    autoload -U zgitinit ; zgitinit
 
-# I find zsh-git's default prompt too invasive -- define my own, using 
-# zsh-git's underlying shell library.
-autoload -U zgitinit ; zgitinit
+    setopt promptsubst
 
-setopt promptsubst
+    # Only handle git repos for now.  I barely have a use for svn these 
+    # days, and have none for hg.
+    repo_status() {
+        zgit_isgit || return
+        p=`zgit_head`
+        zremote=`zgit_tracking_remote`
+        if [ ! -z $zremote ]; then
+            p+=" on $zremote"
+        fi
 
-# Only handle git repos for now.  I barely have a use for svn these 
-# days, and have none for hg.
-repo_status() {
-    zgit_isgit || return
-    p=`zgit_head`
-    zremote=`zgit_tracking_remote`
-    if [ ! -z $zremote ]; then
-        p+=" on $zremote"
-    fi
+        # g = it's a git repo
+        p+=" (g)"
 
-    # g = it's a git repo
-    p+=" (g)"
+        echo "$p"
+    }
 
-    echo "$p"
+    export RPROMPT="\$(repo_status)"
+
+    alias copymode='unset RPROMPT; export PROMPT="%# "'
 }
-
-export PROMPT="%n@%m %# "
-export RPROMPT="\$(repo_status)"
-
-alias copymode='unset RPROMPT; export PROMPT="%# "'
 
 # vim:ft=zsh
