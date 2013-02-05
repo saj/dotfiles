@@ -1,2 +1,7 @@
-au BufRead,BufNewFile *.markdown,*.md,*.mdown,*.mkd,*.mkdn setlocal ft=markdown
-au BufRead,BufNewFile *.markdown,*.md,*.mdown,*.mkd,*.mkdn setlocal fo+=t spell
+au BufRead,BufNewFile *.markdown setlocal ft=markdown
+au BufRead,BufNewFile *.md       setlocal ft=markdown
+au BufRead,BufNewFile *.mdown    setlocal ft=markdown
+au BufRead,BufNewFile *.mkd      setlocal ft=markdown
+au BufRead,BufNewFile *.mkdn     setlocal ft=markdown
+
+au FileType markdown setlocal fo+=t spell

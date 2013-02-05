@@ -1,2 +1,3 @@
 au BufRead,BufNewFile *.pp setlocal ft=puppet
-au BufRead,BufNewFile *.pp setlocal noet fo-=t ts=4
+
+au FileType puppet setlocal noet fo-=t ts=4
