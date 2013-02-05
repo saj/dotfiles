@@ -13,12 +13,15 @@
 [submodule ".vim/bundle/vim-fakeclip"]
 	path = .vim/bundle/vim-fakeclip
 	url = git://github.com/kana/vim-fakeclip.git
-[submodule ".vim/bundle/rainbow-parentheses"]
-	path = .vim/bundle/rainbow-parentheses
-	url = git://github.com/kien/rainbow_parentheses.vim.git
 [submodule ".vim/bundle/vim-pathogen"]
 	path = .vim/bundle/vim-pathogen
 	url = git://github.com/tpope/vim-pathogen.git
+[submodule ".vim/bundle/rainbow-parentheses"]
+	path = .vim/bundle/rainbow-parentheses
+	url = git://github.com/kien/rainbow_parentheses.vim.git
+[submodule ".vim/bundle/ruby-matchit"]
+	path = .vim/bundle/ruby-matchit
+	url = https://github.com/vim-scripts/ruby-matchit
 [submodule ".vim/bundle/syntastic"]
 	path = .vim/bundle/syntastic
 	url = git://github.com/scrooloose/syntastic.git
