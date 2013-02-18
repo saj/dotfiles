@@ -1,4 +1,13 @@
-*.pyc
+# Text editor cruft
+*~
 .*.swp
+
+# Object file cruft
+*.o
+*.pyc
+
+# rbenv cruft
+/.ruby-version
+
+# 'Why-is-this-even-a-thing?' cruft
 .DS_Store
-SCRATCH
