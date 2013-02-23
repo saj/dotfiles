@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# avg FILE
+#
+# Given an unsorted file with a list of (integer or floating point) 
+# numbers in it, one number per line, calculate the average of the 
+# population after discarding the two outliers.
+
+set -e
+set -o pipefail
+
+if [ -z "$1" ]; then
+    echo "Missing filename" >&2
+    exit 1
+fi
+
+f="$1"
+n="$(wc -l <"$f" | tr -d ' ')"
+
+if [ $n -lt 3 ]; then
+    echo "Need more samples" >&2
+    exit 1
+fi
+
+sort -n "$f" | sed -n "2,$((n-1))p" | \
+     awk -v n=$((n-2)) 'BEGIN {
+                            t=0;
+                            precision=2;
+                        }
+                        {
+                            t += $1;
+                            irdxp = index($1, ".");
+                            if (irdxp > 0) {
+                                cprecision = length($1) - irdxp;
+                                if (cprecision > precision) {
+                                    precision = cprecision;
+                                }
+                            }
+                        }
+                        END {
+                            fmt="%." precision "f\n";
+                            printf fmt, t/n;
+                        }'
