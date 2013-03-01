@@ -10,7 +10,6 @@ set  -g  default-command "reattach-to-user-namespace -l zsh"dnl
 set  -g  default-terminal "screen-256color"
 set  -gs escape-time 0
 set  -g  history-limit 1000
-set  -g  prefix C-a
 set  -g  status-bg black
 set  -g  status-fg white
 set  -g  status-keys vi
@@ -25,6 +24,7 @@ setw -g  window-status-current-fg green
 setw -g  window-status-fg red
 
 # Old GNU screen habits die hard.
+set -g prefix C-a
 unbind C-b
 bind a send-prefix
 
@@ -41,6 +41,11 @@ unbind '"'
 # Use these instead.
 bind - split-window -v
 bind \ split-window -h
+
+# It can be VERY frustrating to hit this key by accident.  (By default, 
+# space will rearrange panes.)  Especially after spending an inordinate 
+# amount of time twiddling panes into *just* the right proportions.
+unbind Space
 
 bind C-a last-window
 ifelse(os_name, `Darwin', `dnl
