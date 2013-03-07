@@ -1,0 +1,29 @@
+#!/usr/bin/python
+
+# Accept minified JSON on stdin and write an equivalent, pretty-printed 
+# representation to stdout suitable for human consumption.
+#
+# If fed garbage, complain, and pass through the garbage.
+#
+# Example:
+#
+# curl --header "Accept: application/json" ... http://api/whatever | \
+#      pretty-json
+
+try:
+    import json
+except ImportError:
+    import simplejson as json
+
+import sys
+
+input = sys.stdin.read()
+
+try:
+    jsonified = json.loads(input)
+except Exception:
+    print >>sys.stderr, "Input is not JSON!"
+    print >>sys.stderr
+    sys.stdout.write(input)
+else:
+    print json.dumps(jsonified, indent=2)
