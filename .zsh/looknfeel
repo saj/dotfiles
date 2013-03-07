@@ -20,7 +20,10 @@ export HIST_FIND_NO_DUPS=1
 export HIST_IGNORE_DUPS=0
 export SAVEHIST=1000
 
+autoload -U edit-command-line
+zle -N edit-command-line
 bindkey -v
+bindkey -M vicmd v edit-command-line
 bindkey '^r' history-incremental-search-backward
 
 # Dynamic window titles in `screen' require this escape sequence.
