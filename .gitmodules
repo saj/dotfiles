@@ -13,6 +13,9 @@
 [submodule ".vim/bundle/vim-fakeclip"]
 	path = .vim/bundle/vim-fakeclip
 	url = git://github.com/kana/vim-fakeclip.git
+[submodule ".vim/bundle/vim-matchit"]
+	path = .vim/bundle/vim-matchit
+	url = git://github.com/tsaleh/vim-matchit.git
 [submodule ".vim/bundle/vim-pathogen"]
 	path = .vim/bundle/vim-pathogen
 	url = git://github.com/tpope/vim-pathogen.git
