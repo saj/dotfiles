@@ -19,9 +19,6 @@
 [submodule ".vim/bundle/rainbow-parentheses"]
 	path = .vim/bundle/rainbow-parentheses
 	url = git://github.com/kien/rainbow_parentheses.vim.git
-[submodule ".vim/bundle/ruby-matchit"]
-	path = .vim/bundle/ruby-matchit
-	url = https://github.com/vim-scripts/ruby-matchit
 [submodule ".vim/bundle/syntastic"]
 	path = .vim/bundle/syntastic
 	url = git://github.com/scrooloose/syntastic.git
