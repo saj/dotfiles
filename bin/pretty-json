@@ -19,11 +19,12 @@ import sys
 
 input = sys.stdin.read()
 
-try:
-    jsonified = json.loads(input)
-except Exception:
-    print >>sys.stderr, "Input is not JSON!"
-    print >>sys.stderr
-    sys.stdout.write(input)
-else:
-    print json.dumps(jsonified, indent=2)
+if len(input) > 0:
+    try:
+        jsonified = json.loads(input)
+    except Exception:
+        print >>sys.stderr, "Input is not JSON!"
+        print >>sys.stderr
+        sys.stdout.write(input)
+    else:
+        print json.dumps(jsonified, indent=2)
