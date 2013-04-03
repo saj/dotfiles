@@ -10,21 +10,24 @@
 # curl --header "Accept: application/json" ... http://api/whatever | \
 #      pretty-json
 
+import os
+import sys
+
 try:
     import json
 except ImportError:
     import simplejson as json
 
-import sys
-
+me    = os.path.basename(sys.argv[0])
 input = sys.stdin.read()
 
 if len(input) > 0:
     try:
         jsonified = json.loads(input)
     except Exception:
-        print >>sys.stderr, "Input is not JSON!"
-        print >>sys.stderr
-        sys.stdout.write(input)
+        if not input.isspace():
+            print >>sys.stderr, "%s: Input is not JSON!" % me
+            print >>sys.stderr
+            sys.stdout.write(input)
     else:
         print json.dumps(jsonified, indent=2)
