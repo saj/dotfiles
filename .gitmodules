@@ -1,31 +1,3 @@
-[submodule ".vim/bundle/ack.vim"]
-	path = .vim/bundle/ack.vim
-	url = git://github.com/mileszs/ack.vim.git
-[submodule ".vim/bundle/vim-align"]
-	path = .vim/bundle/vim-align
-	url = git://github.com/tsaleh/vim-align.git
-[submodule ".vim/bundle/vimclojure"]
-	path = .vim/bundle/vimclojure
-	url = git://github.com/vim-scripts/VimClojure.git
-[submodule ".vim/bundle/vim-colors-solarized"]
-	path = .vim/bundle/vim-colors-solarized
-	url = git://github.com/altercation/vim-colors-solarized.git
-[submodule ".vim/bundle/vim-fakeclip"]
-	path = .vim/bundle/vim-fakeclip
-	url = git://github.com/kana/vim-fakeclip.git
-[submodule ".vim/bundle/vim-matchit"]
-	path = .vim/bundle/vim-matchit
-	url = git://github.com/tsaleh/vim-matchit.git
-[submodule ".vim/bundle/vim-pathogen"]
-	path = .vim/bundle/vim-pathogen
-	url = git://github.com/tpope/vim-pathogen.git
-[submodule ".vim/bundle/rainbow-parentheses"]
-	path = .vim/bundle/rainbow-parentheses
-	url = git://github.com/kien/rainbow_parentheses.vim.git
-[submodule ".vim/bundle/syntastic"]
-	path = .vim/bundle/syntastic
-	url = git://github.com/scrooloose/syntastic.git
-
 [submodule ".zsh/zsh-git"]
 	path = .zsh/zsh-git
 	url = git://github.com/jcorbin/zsh-git.git
