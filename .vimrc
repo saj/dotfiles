@@ -85,6 +85,8 @@ filetype plugin indent on
 
 syntax on
 set background=dark
+set t_Co=16
+let g:solarized_termtrans=1
 colorscheme solarized
 
 if &diff
