@@ -2,10 +2,39 @@
 
 set nocompatible
 
-if filereadable(expand("~") . "/.vim/bundle/vim-pathogen/autoload/pathogen.vim")
-    source ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim
-    call pathogen#infect()
-endif
+
+"
+" vundler init
+"
+
+filetype off
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+
+
+"
+" vundler bundles
+"
+
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'kana/vim-fakeclip'
+Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'mileszs/ack.vim'
+Bundle 'scrooloose/syntastic'
+Bundle 'tsaleh/vim-align'
+Bundle 'tsaleh/vim-matchit'
+Bundle 'vim-scripts/VimClojure'
+
+
+"
+" vundler init done
+"
+
+filetype plugin indent on
+
 
 set autoindent
 set backspace=indent,eol,start
