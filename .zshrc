@@ -13,7 +13,10 @@ setopt noglobalrcs
 
 case "$(uname -s)"; in
     "Darwin")
-        . ~"/.zsh/mac"
+        [ -e ~"/.zsh/mac" ] && . ~"/.zsh/mac"
+        ;;
+    "Linux")
+        [ -e ~"/.zsh/linux" ] && . ~"/.zsh/linux"
         ;;
 esac
 
