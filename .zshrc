@@ -20,14 +20,14 @@ case "$(uname -s)"; in
         ;;
 esac
 
-local me="$(hostname -s)"
-
-if [ -d ~"/.zsh/${me}" ]; then
-    for hostrc in ~"/.zsh/${me}"/*; do
-        . "$hostrc"
-    done
-elif [ -f ~"/.zsh/${me}" ]; then
-    . ~"/.zsh/${me}"
-fi
+for me in "$(hostname -s)" "$(hostname -f)"; do
+    if [ -d ~"/.zsh/${me}" ]; then
+        for hostrc in ~"/.zsh/${me}"/*; do
+            . "$hostrc"
+        done
+    elif [ -f ~"/.zsh/${me}" ]; then
+        . ~"/.zsh/${me}"
+    fi
+done
 
 # vim:ft=zsh
