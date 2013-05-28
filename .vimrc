@@ -44,7 +44,7 @@ set copyindent
 set expandtab
 set foldmethod=indent
 set foldnestmax=3
-set formatoptions=acnoqrw
+set formatoptions=acnoqr
 set hidden
 set history=100
 set ignorecase
