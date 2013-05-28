@@ -26,6 +26,7 @@ Bundle 'mileszs/ack.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'tsaleh/vim-align'
 Bundle 'tsaleh/vim-matchit'
+Bundle 'vim-scripts/emodeline'
 Bundle 'vim-scripts/VimClojure'
 
 
