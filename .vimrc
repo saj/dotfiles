@@ -23,10 +23,10 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'kana/vim-fakeclip'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'mileszs/ack.vim'
+Bundle 'saj/emodeline'
 Bundle 'scrooloose/syntastic'
 Bundle 'tsaleh/vim-align'
 Bundle 'tsaleh/vim-matchit'
-Bundle 'vim-scripts/emodeline'
 Bundle 'vim-scripts/VimClojure'
 
 
