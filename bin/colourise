@@ -1,0 +1,144 @@
+#!/usr/bin/env python
+
+"""
+NAME
+
+  colourise - run a program, colourising its output if attached to a terminal
+
+
+SYNOPSIS
+
+  colourise [ --outfg COLOUR ] [ --outbg COLOUR ] \
+            [ --errfg COLOUR ] [ --errbg COLOUR ] \
+            program [ arg ... ]
+
+"""
+from argparse import ArgumentParser
+from errno import EAGAIN
+from fcntl import F_GETFL, F_SETFL, fcntl
+from subprocess import PIPE, Popen
+import os
+import sys
+
+COLOURS = {'RESET'     : '\033[0m',
+           'FG_BLACK'  : '\033[30m',
+           'FG_RED'    : '\033[31m',
+           'FG_GREEN'  : '\033[32m',
+           'FG_YELLOW' : '\033[33m',
+           'FG_BLUE'   : '\033[34m',
+           'FG_MAGENTA': '\033[35m',
+           'FG_CYAN'   : '\033[36m',
+           'FG_WHITE'  : '\033[37m',
+           'FG_RESET'  : '\033[39m',
+           'BG_BLACK'  : '\033[40m',
+           'BG_RED'    : '\033[41m',
+           'BG_GREEN'  : '\033[42m',
+           'BG_YELLOW' : '\033[43m',
+           'BG_BLUE'   : '\033[44m',
+           'BG_MAGENTA': '\033[45m',
+           'BG_CYAN'   : '\033[46m',
+           'BG_WHITE'  : '\033[47m',
+           'BG_RESET'  : '\033[49m'}
+
+def get_fgcolour(fgcolour):
+  return COLOURS["FG_%s" % fgcolour.upper()]
+
+def get_bgcolour(bgcolour):
+  return COLOURS["BG_%s" % bgcolour.upper()]
+
+def is_fgcolour(fgcolour):
+  if "FG_%s" % fgcolour.upper() in COLOURS:
+    return True
+  return False
+
+def is_bgcolour(bgcolour):
+  if "BG_%s" % bgcolour.upper() in COLOURS:
+    return True
+  return False
+
+def colourise_stream(stream, fgcolour="reset", bgcolour="reset", force=False):
+  assert is_fgcolour(fgcolour)
+  assert is_bgcolour(bgcolour)
+
+  if force or stream.isatty():
+    stream.write(get_fgcolour(fgcolour))
+    stream.write(get_bgcolour(bgcolour))
+
+def flush(stream_pairs):
+  for i, o in stream_pairs:
+    try:
+      o.write(i.read())
+    except IOError, e:
+      if e.errno == EAGAIN:
+        pass
+      else:
+        raise
+
+def main(argv=None):
+  if argv is None:
+    argv = sys.argv
+
+  parser = ArgumentParser(description="Run a program, colourising its output "
+                                      "if attached to a terminal.",
+                          usage="%(prog)s [options] program [args]")
+  parser.add_argument('--outfg', default="reset",
+                      help="foreground colour for standard output")
+  parser.add_argument('--outbg', default="reset",
+                      help="background colour for standard output")
+  parser.add_argument('--errfg', default="reset",
+                      help="foreground colour for standard error")
+  parser.add_argument('--errbg', default="reset",
+                      help="background colour for standard error")
+  parser.add_argument('--forceout', default=False, action='store_true',
+                      help="force colour on stdout without a tty")
+  parser.add_argument('--forceerr', default=False, action='store_true',
+                      help="force colour on stderr without a tty")
+  parser.add_argument('program', nargs=1, help="program to execute")
+  parser.add_argument('args', nargs='*', help="optional arguments to program")
+
+  args = parser.parse_args(argv[1:])
+
+  if not is_fgcolour(args.outfg):
+    print >>sys.stderr, "Invalid --outfg colour: %s" % args.outfg
+    return 2
+  if not is_bgcolour(args.outbg):
+    print >>sys.stderr, "Invalid --outbg colour: %s" % args.outbg
+    return 2
+  if not is_fgcolour(args.errfg):
+    print >>sys.stderr, "Invalid --errfg colour: %s" % args.errfg
+    return 2
+  if not is_bgcolour(args.errbg):
+    print >>sys.stderr, "Invalid --errbg colour: %s" % args.errbg
+    return 2
+
+  cmd_args = args.program + args.args
+
+  p = Popen(cmd_args, stdin=sys.stdin, stdout=PIPE, stderr=PIPE, shell=False)
+
+  fdOut = p.stdout.fileno()
+  fdErr = p.stderr.fileno()
+  fcntl(fdOut, F_SETFL, fcntl(fdOut, F_GETFL) | os.O_NONBLOCK)
+  fcntl(fdErr, F_SETFL, fcntl(fdErr, F_GETFL) | os.O_NONBLOCK)
+
+  rc = 1
+
+  colourise_stream(sys.stdout, args.outfg, args.outbg, args.forceout)
+  colourise_stream(sys.stderr, args.errfg, args.errbg, args.forceerr)
+
+  try:
+    while True:
+      flush([(p.stdout, sys.stdout), (p.stderr, sys.stderr)])
+      p.poll()
+      if p.returncode is not None:
+        flush([(p.stdout, sys.stdout), (p.stderr, sys.stderr)])
+        rc = p.returncode
+        break
+
+  finally:
+    colourise_stream(sys.stdout, 'reset', 'reset', args.forceout)
+    colourise_stream(sys.stderr, 'reset', 'reset', args.forceerr)
+
+  return rc
+
+if __name__ == '__main__':
+  sys.exit(main(sys.argv))
