@@ -3,11 +3,30 @@
 .*.swp
 
 # Object file cruft
+*.la
+*.lo
 *.o
 *.pyc
 
 # rbenv cruft
 /.ruby-version
 
+# Archive cruft
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
 # 'Why-is-this-even-a-thing?' cruft
+._*
 .DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Icon?
+Thumbs.db
