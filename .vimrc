@@ -119,7 +119,7 @@ map <F5> :set paste!<CR>:echo &paste<CR>
 
 " Toggle spell checking
 if version >= 700
-    map <F6> :setlocal spell! spelllang=en_au<CR>
+    map <F6> :setlocal spell! spelllang=en_au<CR>:echo &l:spell<CR>
     set spellfile=~/.en.latin1.add
 endif
 
