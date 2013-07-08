@@ -164,7 +164,7 @@ imap \scc ---------------------------------- >8 --------------------------------
 let g:mwAutoLoadMarks = 1
 let g:mwAutoSaveMarks = 1
 set viminfo+=!
-map <F7> :MarkClear<CR>
+map <F9> :MarkClear<CR>
 
 " NERDTree
 let g:NERDTreeQuitOnOpen = 0
