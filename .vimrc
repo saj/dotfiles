@@ -24,6 +24,7 @@ Bundle 'kana/vim-fakeclip'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'saj/emodeline'
+Bundle 'sandeepcr529/Buffet.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'tsaleh/vim-align'
 Bundle 'tsaleh/vim-matchit'
@@ -165,6 +166,9 @@ let g:mwAutoLoadMarks = 1
 let g:mwAutoSaveMarks = 1
 set viminfo+=!
 map <F9> :MarkClear<CR>
+
+" Buffet
+map <F2> :Bufferlist<CR>
 
 " NERDTree
 let g:NERDTreeQuitOnOpen = 0
