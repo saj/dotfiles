@@ -175,6 +175,9 @@ map <F9> :MarkClear<CR>
 " Buffet
 map <F2> :Bufferlist<CR>
 
+" Disable folding in Buffet windows
+au BufEnter buflisttempbuffer* setlocal foldmethod=manual
+
 " NERDTree
 let g:NERDTreeQuitOnOpen = 0
 map <F1> :NERDTreeToggle<CR>
