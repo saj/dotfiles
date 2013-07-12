@@ -30,6 +30,11 @@ Bundle 'tsaleh/vim-align'
 Bundle 'tsaleh/vim-matchit'
 Bundle 'vim-scripts/VimClojure'
 
+if !(filereadable(expand('~/.vim/flags/use-local-ycm')))
+    Bundle 'Valloric/YouCompleteMe'
+endif
+
+
 
 "
 " vundler init done
@@ -186,6 +191,14 @@ let g:syntastic_enable_signs = 1
 " VimClojure
 let vimclojure#HighlightBuiltins=1
 let vimclojure#ParenRainbow=1
+
+" YouCompleteMe
+"let g:ycm_filetype_whitelist = { '*': 1 }
+"let g:ycm_filetype_blacklist = {
+"      \ 'notes' : 1,
+"      \ 'markdown' : 1,
+"      \ 'text' : 1,
+"      \}
 
 
 " Has to happen after all other changes to the viminfo global.
