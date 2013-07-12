@@ -201,6 +201,12 @@ let vimclojure#ParenRainbow=1
 "      \}
 
 
+let local_vimrc = expand("~/.vimrc." . system('hostname -f'))
+if !(filereadable(local_vimrc))
+    :exec ":source " . local_vimrc
+endif
+
+
 " Has to happen after all other changes to the viminfo global.
 if !(has("win32") || has("win64"))
     set directory=/var/tmp
