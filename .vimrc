@@ -204,9 +204,9 @@ let vimclojure#ParenRainbow=1
 "      \}
 
 
-let local_vimrc = expand("~/.vimrc." . system('hostname -f'))
-if filereadable(local_vimrc)
-    :exec ":source " . local_vimrc
+let s:local_vimrc = expand('~/.vimrc.') . substitute(system('hostname -f'), "\n$", "", '')
+if filereadable(s:local_vimrc)
+    :exec ":source " . s:local_vimrc
 endif
 
 
