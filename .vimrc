@@ -190,6 +190,7 @@ au Syntax * RainbowParenthesesLoadBraces
 
 " Syntastic
 let g:syntastic_enable_signs = 1
+let g:syntastic_sh_checkbashisms_args = '-x'
 
 " VimClojure
 let vimclojure#HighlightBuiltins=1
