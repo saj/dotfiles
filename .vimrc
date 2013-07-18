@@ -79,13 +79,6 @@ set winaltkeys=no
 " unordered lists that use a dash.
 set formatlistpat=^\\s*\\(\\([A-Za-z]\\\\|[0-9]\\{1,2\\}\\)[\\]:\\.)}\\t]\\\\|-\\)\\s*
 
-" With fo+=c, Vim's autoformatting will only consider text that matches 
-" the following setting.  Syntax highlighter classifiers are not 
-" factored into the algorithm.  Unfortunately, this makes it difficult 
-" (impossible?) to autoformat Python docstrings as proper comments.  
-" This line was my last attempt.  It has been left here as a reminder.
-"set comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-,f:\\"\\"\\",e:\\"\\"\\"
-
 filetype on
 filetype plugin on
 filetype plugin indent on
