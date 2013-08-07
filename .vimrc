@@ -190,6 +190,7 @@ let vimclojure#HighlightBuiltins=1
 let vimclojure#ParenRainbow=1
 
 " YouCompleteMe
+let g:ycm_autoclose_preview_window_after_insertion = 1
 "let g:ycm_filetype_whitelist = { '*': 1 }
 "let g:ycm_filetype_blacklist = {
 "      \ 'notes' : 1,
