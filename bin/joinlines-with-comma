@@ -1,0 +1,12 @@
+#!/usr/bin/perl -n
+
+BEGIN {
+    my @lines;
+}
+
+chomp;
+push @lines, $_;
+
+END {
+    print join(",", @lines) . "\n";
+}
