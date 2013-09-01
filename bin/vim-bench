@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -e
+
+# zsh's 'time' builtin has nicer output.
+[ -z "$ZSH_VERSION" -a -x /bin/zsh ] && exec /bin/zsh $0
+
+for i in $(seq 3); do
+  time vim -c 'quit'
+done
