@@ -10,8 +10,4 @@ opendot() {
   rm -f "$png"
 }
 
-if [ -d ~/.homebrew ]; then
-  export PATH=~/.homebrew/bin:${PATH}
-fi
-
 # vim:ft=zsh

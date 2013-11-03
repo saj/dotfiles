@@ -4,8 +4,9 @@ __zshrc_init() {
   local -r zshrcd=~"/.zshrc.d"
 
   . "${zshrcd}/vars"
+  . "${zshrcd}/looknfeel"
+
   . "${zshrcd}/aliases"
-  . "${zshrcd}/environment"
   . "${zshrcd}/colours"
 
   . "${zshrcd}/filesystem"
@@ -13,8 +14,6 @@ __zshrc_init() {
   . "${zshrcd}/svn"
   . "${zshrcd}/time"
   . "${zshrcd}/tmux"
-
-  . "${zshrcd}/looknfeel"
 
   case "$(uname -s)"; in
     "Darwin") [ -e "${zshrcd}/mac" ]   && . "${zshrcd}/mac"   ;;
