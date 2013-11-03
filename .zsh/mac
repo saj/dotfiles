@@ -12,7 +12,6 @@ opendot() {
 
 if [ -d ~/.homebrew ]; then
     export PATH=~/.homebrew/bin:${PATH}
-    export MANPATH=~/.homebrew/share/man
 fi
 
 # vim:ft=zsh
