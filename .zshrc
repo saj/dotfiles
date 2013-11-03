@@ -1,5 +1,7 @@
 setopt noglobalrcs
 
+. ~"/.zsh/colours"
+
 . ~"/.zsh/vars"
 . ~"/.zsh/looknfeel"
 . ~"/.zsh/aliases"

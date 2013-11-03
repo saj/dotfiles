@@ -1,0 +1,9 @@
+# http://misc.flogisoft.com/bash/tip_colors_and_formatting
+
+colour_red()        { echo -en "\e[31m" }
+colour_cyan()       { echo -en "\e[36m" }
+colour_yellow()     { echo -en "\e[33m" }
+colour_light_blue() { echo -en "\e[94m" }
+colour_reset()      { echo -en "\e[0m"  }
+
+# vim:ft=zsh
