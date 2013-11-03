@@ -17,12 +17,4 @@ gl() {
     fi
 }
 
-# Show short log of commits since last push
-glo() {
-    local branch remote
-    branch=$(zgit_branch)
-    remote=$(zgit_tracking_remote)
-    gl "${remote:=origin}/${branch}..${branch}"
-}
-
 # vim:ft=zsh

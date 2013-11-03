@@ -31,11 +31,7 @@ bindkey '^r' history-incremental-search-backward
 (( ${+terminfo[kcuu1]} )) && bindkey -M viins "$terminfo[kcuu1]" up-line-or-history
 [[ "${terminfo[kcuu1]:-}" == ""* ]] && bindkey -M viins "${terminfo[kcuu1]/O/[}" up-line-or-history
 
-# Dynamic window titles in `screen' require this escape sequence.
-#export PROMPT_COMMAND='echo -n -e "\033k\033\134"'
-
-
-# Purty colours ########################################################
+export PROMPT="%n@%m %# "
 
 case "$(uname -s)" in
     Darwin) export CLICOLOR=true ;;
@@ -47,42 +43,5 @@ if grep --version 2>&1 | head -1 | grep -q GNU ; then
 else
     local grep="grep"
 fi
-
-
-# Prompt tomfoolery ####################################################
-
-export PROMPT="%n@%m %# "
-
-# Requires zsh-git
-# http://github.com/jcorbin/zsh-git
-opt_zshgit() {
-    fpath[$(($#fpath+1))]=$HOME/.zsh/zsh-git/functions
-
-    # I find zsh-git's default prompt too invasive -- define my own, using 
-    # zsh-git's underlying shell library.
-    autoload -U zgitinit ; zgitinit
-
-    setopt promptsubst
-
-    # Only handle git repos for now.  I barely have a use for svn these 
-    # days, and have none for hg.
-    repo_status() {
-        zgit_isgit || return
-        p=`zgit_head`
-        zremote=`zgit_tracking_remote`
-        if [ ! -z $zremote ]; then
-            p+=" on $zremote"
-        fi
-
-        # g = it's a git repo
-        p+=" (g)"
-
-        echo "$p"
-    }
-
-    export RPROMPT="\$(repo_status)"
-
-    alias copymode='unset RPROMPT; export PROMPT="%# "'
-}
 
 # vim:ft=zsh
