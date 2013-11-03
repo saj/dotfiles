@@ -1,35 +1,37 @@
 setopt noglobalrcs
 
-. ~"/.zsh/colours"
+__zshrc_init() {
+  local -r zshrcd=~"/.zshrc.d"
 
-. ~"/.zsh/vars"
-. ~"/.zsh/looknfeel"
-. ~"/.zsh/aliases"
-. ~"/.zsh/environment"
+  . "${zshrcd}/colours"
 
-. ~"/.zsh/filesystem"
-. ~"/.zsh/git"
-. ~"/.zsh/svn"
-. ~"/.zsh/time"
-. ~"/.zsh/tmux"
+  . "${zshrcd}/vars"
+  . "${zshrcd}/looknfeel"
+  . "${zshrcd}/aliases"
+  . "${zshrcd}/environment"
 
-case "$(uname -s)"; in
-    "Darwin")
-        [ -e ~"/.zsh/mac" ] && . ~"/.zsh/mac"
-        ;;
-    "Linux")
-        [ -e ~"/.zsh/linux" ] && . ~"/.zsh/linux"
-        ;;
-esac
+  . "${zshrcd}/filesystem"
+  . "${zshrcd}/git"
+  . "${zshrcd}/svn"
+  . "${zshrcd}/time"
+  . "${zshrcd}/tmux"
 
-for me in "$(hostname -s)" "$(hostname -f)"; do
-    if [ -d ~"/.zsh/${me}" ]; then
-        for hostrc in ~"/.zsh/${me}"/*; do
-            . "$hostrc"
-        done
-    elif [ -f ~"/.zsh/${me}" ]; then
-        . ~"/.zsh/${me}"
+  case "$(uname -s)"; in
+    "Darwin") [ -e "${zshrcd}/mac" ]   && . "${zshrcd}/mac"   ;;
+    "Linux")  [ -e "${zshrcd}/linux" ] && . "${zshrcd}/linux" ;;
+  esac
+
+  for thishost in "$(hostname -s)" "$(hostname -f)"; do
+    if [ -d "${zshrcd}/${thishost}" ]; then
+      for hostrc in "${zshrcd}/${thishost}"/*; do
+        . "$hostrc"
+      done
+    elif [ -f "${zshrcd}/${thishost}" ]; then
+      . "${zshrcd}/${thishost}"
     fi
-done
+  done
+}
+
+__zshrc_init
 
 # vim:ft=zsh
