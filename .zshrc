@@ -3,18 +3,18 @@ setopt noglobalrcs
 __zshrc_init() {
   local -r zshrcd=~"/.zshrc.d"
 
-  . "${zshrcd}/colours"
-
   . "${zshrcd}/vars"
-  . "${zshrcd}/looknfeel"
   . "${zshrcd}/aliases"
   . "${zshrcd}/environment"
+  . "${zshrcd}/colours"
 
   . "${zshrcd}/filesystem"
   . "${zshrcd}/git"
   . "${zshrcd}/svn"
   . "${zshrcd}/time"
   . "${zshrcd}/tmux"
+
+  . "${zshrcd}/looknfeel"
 
   case "$(uname -s)"; in
     "Darwin") [ -e "${zshrcd}/mac" ]   && . "${zshrcd}/mac"   ;;

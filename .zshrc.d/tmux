@@ -4,15 +4,15 @@ alias tat='tmux attach-session -t'
 alias tls='tmux list-sessions'
 
 tnew() {
-    pushd ~ &>/dev/null
-    make .tmux.conf >/dev/null
-    popd &>/dev/null
+  pushd ~ &>/dev/null
+  make .tmux.conf >/dev/null
+  popd &>/dev/null
 
-    if [ $# -ge 1 ]; then
-        tmux -2 new-session -s "$*"
-    else
-        tmux -2 new-session
-    fi
+  if [ $# -ge 1 ]; then
+    tmux -2 new-session -s "$*"
+  else
+    tmux -2 new-session
+  fi
 }
 
 # vim:ft=zsh

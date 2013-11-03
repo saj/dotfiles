@@ -1,17 +1,17 @@
 opendot() {
-    local dot="$1"
-    local png="$(mktemp -t opendot)"
-    local newpng="${png}.png"
-    mv "$png" "$newpng"
-    png="$newpng"
-    dot -Tpng:quartz:quartz "$dot" >"$png"
-    open "$png"
-    sleep 2
-    rm -f "$png"
+  local dot="$1"
+  local png="$(mktemp -t opendot)"
+  local newpng="${png}.png"
+  mv "$png" "$newpng"
+  png="$newpng"
+  dot -Tpng:quartz:quartz "$dot" >"$png"
+  open "$png"
+  sleep 2
+  rm -f "$png"
 }
 
 if [ -d ~/.homebrew ]; then
-    export PATH=~/.homebrew/bin:${PATH}
+  export PATH=~/.homebrew/bin:${PATH}
 fi
 
 # vim:ft=zsh

@@ -1,6 +1,6 @@
 # Humanise Unix timestamps.
 epoch() {
-    perl -e "print scalar localtime(\"${1}\") . \"\n\";"
+  perl -e "print scalar localtime(\"${1}\") . \"\n\";"
 }
 
 # vim:ft=zsh

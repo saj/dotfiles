@@ -4,9 +4,9 @@ local ls='ls -F'
 local ls_long="${ls} -hl"
 
 if [ -x ~/bin/mvim ]; then
-    local gvisual="~/bin/mvim"
+  local gvisual="~/bin/mvim"
 else
-    local gvisual="gvim"
+  local gvisual="gvim"
 fi
 
 # vim:ft=zsh

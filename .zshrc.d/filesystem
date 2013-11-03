@@ -1,71 +1,71 @@
 # List files, recursively, ignoring Mac, Vim, and VCS crap.
 f() {
-    p="$1"
-    if [ -z "$p" ]; then
-        p="."
-    fi
-    find "$p" -mindepth 1 -not \( \
-      -name '.*.swp' -or \
-      -name '.DS_Store' -or \
-      -path "*.svn*" -or \
-      -path "*.git*" \)
+  p="$1"
+  if [ -z "$p" ]; then
+    p="."
+  fi
+  find "$p" -mindepth 1 -not \( \
+       -name '.*.swp' -or \
+       -name '.DS_Store' -or \
+       -path "*.svn*" -or \
+       -path "*.git*" \)
 }
 
 # Convert a file name to lowercase.
 lc() {
-    local arg
-    for arg in ${@}; do
-        local lcname="$(echo "$arg" | tr A-Z a-z)"
-        # Workaround case-insensitive HFS+.
-        mv -n "$arg" "$lcname\~"
-        mv -n "$lcname\~" "$lcname"
-    done
+  local arg
+  for arg in $@; do
+    local lcname="$(echo "$arg" | tr A-Z a-z)"
+    # Workaround case-insensitive HFS+.
+    mv -n "$arg" "$lcname\~"
+    mv -n "$lcname\~" "$lcname"
+  done
 }
 
 # Page through a directory listing.
 lll() {
-    ${=ls_long} ${@} | ${=less}
+  ${=ls_long} $@ | ${=less}
 }
 
 # Make a directory then descend into it.
 mkcd() {
-    if [ $# -gt 1 ]; then echo "One directory only, please" >&2; return 1; fi
-    mkdir -p "$1" && cd "$1"
+  if [ $# -gt 1 ]; then echo "One directory only, please" >&2; return 1; fi
+  mkdir -p "$1" && cd "$1"
 }
 
 # Pull everything under args to the PWD.
 surface() {
-    local arg
-    for arg in ${@}; do
-        if [ -d "$arg" ]; then
-            find "$arg" -mindepth 1 -maxdepth 1 -exec mv "{}" . \;
-            rmdir "$arg"
-        fi
-    done
+  local arg
+  for arg in $@; do
+    if [ -d "$arg" ]; then
+      find "$arg" -mindepth 1 -maxdepth 1 -exec mv "{}" . \;
+      rmdir "$arg"
+    fi
+  done
 }
 
 # Truncate files to nothingness.
 trunc() {
-    local arg
-    for arg in ${@}; do
-        if [ -f "$arg" ]; then
-            cat /dev/null >"$arg"
-            echo "$arg"
-        else
-            echo "trunc: ${arg}: No such file or directory" >/dev/stderr
-        fi
-    done
+  local arg
+  for arg in $@; do
+    if [ -f "$arg" ]; then
+      cat /dev/null >"$arg"
+      echo "$arg"
+    else
+      echo "trunc: ${arg}: No such file or directory" >/dev/stderr
+    fi
+  done
 }
 
 # Convert a file name to uppercase.
 uc() {
-    local arg
-    for arg in ${@}; do
-        local ucname="$(echo "$arg" | tr a-z A-Z)"
-        # Workaround case-insensitive HFS+.
-        mv -n "$arg" "$ucname\~"
-        mv -n "$ucname\~" "$ucname"
-    done
+  local arg
+  for arg in $@; do
+    local ucname="$(echo "$arg" | tr a-z A-Z)"
+    # Workaround case-insensitive HFS+.
+    mv -n "$arg" "$ucname\~"
+    mv -n "$ucname\~" "$ucname"
+  done
 }
 
 # vim:ft=zsh
