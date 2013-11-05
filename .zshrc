@@ -4,10 +4,10 @@ __zshrc_init() {
   local -r zshrcd=~"/.zshrc.d"
 
   . "${zshrcd}/vars"
-  . "${zshrcd}/looknfeel"
-
-  . "${zshrcd}/aliases"
   . "${zshrcd}/colours"
+
+  . "${zshrcd}/looknfeel"
+  . "${zshrcd}/aliases"
 
   . "${zshrcd}/filesystem"
   . "${zshrcd}/git"

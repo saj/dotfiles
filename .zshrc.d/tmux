@@ -1,7 +1,12 @@
 # tmux's command-line interface is very wordy.
 
 alias tat='tmux attach-session -t'
-alias tls='tmux list-sessions'
+
+tls() {
+  tmux list-sessions | while read session details; do
+    colour_yellow ; printf "%-30s" "${session%:}" ; colour_reset ; echo " ${details}"
+  done
+}
 
 tnew() {
   pushd ~ &>/dev/null
