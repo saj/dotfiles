@@ -7,6 +7,7 @@ __zshrc_init() {
   . "${zshrcd}/colours"
 
   . "${zshrcd}/looknfeel"
+  . "${zshrcd}/history"
   . "${zshrcd}/aliases"
 
   . "${zshrcd}/filesystem"
