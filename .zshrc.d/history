@@ -1,5 +1,6 @@
 setopt EXTENDED_HISTORY
 setopt HIST_REDUCE_BLANKS
+setopt HIST_VERIFY
 
 export HISTFILE=${HOME}/.history
 export HISTSIZE=1000
