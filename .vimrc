@@ -90,6 +90,7 @@ let g:solarized_termtrans=1
 colorscheme solarized
 
 if &diff
+    set noswapfile
     " Who uses macros in diff mode, anyway?
     map q :qall!<CR>
     autocmd VimEnter * windo set wrap
