@@ -79,3 +79,4 @@ augroup filetypedetect
   au! BufRead,BufNewFile *.oln		setfiletype xoutliner
 augroup END
 
+au FileType vo_base setlocal ts=2
