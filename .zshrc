@@ -2,6 +2,7 @@ setopt noglobalrcs
 
 __zshrc_init() {
   local -r zshrcd=~"/.zshrc.d"
+  local host
 
   . "${zshrcd}/vars"
   . "${zshrcd}/colours"
@@ -21,13 +22,13 @@ __zshrc_init() {
     "Linux")  [ -e "${zshrcd}/linux" ] && . "${zshrcd}/linux" ;;
   esac
 
-  for thishost in "$(hostname -s)" "$(hostname -f)"; do
-    if [ -d "${zshrcd}/${thishost}" ]; then
-      for hostrc in "${zshrcd}/${thishost}"/*; do
+  for host in "$(hostname -s 2>/dev/null)" "$(hostname -f 2>/dev/null)"; do
+    if [ -d "${zshrcd}/${host}" ]; then
+      for hostrc in "${zshrcd}/${host}"/*; do
         . "$hostrc"
       done
-    elif [ -f "${zshrcd}/${thishost}" ]; then
-      . "${zshrcd}/${thishost}"
+    elif [ -f "${zshrcd}/${host}" ]; then
+      . "${zshrcd}/${host}"
     fi
   done
 }
