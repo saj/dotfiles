@@ -2,7 +2,7 @@ setopt noglobalrcs
 
 __zshrc_init() {
   local -r zshrcd=~"/.zshrc.d"
-  local host
+  local host hostrc
 
   . "${zshrcd}/vars"
   . "${zshrcd}/colours"

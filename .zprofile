@@ -1,6 +1,7 @@
 __zprofile_init() {
   local -r zshrcd=~"/.zshrc.d"
   local -r zprofiled=~"/.zprofile.d"
+  local host hostrc
 
   . "${zshrcd}/vars"
 
@@ -11,13 +12,13 @@ __zprofile_init() {
     "Linux")  [ -e "${zprofiled}/linux" ] && . "${zprofiled}/linux" ;;
   esac
 
-  for thishost in "$(hostname -s)" "$(hostname -f)"; do
-    if [ -d "${zprofiled}/${thishost}" ]; then
-      for hostrc in "${zprofiled}/${thishost}"/*; do
+  for host in "$(hostname -s 2>/dev/null)" "$(hostname -f 2>/dev/null)"; do
+    if [ -d "${zprofiled}/${host}" ]; then
+      for hostrc in "${zprofiled}/${host}"/*; do
         . "$hostrc"
       done
-    elif [ -f "${zprofiled}/${thishost}" ]; then
-      . "${zprofiled}/${thishost}"
+    elif [ -f "${zprofiled}/${host}" ]; then
+      . "${zprofiled}/${host}"
     fi
   done
 }
