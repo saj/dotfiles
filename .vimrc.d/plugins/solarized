@@ -1,0 +1,8 @@
+if (VimrcShouldConfigurePlugin('solarized'))
+
+  let g:solarized_termtrans=1
+  colorscheme solarized
+
+endif
+
+" vim:ft=vim

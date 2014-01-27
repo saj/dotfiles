@@ -1,217 +1,36 @@
-" This is a comment.  (I always forget how to open them.)
-
 set nocompatible
 
-
-"
-" vundler init
-"
+exec ':source ' . expand('~/.vimrc.d/flags')
 
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-Bundle 'gmarik/vundle'
-
-
-"
-" vundler bundles
-"
-
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'kana/vim-fakeclip'
-Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'mileszs/ack.vim'
-Bundle 'saj/emodeline'
-Bundle 'sandeepcr529/Buffet.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'tsaleh/vim-align'
-Bundle 'tsaleh/vim-matchit'
-Bundle 'vim-scripts/VimClojure'
-
-if !(filereadable(expand('~/.vim/flags/use-local-ycm')))
-    Bundle 'Valloric/YouCompleteMe'
-endif
-
-
-
-"
-" vundler init done
-"
-
-filetype plugin indent on
-
-
-set autoindent
-set backspace=indent,eol,start
-set ch=2
-set copyindent
-set expandtab
-set foldmethod=indent
-set foldnestmax=3
-set formatoptions=acnoqr
-set hidden
-set history=100
-set ignorecase
-set incsearch
-set modeline
-set nobackup
-set noequalalways
-set nohlsearch
-set nostartofline
-set nowritebackup
-set nu
-set preserveindent
-set ruler
-set scrolloff=2
-set shiftwidth=4
-set showcmd
-set showmatch
-set smartcase
-set smartindent
-set softtabstop=4
-set tabstop=8
-set textwidth=72
-set winaltkeys=no
-
-" Matches alphabetically-labelled ordered lists -- a. a) -- and 
-" unordered lists that use a dash.
-set formatlistpat=^\\s*\\(\\([A-Za-z]\\\\|[0-9]\\{1,2\\}\\)[\\]:\\.)}\\t]\\\\|-\\)\\s*
+" Install plugins
+exec ':source ' . expand('~/.vimrc.d/plugin')
+exec ':source ' . expand('~/.vimrc.d/vundle')
 
 filetype on
 filetype plugin on
 filetype plugin indent on
 
-syntax on
-set background=dark
-set t_Co=16
-let g:solarized_termtrans=1
-colorscheme solarized
+exec ':source ' . expand('~/.vimrc.d/opts')
+exec ':source ' . expand('~/.vimrc.d/maps')
+exec ':source ' . expand('~/.vimrc.d/terminal')
+exec ':source ' . expand('~/.vimrc.d/syntax')
+exec ':source ' . expand('~/.vimrc.d/diffmode')
 
-if &diff
-    set noswapfile
-    " Who uses macros in diff mode, anyway?
-    map q :qall!<CR>
-    autocmd VimEnter * windo set wrap
-else
-    "set nowrap
-endif
+" Plugin settings
+exec ':source ' . expand('~/.vimrc.d/plugins/buffet')
+exec ':source ' . expand('~/.vimrc.d/plugins/nerdtree')
+exec ':source ' . expand('~/.vimrc.d/plugins/rainbow_parentheses')
+exec ':source ' . expand('~/.vimrc.d/plugins/solarized')
+exec ':source ' . expand('~/.vimrc.d/plugins/syntastic')
+exec ':source ' . expand('~/.vimrc.d/plugins/vimclojure')
+exec ':source ' . expand('~/.vimrc.d/plugins/youcompleteme')
 
-if exists ("c_comment_strings")
-    unlet c_comment_strings
-endif
-
-if version >= 700
-    autocmd InsertLeave * set nocul 
-    autocmd InsertEnter * set cul
-endif
-
-if has("win32") || has("win64")
-    behave xterm
-    map <S-Insert> <MiddleMouse>
-endif
-
-" This should be default behaviour!  (Matches D behaviour.)
-map Y y$
-
-map <F5> :set paste!<CR>:echo &paste<CR>
-
-" Toggle spell checking
-if version >= 700
-    map <F6> :setlocal spell! spelllang=en_au<CR>:echo &l:spell<CR>
-    set spellfile=~/.en.latin1.add
-endif
-
-map <F8> :set hlsearch!<CR>:echo &hlsearch<CR>
-
-" Quick word obliteration
-map <BS> bdw
-
-" Kill the current buffer
-if has('gui_running')
-    map ∑ :bdel<CR>
-else
-    map <ESC>w :bdel<CR>
-endif
-
-" Delete/yank from marker F to cursor and put in buffer F.  (F because
-" that's under my left index finger; don't clobber A, which I use out of
-" habit for other stuff.)  `silent' makes this work even when the marker
-" is set at a larger line number than what the current cursor is sitting
-" on -- Vim automatically flips them around.
-nmap df :silent 'f,.d f<CR>
-nmap yf :silent 'f,.y f<CR>
-
-" Delete to the end of the sentence
-nmap ds d/[.?!:]<CR>
-
-cmap w!! w !sudo tee % >/dev/null
-
-" Don't force comments to start on column 1
-inoremap # X#
-
-" Shortcut to sign off on Debian changelogs (think 'Debian sign')
-imap \ds <ESC>o -- Saj Goonatilleke <sg@redu.cx>  <C-R>=strftime("%a, %d %b %Y %T %z")<ESC>
-
-" 'Scissor open' and 'scissor close'
-imap \sco ---------------------------------- 8< ----------------------------------<ESC>0
-imap \scc ---------------------------------- >8 ----------------------------------<ESC>0
-
-
-" Plug-in settings
-
-let g:mwAutoLoadMarks = 1
-let g:mwAutoSaveMarks = 1
-set viminfo+=!
-map <F9> :MarkClear<CR>
-
-" Buffet
-map <F2> :Bufferlist<CR>
-
-" Disable folding in Buffet windows
-au BufEnter buflisttempbuffer* setlocal nofoldenable
-
-" NERDTree
-let g:NERDTreeQuitOnOpen = 0
-map <F1> :NERDTreeToggle<CR>
-
-" Rainbow parentheses
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-
-" Syntastic
-let g:syntastic_enable_signs = 1
-let g:syntastic_sh_checkbashisms_args = '-x'
-
-" VimClojure
-let vimclojure#HighlightBuiltins=1
-let vimclojure#ParenRainbow=1
-
-" YouCompleteMe
-let g:ycm_autoclose_preview_window_after_insertion = 1
-"let g:ycm_filetype_whitelist = { '*': 1 }
-"let g:ycm_filetype_blacklist = {
-"      \ 'notes' : 1,
-"      \ 'markdown' : 1,
-"      \ 'text' : 1,
-"      \}
-
-
+" Host-local .vimrc
 let s:local_vimrc = expand('~/.vimrc.') . substitute(system('hostname -f'), "\n$", "", '')
 if filereadable(s:local_vimrc)
-    :exec ":source " . s:local_vimrc
+  :exec ":source " . s:local_vimrc
 endif
 
-
-" Has to happen after all other changes to the viminfo global.
-if !(has("win32") || has("win64"))
-    set directory=/var/tmp
-    if isdirectory(expand("~") . "/.vim/info")
-        let &viminfo=&viminfo . ",n" . expand("~") . "/.vim/info/general"
-    endif
-endif
-
-" vim:et
+exec ':source ' . expand('~/.vimrc.d/viminfo')

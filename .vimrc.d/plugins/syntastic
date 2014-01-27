@@ -1,0 +1,8 @@
+if (VimrcShouldConfigurePlugin('syntastic'))
+
+  let g:syntastic_enable_signs = 1
+  let g:syntastic_sh_checkbashisms_args = '-x'
+
+endif
+
+" vim:ft=vim

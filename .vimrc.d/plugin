@@ -1,0 +1,21 @@
+func! VimrcPluginCfgGlobal(plugin) abort
+  let l:plugin = tolower(a:plugin)
+
+  " Strip leading author name from bundles.
+  let l:plugin = substitute(l:plugin, '^.*/', '', '')
+
+  let l:plugin = substitute(l:plugin, '^vim-\(colors-\)\?', '', '')
+  let l:plugin = substitute(l:plugin, '\.vim$', '', '')
+  let l:plugin = substitute(l:plugin, '-', '_', 'g')
+  return 'g:vimrc_configure_' . l:plugin
+endf
+
+func! VimrcShouldConfigurePlugin(plugin) abort
+  let l:cfg_global = VimrcPluginCfgGlobal(a:plugin)
+  if (exists(l:cfg_global) && {l:cfg_global})
+    return 1
+  endif
+  return 0
+endf
+
+" vim:ft=vim

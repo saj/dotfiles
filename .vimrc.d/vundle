@@ -1,0 +1,62 @@
+if !(filereadable(expand('~/.vim/flags/disable-vundle')))
+
+  set rtp+=~/.vim/bundle/vundle/
+  call vundle#rc()
+
+  Bundle 'gmarik/vundle'
+
+  func! VimrcInstalledBundles() abort
+    let l:installed_bundles = []
+    for bundle in g:bundles
+      if (isdirectory(bundle.rtpath))
+        call add(l:installed_bundles, bundle.name_spec)
+      endif
+    endfor
+    return l:installed_bundles
+  endf
+
+  func! VimrcBundleInstalled(bundle) abort
+    if (index(VimrcInstalledBundles(), a:bundle) > 0)
+      return 1
+    endif
+    return 0
+  endf
+
+  func! VimrcBundleInstall(bundle) abort
+    Bundle a:bundle
+
+    if (VimrcBundleInstalled(a:bundle))
+      let l:global = VimrcPluginCfgGlobal(a:bundle)
+      let {l:global} = 1
+    endif
+  endf
+
+  call VimrcBundleInstall('mileszs/ack.vim')
+  call VimrcBundleInstall('tsaleh/vim-align')
+  call VimrcBundleInstall('sandeepcr529/Buffet.vim')
+  call VimrcBundleInstall('saj/emodeline')
+  call VimrcBundleInstall('kana/vim-fakeclip')
+  call VimrcBundleInstall('tsaleh/vim-matchit')
+  call VimrcBundleInstall('scrooloose/nerdtree')
+  call VimrcBundleInstall('kien/rainbow_parentheses.vim')
+  call VimrcBundleInstall('ciaranm/securemodelines')
+  call VimrcBundleInstall('altercation/vim-colors-solarized')
+
+  " Opt-in bundles below here are too slow or are not used often enough
+  " to warrant inclusion in the always-on list above.
+
+  if (VimrcFlagAsserted('enable-syntastic'))
+    call VimrcBundleInstall('scrooloose/syntastic')
+  endif
+
+  if (VimrcFlagAsserted('enable-vimclojure'))
+    call VimrcBundleInstall('vim-scripts/VimClojure')
+  endif
+
+  if (VimrcFlagAsserted('enable-youcompleteme'))
+    call VimrcBundleInstall('Valloric/YouCompleteMe')
+  endif
+
+endif
+
+" vim:ft=vim

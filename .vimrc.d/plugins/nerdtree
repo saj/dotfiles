@@ -1,0 +1,8 @@
+if (VimrcShouldConfigurePlugin('nerdtree'))
+
+  let g:NERDTreeQuitOnOpen = 0
+  map <F1> :NERDTreeToggle<CR>
+
+endif
+
+" vim:ft=vim

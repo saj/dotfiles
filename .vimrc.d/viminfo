@@ -1,0 +1,6 @@
+set directory=/var/tmp
+if isdirectory(expand('~/.vim/info'))
+  let &viminfo=&viminfo . ",n" . expand('~/.vim/info/general')
+endif
+
+" vim:ft=vim

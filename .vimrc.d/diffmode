@@ -1,0 +1,7 @@
+if &diff
+  set noswapfile
+  map q :qall!<CR>
+  autocmd VimEnter * windo set wrap
+endif
+
+" vim:ft=vim

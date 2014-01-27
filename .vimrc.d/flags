@@ -1,0 +1,9 @@
+func! VimrcFlagAsserted(flag) abort
+  let l:flag_file = expand('~') . '/.vim/flags/' . a:flag
+  if (filereadable(l:flag_file))
+    return 1
+  endif
+  return 0
+endf
+
+" vim:ft=vim

@@ -1,0 +1,10 @@
+if (VimrcShouldConfigurePlugin('rainbow_parentheses'))
+
+  au VimEnter * RainbowParenthesesToggle
+  au Syntax * RainbowParenthesesLoadRound
+  au Syntax * RainbowParenthesesLoadSquare
+  au Syntax * RainbowParenthesesLoadBraces
+
+endif
+
+" vim:ft=vim

@@ -1,0 +1,13 @@
+syntax on
+set background=dark
+
+if version >= 700
+  autocmd InsertLeave * set nocul 
+  autocmd InsertEnter * set cul
+endif
+
+if (exists('c_comment_strings'))
+  unlet c_comment_strings
+endif
+
+" vim:ft=vim

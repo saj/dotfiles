@@ -1,0 +1,10 @@
+if (VimrcShouldConfigurePlugin('buffet'))
+
+  map <F2> :Bufferlist<CR>
+
+  " Disable folding in Buffet windows
+  au BufEnter buflisttempbuffer* setlocal nofoldenable
+
+endif
+
+" vim:ft=vim

@@ -1,0 +1,10 @@
+" I have not tested my .vimrc on NT in years.  Do not expect it to work.
+" This file is nothing but a collection of snippets that may prove
+" useful should I ever find myself working on NT again.
+
+if has("win32") || has("win64")
+  behave xterm
+  map <S-Insert> <MiddleMouse>
+endif
+
+" vim:ft=vim
