@@ -2,6 +2,7 @@ export ACK_PAGER=$less_noclear
 export BLOCKSIZE=1k
 export EDITOR='vim'
 export GIT_PAGER=$less_noclear
+export LESSHISTFILE='-'
 export PAGER=$less
 export VISUAL='vim'
 
