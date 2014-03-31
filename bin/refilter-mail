@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -e
+
+usage() {
+  echo -e "Usage:\n\t$(basename $0) MAILDIR FILTER"
+}
+
+main() {
+  if [[ $# -ne 2 ]]; then
+    usage
+    exit 2
+  fi
+
+  local maildir="$1"
+  local filter="$2"
+  local tmp_suffix="~filtered"
+
+  OLDIFS="${IFS}"
+  IFS="$(echo -e "\n")"
+  while read fn; do
+    local old="${fn}"
+    local new="${fn}~filtered"
+    "${filter}" <"${old}" >"${new}"
+    touch -r "${old}" "${new}"
+    mv "${new}" "${old}"
+  done <<<$(find "${maildir}" -mindepth 1 \
+                 -type f -and -not -name "*${tmp_suffix}")
+  IFS="${OLDIFS}"
+}
+
+main "$@"
