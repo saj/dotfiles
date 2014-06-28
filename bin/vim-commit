@@ -2,6 +2,8 @@
 
 set -e
 
+PATH="${HOME}/bin:/usr/local/bin:/usr/bin:/bin"
+
 vim \
   -c 'set et fo+=tw noai nosi' \
   -c 'setlocal spell' \
