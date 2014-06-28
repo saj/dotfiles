@@ -1,3 +1,7 @@
+all: .gvimrc .tmux.conf ssh
+
+.PHONY: all
+
 .gvimrc: .gvimrc.m4
 	m4 .gvimrc.m4 >.gvimrc
 
@@ -7,7 +11,4 @@
 ssh:
 	make -C .ssh
 
-all: .gvimrc .tmux.conf ssh
-
-.PHONY: all
 .PHONY: ssh
