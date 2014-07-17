@@ -10,7 +10,6 @@ ifelse(os_name, `Darwin', `dnl
 set guifont=Menlo:h12.00`'dnl
 ')dnl
 ifelse(os_name, `Linux', `dnl
-set guifont=Monaco\ 10`'dnl
 ')
 set guioptions=egmrt
 set lines=40
