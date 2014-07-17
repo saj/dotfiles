@@ -1,0 +1,16 @@
+#!/usr/bin/python
+
+import ipaddr
+import sys
+
+def main(args=None):
+  if not args:
+    args = sys.argv
+
+  addr = ipaddr.IPAddress(args[1])
+  print int(addr)
+
+  return 0
+
+if __name__ == '__main__':
+  sys.exit(main(sys.argv))
