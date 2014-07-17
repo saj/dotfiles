@@ -1,0 +1,23 @@
+#!/usr/bin/perl
+
+# Interpret each line on standard input as a record, quoting and joining all
+# records into one line with an optional separator.
+#
+# Example:
+#
+# % echo -e "\"foo\nbar" | joinlines
+# "\"foo" "bar"
+
+use constant NOQUOTE   => "";
+use constant QUOTE     => "\"";
+use constant SEPARATOR => $ARGV[0] || " "; @ARGV=();
+my $quote = NOQUOTE;
+my @lines;
+
+while (<>) {
+    chomp;
+    s/(")/\\$1/g and $quote = QUOTE;
+    push @lines, $_;
+}
+
+print join(SEPARATOR, map($quote . $_ . $quote, @lines)) . "\n";
