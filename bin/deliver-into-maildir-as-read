@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# Read a mail message on stdin and deliver it into a Maildir marked read.
+
+set -u
+set -o pipefail
+
+readonly SCRIPT_NAME="${0##*/}"
+
+usage() {
+  echo -e "Usage:\n\t${SCRIPT_NAME} MAILDIR <MESSAGE"
+  return 2
+}
+
+is_maildir() {
+  local -r maildir="$1"
+  [[ -d "${maildir}/cur" ]] || return 1
+  [[ -d "${maildir}/new" ]] || return 1
+  [[ -d "${maildir}/tmp" ]] || return 1
+  return 0
+}
+
+generate_message_filename() {
+  # http://cr.yp.to/proto/maildir.html
+
+  local -r now=($(date '+%s %N'))
+  local -r secs="${now[0]}"
+  local -r nsecs="${now[1]}"
+  local -r usecs="$(printf '%06d' $((10#${nsecs} / 1000)))"
+
+  local -r pid="$$"
+  local -r hostname="$(hostname -f)"
+  local -r deliveries=0
+  local -r basename="${secs}.M${usecs}P${pid}Q${deliveries}.${hostname}"
+
+  local -r flags="${1:-}"
+  if [[ -n "${flags}" ]]; then
+    echo "${basename}:${flags}"
+  else
+    echo "${basename}"
+  fi
+}
+
+main() {
+  if [[ $# -ne 1 ]]; then
+    usage || return
+  fi
+
+  local -r maildir="$1"
+  is_maildir "${maildir}" || return
+
+  local -r flags='2,S'
+  local -r message_filename="$(generate_message_filename "${flags}")"
+  local -r tmp_dst="${maildir}/tmp/${message_filename}"
+  local -r cur_dst="${maildir}/cur/${message_filename}"
+
+  cat - >"${tmp_dst}" || return
+  mv "${tmp_dst}" "${cur_dst}" || return
+}
+
+main "$@"
