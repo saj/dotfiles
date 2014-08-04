@@ -1,0 +1,12 @@
+vh() {
+  if [[ "$(id -u)" -eq 0 ]]; then
+    ${=EDITOR} '/etc/hosts'
+  else
+    sudo ${EDITOR} '/etc/hosts'
+  fi
+}
+
+alias mx='dig +short mx'
+alias ns='dig +short ns'
+
+# vim:ft=zsh

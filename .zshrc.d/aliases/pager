@@ -1,0 +1,5 @@
+alias le='less'
+alias less='less -in'
+alias re='vim -Rn'
+
+# vim:ft=zsh

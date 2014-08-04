@@ -1,5 +1,3 @@
-if [ -d ~/.homebrew ]; then
-  export PATH=~/.homebrew/bin:${PATH}
-fi
+__zprofile_lib_prepend_path "${HOME}/.homebrew"
 
 # vim:ft=zsh

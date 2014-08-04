@@ -17,4 +17,8 @@ bindkey '^r' history-incremental-search-backward
 (( ${+terminfo[kcuu1]} )) && bindkey -M viins "$terminfo[kcuu1]" up-line-or-history
 [[ "${terminfo[kcuu1]:-}" == ""* ]] && bindkey -M viins "${terminfo[kcuu1]/O/[}" up-line-or-history
 
+alias h='fc -fl -20'
+alias history='fc -fl 1'
+alias nohist='export SAVEHIST=0'
+
 # vim:ft=zsh

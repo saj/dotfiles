@@ -1,0 +1,22 @@
+__zshrc_editor_try_exec() {
+  local exec_path="$1"
+  shift
+  if [[ -x "${exec_path}" ]]; then
+    "${exec_path}" "$@"
+    return 0
+  fi
+  return 1
+}
+
+gvim() {
+  __zshrc_editor_try_exec "${HOME}/bin/mvim" "$@" && return
+  __zshrc_editor_try_exec "${HOME}/bin/gvim" "$@" && return
+  __zshrc_editor_try_exec "/usr/local/bin/gvim" "$@" && return
+  __zshrc_editor_try_exec "/usr/bin/gvim" "$@" && return
+  echo "gvim: not found" >&2
+  return 1
+}
+
+alias v='vim'
+
+# vim:ft=zsh

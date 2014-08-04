@@ -1,0 +1,49 @@
+__ls_base_opts() { echo '-F'; }
+__ls_long_opts() { echo '-lh'; }
+
+l() {
+  ls $(__ls_colour_opts) $(__ls_base_opts) "$@"
+}
+
+ll() {
+  ls $(__ls_colour_opts) $(__ls_base_opts) $(__ls_long_opts) "$@"
+}
+
+# Page through a directory listing.
+lll() {
+  ls $(__ls_force_colour_opts) $(__ls_base_opts) $(__ls_long_opts) "$@" | \
+      less -inr
+}
+
+# List files recursively, ignoring metadatery crap.
+f() {
+  local p="$1"
+  [[ -z "${p}" ]] && p='.'
+  find "${p}" -mindepth 1 -not \( \
+      -name '.*.swp' -or \
+      -name '.DS_Store' -or \
+      -path "*.svn*" -or \
+      -path "*.git*" \)
+}
+
+# Make a directory then descend into it.
+mkcd() {
+  if [[ $# -gt 1 ]]; then
+    echo "One directory only, please" >&2
+    return 1
+  fi
+  local dir="$1"
+  mkdir -p "${dir}" && cd "${dir}"
+}
+
+alias '..'='cd ..'
+alias c='cd'
+alias mk='mkdir'
+alias p='pwd'
+
+# Debian packages ack as ack-grep.  A Kanji converter won out.
+if which ack-grep >/dev/null 2>&1; then
+  alias ack="`which ack-grep`"
+fi
+
+# vim:ft=zsh

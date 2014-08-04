@@ -1,13 +1,11 @@
-export ACK_PAGER=$less_noclear
+export ACK_PAGER='less'
 export BLOCKSIZE=1k
 export EDITOR='vim'
-export GIT_PAGER=$less_noclear
+export GIT_PAGER='less'
 export LESSHISTFILE='-'
-export PAGER=$less
+export PAGER='less'
 export VISUAL='vim'
 
-if [ -d "${HOME}/bin" ]; then
-  export PATH="${HOME}/bin:${PATH}"
-fi
+__zprofile_lib_prepend_path "${HOME}/bin"
 
 # vim:ft=zsh

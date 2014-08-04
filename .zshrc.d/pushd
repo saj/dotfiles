@@ -2,4 +2,6 @@ setopt AUTO_PUSHD
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_TO_HOME
 
+alias d='dirs'
+
 # vim:ft=zsh

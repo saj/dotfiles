@@ -1,0 +1,5 @@
+alias s='ssh'
+alias sco='scp -o StrictHostKeyChecking=no'
+alias sho='s -o StrictHostKeyChecking=no'
+
+# vim:ft=zsh

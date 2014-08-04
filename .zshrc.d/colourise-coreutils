@@ -1,12 +1,16 @@
+# ls
+__ls_force_colour_opts() { echo '--color=force'; }
+__ls_colour_opts() { echo ''; }
 case "$(uname -s)" in
   Darwin) export CLICOLOR=true ;;
-  Linux)  local ls="${ls} --color=auto" ;;
+  Linux)  __ls_colour_opts() { echo '--color=auto' ; } ;;
 esac
 
-if grep --version 2>&1 | head -1 | grep -q GNU ; then
-  local grep="grep --color=auto"
-else
-  local grep="grep"
+# grep
+__grep_force_colour_opts() { echo '--color=force'; }
+__grep_colour_opts() { echo ''; }
+if grep --version 2>&1 | head -n 1 | grep -Fq 'GNU' ; then
+  __grep_colour_opts() { echo '--color=auto'; }
 fi
 
 # vim:ft=zsh
