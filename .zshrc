@@ -13,7 +13,6 @@ __zshrc_init() {
 
   . "${zshrcd}/filesystem"
   . "${zshrcd}/git"
-  . "${zshrcd}/svn"
   . "${zshrcd}/time"
   . "${zshrcd}/tmux"
 
