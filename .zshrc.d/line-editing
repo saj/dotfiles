@@ -1,6 +1,21 @@
+# Use Vi bindings.
+bindkey -v
+
+# Hit v in command mode to open the current line in an editor.
 autoload -U edit-command-line
 zle -N edit-command-line
-bindkey -v
 bindkey -M vicmd v edit-command-line
+
+# Change the cursor on mode transitions.
+# TODO: https://github.com/keithw/mosh/issues/507
+#zmodload zsh/terminfo
+#function zle-line-init zle-keymap-select {
+#  case "${KEYMAP}" in
+#    vicmd)      print -rn -- $terminfo[cvvis];;  # block cursor
+#    viins|main) print -rn -- $terminfo[cnorm];;  # less visible cursor
+#  esac
+#}
+#zle -N zle-line-init
+#zle -N zle-keymap-select
 
 # vim:ft=zsh
