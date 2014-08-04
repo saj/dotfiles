@@ -6,15 +6,19 @@ __zshrc_init() {
 
   . "${zshrcd}/vars"
   . "${zshrcd}/colours"
-
-  . "${zshrcd}/looknfeel"
-  . "${zshrcd}/history"
-  . "${zshrcd}/aliases"
+  . "${zshrcd}/colourise-coreutils"
 
   . "${zshrcd}/filesystem"
   . "${zshrcd}/git"
   . "${zshrcd}/time"
   . "${zshrcd}/tmux"
+
+  . "${zshrcd}/completion"
+  . "${zshrcd}/history"
+  . "${zshrcd}/line-editing"
+  . "${zshrcd}/prompt"
+  . "${zshrcd}/pushd"
+  . "${zshrcd}/aliases"
 
   case "$(uname -s)"; in
     "Darwin") [ -e "${zshrcd}/mac" ]   && . "${zshrcd}/mac"   ;;

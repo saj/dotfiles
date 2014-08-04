@@ -1,0 +1,8 @@
+autoload -U compinit
+compinit
+
+setopt AUTO_LIST
+setopt LIST_PACKED
+setopt MENU_COMPLETE
+
+# vim:ft=zsh

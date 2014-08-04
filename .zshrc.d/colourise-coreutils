@@ -1,0 +1,12 @@
+case "$(uname -s)" in
+  Darwin) export CLICOLOR=true ;;
+  Linux)  local ls="${ls} --color=auto" ;;
+esac
+
+if grep --version 2>&1 | head -1 | grep -q GNU ; then
+  local grep="grep --color=auto"
+else
+  local grep="grep"
+fi
+
+# vim:ft=zsh
