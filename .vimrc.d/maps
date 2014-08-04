@@ -1,3 +1,6 @@
+" Remove delay when transitioning from insert to command mode.
+set timeoutlen=1000 ttimeoutlen=0
+
 " This should be default behaviour!  (Matches D behaviour.)
 map Y y$
 
@@ -27,13 +30,6 @@ imap \ds <ESC>o -- Saj Goonatilleke <sg@redu.cx>  <C-R>=strftime("%a, %d %b %Y %
 " separators when interspersing code or terminal output with prose.
 imap \sco ---------------------------------- 8< ----------------------------------<ESC>0
 imap \scc ---------------------------------- >8 ----------------------------------<ESC>0
-
-" Kill the current buffer
-if has('gui_running')
-  map ∑ :bdel<CR>
-else
-  map <ESC>w :bdel<CR>
-endif
 
 map <F5> :set paste!<CR>:echo &paste<CR>
 
