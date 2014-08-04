@@ -1,0 +1,13 @@
+__zprofile_lib_prepend_path() {
+  local -r path_element="$1"
+
+  if [[ -d "${path_element}" ]]; then
+    export PATH="${path_element}:${PATH}"
+  fi
+}
+
+__zprofile_lib_unfunction() {
+  unfunction __zprofile_lib_prepend_path
+}
+
+# vim:ft=zsh
