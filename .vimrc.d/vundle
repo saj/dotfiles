@@ -3,7 +3,7 @@ if !(filereadable(expand('~/.vim/flags/disable-vundle')))
   set rtp+=~/.vim/bundle/vundle/
   call vundle#rc()
 
-  Bundle 'gmarik/vundle'
+  Plugin 'gmarik/Vundle.vim'
 
   func! VimrcInstalledBundles() abort
     let l:installed_bundles = []
