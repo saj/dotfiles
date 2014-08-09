@@ -1,0 +1,3 @@
+export ACK_PAGER='less'
+
+# vim:ft=zsh

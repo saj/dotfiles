@@ -4,8 +4,6 @@ __zprofile_init() {
 
   . "${zprofiled}/lib"
 
-  . "${zprofiled}/environment"
-
   case "$(uname -s)"; in
     "Darwin") [[ -e "${zprofiled}/mac" ]]   && . "${zprofiled}/mac"   ;;
     "Linux")  [[ -e "${zprofiled}/linux" ]] && . "${zprofiled}/linux" ;;
@@ -20,6 +18,11 @@ __zprofile_init() {
     elif [[ -f "${zprofiled}/${host}" ]]; then
       . "${zprofiled}/${host}"
     fi
+  done
+
+  local envrc
+  for envrc in "${zprofiled}/environment.d"/*; do
+    . "${envrc}"
   done
 
   __zprofile_lib_unfunction

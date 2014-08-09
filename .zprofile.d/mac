@@ -1,3 +1,0 @@
-__zprofile_lib_prepend_path "${HOME}/.homebrew/bin"
-
-# vim:ft=zsh

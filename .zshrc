@@ -29,7 +29,7 @@ __zshrc_init() {
   done
 
   local aliasesrc
-  for aliasesrc in "${zshrcd}/aliases"/*; do
+  for aliasesrc in "${zshrcd}/aliases.d"/*; do
     . "${aliasesrc}"
   done
 }

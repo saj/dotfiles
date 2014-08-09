@@ -1,0 +1,4 @@
+export LESSHISTFILE='-'
+export PAGER='less'
+
+# vim:ft=zsh

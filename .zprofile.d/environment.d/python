@@ -1,0 +1,17 @@
+__zprofile_python() {
+  local -r PYTHON_BASE="${HOME}/.python"
+  local directory
+
+  for directory in "$(find "${PYTHON_BASE}" -type d -name 'site-packages')"; do
+    __zprofile_lib_prepend_path 'PYTHONPATH' "${directory}"
+  done
+
+  for directory in "$(find "${PYTHON_BASE}" -type d -name 'bin')"; do
+    __zprofile_lib_prepend_path 'PATH' "${directory}"
+  done
+}
+
+__zprofile_python
+unfunction __zprofile_python
+
+# vim:ft=zsh
