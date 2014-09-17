@@ -33,6 +33,7 @@ if !(filereadable(expand('~/.vim/flags/disable-vundle')))
 
   call VimrcBundleInstall('mileszs/ack.vim')
   call VimrcBundleInstall('tsaleh/vim-align')
+  call VimrcBundleInstall('ConradIrwin/vim-bracketed-paste')
   call VimrcBundleInstall('sandeepcr529/Buffet.vim')
   call VimrcBundleInstall('altercation/vim-colors-solarized')
   call VimrcBundleInstall('saj/emodeline')
