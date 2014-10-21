@@ -36,17 +36,20 @@ if !(filereadable(expand('~/.vim/flags/disable-vundle')))
   call VimrcBundleInstall('ConradIrwin/vim-bracketed-paste')
   call VimrcBundleInstall('sandeepcr529/Buffet.vim')
   call VimrcBundleInstall('altercation/vim-colors-solarized')
-  call VimrcBundleInstall('saj/emodeline')
   call VimrcBundleInstall('kana/vim-fakeclip')
   call VimrcBundleInstall('tpope/vim-markdown')
   call VimrcBundleInstall('vim-scripts/matchit.zip')
   call VimrcBundleInstall('scrooloose/nerdtree')
   call VimrcBundleInstall('kien/rainbow_parentheses.vim')
-  call VimrcBundleInstall('ciaranm/securemodelines')
   call VimrcBundleInstall('tpope/vim-speeddating')
 
   " Opt-in bundles below here are too slow or are not used often enough
   " to warrant inclusion in the always-on list above.
+
+  if (VimrcFlagAsserted('enable-modelines'))
+    call VimrcBundleInstall('saj/emodeline')
+    call VimrcBundleInstall('ciaranm/securemodelines')
+  endif
 
   if (VimrcFlagAsserted('enable-syntastic'))
     call VimrcBundleInstall('scrooloose/syntastic')

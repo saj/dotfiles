@@ -16,6 +16,8 @@ disable-vundle:
   Vundle (Vim plug-in manager) is enabled by default.  Assert this flag to
   disable Vundle and *all* Vundle plugins.
 
+enable-modelines
+
 enable-syntastic
 
 enable-vimclojure

@@ -10,7 +10,6 @@ set hidden
 set history=100
 set ignorecase
 set incsearch
-set modeline
 set nobackup
 set noequalalways
 set nohlsearch
@@ -29,6 +28,10 @@ set softtabstop=4
 set tabstop=8
 set textwidth=72
 set winaltkeys=no
+
+if (VimrcFlagAsserted('enable-modelines'))
+  set modeline
+endif
 
 " Matches alphabetically-labelled ordered lists -- a. a) -- and 
 " unordered lists that use a dash.
