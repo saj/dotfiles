@@ -17,7 +17,7 @@ setw -g  mode-mouse off
 set  -g  status-bg black
 set  -g  status-fg white
 set  -g  status-left '#[fg=cyan]#S'
-set  -g  status-right '#[fg=cyan]%H:%M %b %e'
+set  -g  status-right ''
 
 setw -g  window-status-bg black
 setw -g  window-status-current-bg black
