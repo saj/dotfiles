@@ -12,10 +12,7 @@ set  -g  default-terminal "screen-256color"
 set  -gs escape-time 0
 set  -g  history-limit 10000
 
-setw -g  mode-mouse on
-set  -g  mouse-resize-pane on
-set  -g  mouse-select-pane on
-set  -g  mouse-select-window on
+setw -g  mode-mouse off
 
 set  -g  status-bg black
 set  -g  status-fg white
