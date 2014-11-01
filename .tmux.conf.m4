@@ -8,16 +8,17 @@ ifelse(os_name, `Darwin', `dnl
 set  -g  default-command "reattach-to-user-namespace -l zsh"dnl
 ')
 set  -g  default-terminal "screen-256color"
+
 set  -gs escape-time 0
 set  -g  history-limit 10000
+
+setw -g  mode-mouse off
+
 set  -g  status-bg black
 set  -g  status-fg white
-set  -g  status-keys vi
-set  -g  status-keys vi
 set  -g  status-left '#[fg=cyan]#S'
 set  -g  status-right '#[fg=cyan]%H:%M %b %e'
-setw -g  mode-keys vi
-setw -g  mode-mouse off
+
 setw -g  window-status-bg black
 setw -g  window-status-current-bg black
 setw -g  window-status-current-fg green
@@ -29,6 +30,8 @@ unbind C-b
 bind a send-prefix
 
 # So do old Vim habits.
+set  -g status-keys vi
+setw -g mode-keys vi
 bind h select-pane -L
 bind j select-pane -D
 bind k select-pane -U
