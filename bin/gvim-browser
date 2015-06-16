@@ -2,7 +2,7 @@
 
 set -e
 
-~/bin/gvim -f \
+gvim -f \
   -c 'set columns=80 linebreak' \
   -c 'set background=light' \
   -c 'setlocal spell' \
