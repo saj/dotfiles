@@ -1,13 +1,14 @@
 if !(filereadable(expand('~/.vim/flags/disable-vundle')))
 
-  set rtp+=~/.vim/bundle/vundle/
-  call vundle#rc()
+  set rtp+=~/.vim/bundle/Vundle.vim
+
+  call vundle#begin()
 
   Plugin 'gmarik/Vundle.vim'
 
   func! VimrcInstalledBundles() abort
     let l:installed_bundles = []
-    for bundle in g:bundles
+    for bundle in g:vundle#bundles
       if (isdirectory(bundle.rtpath))
         call add(l:installed_bundles, bundle.name_spec)
       endif
@@ -23,7 +24,7 @@ if !(filereadable(expand('~/.vim/flags/disable-vundle')))
   endf
 
   func! VimrcBundleInstall(bundle) abort
-    Bundle a:bundle
+    Plugin a:bundle
 
     if (VimrcBundleInstalled(a:bundle))
       let l:global = VimrcPluginCfgGlobal(a:bundle)
@@ -63,6 +64,10 @@ if !(filereadable(expand('~/.vim/flags/disable-vundle')))
   if (VimrcFlagAsserted('enable-youcompleteme'))
     call VimrcBundleInstall('Valloric/YouCompleteMe')
   endif
+
+  call vundle#end()
+
+  filetype plugin indent on
 
 endif
 
