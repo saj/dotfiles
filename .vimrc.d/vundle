@@ -43,6 +43,7 @@ if !(filereadable(expand('~/.vim/flags/disable-vundle')))
   call VimrcBundleInstall('vim-scripts/matchit.zip')
   call VimrcBundleInstall('scrooloose/nerdtree')
   call VimrcBundleInstall('kien/rainbow_parentheses.vim')
+  call VimrcBundleInstall('tpope/vim-sleuth')
   call VimrcBundleInstall('tpope/vim-speeddating')
   call VimrcBundleInstall('godlygeek/tabular.git')
 
