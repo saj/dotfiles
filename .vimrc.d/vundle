@@ -33,7 +33,6 @@ if !(filereadable(expand('~/.vim/flags/disable-vundle')))
   endf
 
   call VimrcBundleInstall('mileszs/ack.vim')
-  call VimrcBundleInstall('tsaleh/vim-align')
   call VimrcBundleInstall('ConradIrwin/vim-bracketed-paste')
   call VimrcBundleInstall('sandeepcr529/Buffet.vim')
   call VimrcBundleInstall('kchmck/vim-coffee-script')
@@ -45,6 +44,7 @@ if !(filereadable(expand('~/.vim/flags/disable-vundle')))
   call VimrcBundleInstall('scrooloose/nerdtree')
   call VimrcBundleInstall('kien/rainbow_parentheses.vim')
   call VimrcBundleInstall('tpope/vim-speeddating')
+  call VimrcBundleInstall('godlygeek/tabular.git')
 
   " Opt-in bundles below here are too slow or are not used often enough
   " to warrant inclusion in the always-on list above.
