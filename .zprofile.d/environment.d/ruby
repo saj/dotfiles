@@ -1,0 +1,14 @@
+__zprofile_rbenv() {
+  local -r RBENV_BASE="${HOME}/.rbenv"
+
+  if [[ -d "${RBENV_BASE}" ]]; then
+    __zprofile_lib_prepend_path 'PATH' "${RBENV_BASE}/bin"
+
+    eval "$(rbenv init -)"
+  fi
+}
+
+__zprofile_rbenv
+unfunction __zprofile_rbenv
+
+# vim:ft=zsh
