@@ -73,6 +73,10 @@ if !(filereadable(expand('~/.vim/flags/disable-vundle')))
     call VimrcBundleInstall('tpope/vim-markdown')
   endif
 
+  if (VimrcFlagAsserted('enable-lang-puppet'))
+    call VimrcBundleInstall('rodjek/vim-puppet')
+  endif
+
   call vundle#end()
 
   filetype plugin indent on
