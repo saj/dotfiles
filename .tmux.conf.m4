@@ -42,8 +42,8 @@ unbind %
 unbind '"'
 
 # Use these instead.
-bind - split-window -v
-bind \ split-window -h
+bind - split-window -v -c '#{pane_current_path}'
+bind \ split-window -h -c '#{pane_current_path}'
 
 # It can be VERY frustrating to hit this key by accident.  (By default, 
 # space will rearrange panes.)  Especially after spending an inordinate 
@@ -51,10 +51,15 @@ bind \ split-window -h
 unbind Space
 
 bind C-a last-window
+unbind c
+bind c new-window -c '#{pane_current_path}'
+
 ifelse(os_name, `Darwin', `dnl
 bind C-c run "tmux save-buffer - | reattach-to-user-namespace pbcopy"
 bind C-v run "reattach-to-user-namespace pbpaste | tmux load-buffer - && tmux paste-buffer"dnl
 ')
-bind m command-prompt "split-window 'exec man %%'"
+
 bind r source-file ~/.tmux.conf
+
+bind m command-prompt "split-window 'exec man %%'"
 bind S command-prompt "new-window -n %1 'ssh %1'"
