@@ -35,11 +35,9 @@ if !(filereadable(expand('~/.vim/flags/disable-vundle')))
   call VimrcBundleInstall('mileszs/ack.vim')
   call VimrcBundleInstall('ConradIrwin/vim-bracketed-paste')
   call VimrcBundleInstall('sandeepcr529/Buffet.vim')
-  call VimrcBundleInstall('kchmck/vim-coffee-script')
   call VimrcBundleInstall('altercation/vim-colors-solarized')
   call VimrcBundleInstall('kana/vim-fakeclip')
   call VimrcBundleInstall('michaeljsmith/vim-indent-object')
-  call VimrcBundleInstall('tpope/vim-markdown')
   call VimrcBundleInstall('vim-scripts/matchit.zip')
   call VimrcBundleInstall('scrooloose/nerdtree')
   call VimrcBundleInstall('kien/rainbow_parentheses.vim')
@@ -59,12 +57,20 @@ if !(filereadable(expand('~/.vim/flags/disable-vundle')))
     call VimrcBundleInstall('scrooloose/syntastic')
   endif
 
-  if (VimrcFlagAsserted('enable-vimclojure'))
+  if (VimrcFlagAsserted('enable-youcompleteme'))
+    call VimrcBundleInstall('Valloric/YouCompleteMe')
+  endif
+
+  if (VimrcFlagAsserted('enable-lang-clojure'))
     call VimrcBundleInstall('vim-scripts/VimClojure')
   endif
 
-  if (VimrcFlagAsserted('enable-youcompleteme'))
-    call VimrcBundleInstall('Valloric/YouCompleteMe')
+  if (VimrcFlagAsserted('enable-lang-coffeescript'))
+    call VimrcBundleInstall('kchmck/vim-coffee-script')
+  endif
+
+  if (VimrcFlagAsserted('enable-lang-markdown'))
+    call VimrcBundleInstall('tpope/vim-markdown')
   endif
 
   call vundle#end()

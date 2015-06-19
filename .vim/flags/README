@@ -20,6 +20,10 @@ enable-modelines
 
 enable-syntastic
 
-enable-vimclojure
-
 enable-youcompleteme
+
+enable-lang-clojure
+
+enable-lang-coffeescript
+
+enable-lang-markdown
