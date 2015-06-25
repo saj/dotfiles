@@ -1,0 +1,18 @@
+__zprofile_javascript() {
+  local -r nvm_dir="${HOME}/.nvm"
+
+  if [[ -d "${nvm_dir}" ]]; then
+    export NVM_DIR="${nvm_dir}"
+
+    if __zprofile_homebrew_is_available; then
+      if __zprofile_homebrew_formula_installed 'nvm'; then
+        source "$(brew --prefix nvm)/nvm.sh"
+      fi
+    fi
+  fi
+}
+
+__zprofile_javascript
+unfunction __zprofile_javascript
+
+# vim:ft=zsh

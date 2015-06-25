@@ -1,3 +1,26 @@
-__zprofile_lib_prepend_path 'PATH' "${HOME}/.homebrew/bin"
+__zprofile_homebrew() {
+  local -r homebrew_dir="${HOME}/.homebrew"
+
+  if [[ -d "${homebrew_dir}" ]]; then
+    __zprofile_lib_prepend_path 'PATH' "${HOME}/.homebrew/bin"
+  fi
+}
+
+__zprofile_homebrew_is_available() {
+  # TODO(saj)
+  return 0
+}
+
+__zprofile_homebrew_formula_installed() {
+  local -r formula="$1"
+
+  if [[ "$(brew ls --versions "${formula}" 2>/dev/null | wc -l)" -gt 0 ]]; then
+    return 0
+  fi
+  return 1
+}
+
+__zprofile_homebrew
+unfunction __zprofile_homebrew
 
 # vim:ft=zsh
