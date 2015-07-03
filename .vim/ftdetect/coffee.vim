@@ -1,1 +1,1 @@
-au FileType coffee setlocal noet sts=0 sw=2 ts=2
+au FileType coffee setlocal et sts=2 sw=2
