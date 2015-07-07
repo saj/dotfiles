@@ -17,6 +17,7 @@ exec ':source ' . expand('~/.vimrc.d/maps')
 exec ':source ' . expand('~/.vimrc.d/terminal')
 exec ':source ' . expand('~/.vimrc.d/syntax')
 exec ':source ' . expand('~/.vimrc.d/diffmode')
+exec ':source ' . expand('~/.vimrc.d/filetypes')
 
 " Plugin settings
 exec ':source ' . expand('~/.vimrc.d/plugins/buffet')
