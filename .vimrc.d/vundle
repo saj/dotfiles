@@ -64,6 +64,10 @@ if !(filereadable(expand('~/.vim/flags/disable-vundle')))
     call VimrcBundleInstall('scrooloose/syntastic')
   endif
 
+  if (VimrcFlagAsserted('enable-vim-outliner'))
+    call VimrcBundleInstall('vimoutliner/vimoutliner')
+  endif
+
   if (VimrcFlagAsserted('enable-youcompleteme'))
     call VimrcBundleInstall('Valloric/YouCompleteMe')
   endif

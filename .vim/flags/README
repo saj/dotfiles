@@ -24,6 +24,8 @@ enable-modelines
 
 enable-syntastic
 
+enable-vim-outliner
+
 enable-youcompleteme
 
 enable-lang-clojure
