@@ -35,7 +35,6 @@ if !(filereadable(expand('~/.vim/flags/disable-vundle')))
   call VimrcBundleInstall('mileszs/ack.vim')
   call VimrcBundleInstall('ConradIrwin/vim-bracketed-paste')
   call VimrcBundleInstall('sandeepcr529/Buffet.vim')
-  call VimrcBundleInstall('altercation/vim-colors-solarized')
   call VimrcBundleInstall('kana/vim-fakeclip')
   call VimrcBundleInstall('michaeljsmith/vim-indent-object')
   call VimrcBundleInstall('vim-scripts/matchit.zip')
@@ -47,6 +46,14 @@ if !(filereadable(expand('~/.vim/flags/disable-vundle')))
 
   " Opt-in bundles below here are too slow or are not used often enough
   " to warrant inclusion in the always-on list above.
+
+  if (VimrcFlagAsserted('enable-color-base16'))
+    call VimrcBundleInstall('chriskempson/base16-vim')
+  endif
+
+  if (VimrcFlagAsserted('enable-color-solarized'))
+    call VimrcBundleInstall('altercation/vim-colors-solarized')
+  endif
 
   if (VimrcFlagAsserted('enable-modelines'))
     call VimrcBundleInstall('saj/emodeline')

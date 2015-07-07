@@ -1,0 +1,7 @@
+if (VimrcShouldConfigurePlugin('base16'))
+
+  colorscheme base16-tomorrow
+
+endif
+
+" vim:ft=vim

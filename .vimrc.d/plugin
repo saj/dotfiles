@@ -5,7 +5,7 @@ func! VimrcPluginCfgGlobal(plugin) abort
   let l:plugin = substitute(l:plugin, '^.*/', '', '')
 
   let l:plugin = substitute(l:plugin, '^vim-\(colors-\)\?', '', '')
-  let l:plugin = substitute(l:plugin, '\.vim$', '', '')
+  let l:plugin = substitute(l:plugin, '[.-]vim$', '', '')
   let l:plugin = substitute(l:plugin, '[.-]', '_', 'g')
   return 'g:vimrc_configure_' . l:plugin
 endf

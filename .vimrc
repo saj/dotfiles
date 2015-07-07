@@ -20,9 +20,10 @@ exec ':source ' . expand('~/.vimrc.d/diffmode')
 
 " Plugin settings
 exec ':source ' . expand('~/.vimrc.d/plugins/buffet')
+exec ':source ' . expand('~/.vimrc.d/plugins/color-base16')
+exec ':source ' . expand('~/.vimrc.d/plugins/color-solarized')
 exec ':source ' . expand('~/.vimrc.d/plugins/nerdtree')
 exec ':source ' . expand('~/.vimrc.d/plugins/rainbow_parentheses')
-exec ':source ' . expand('~/.vimrc.d/plugins/solarized')
 exec ':source ' . expand('~/.vimrc.d/plugins/syntastic')
 exec ':source ' . expand('~/.vimrc.d/plugins/vimclojure')
 exec ':source ' . expand('~/.vimrc.d/plugins/youcompleteme')
