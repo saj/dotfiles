@@ -31,14 +31,13 @@ au FileType procmail setlocal et sts=4 sw=4
 au BufRead,BufNewFile *.pp setlocal ft=puppet
 au FileType puppet setlocal noet fo-=t ts=2
 
-au BufRead,BufNewFile *.py setlocal ft=python
-au FileType python setlocal et sts=4
 " With fo+=c, Vim's autoformatting will only consider text that matches
 " the following setting.  Syntax highlighter classifiers are not
 " factored into the algorithm.  Unfortunately, this makes it difficult
 " (impossible?) to autoformat Python docstrings as proper comments.
 " This line was my last attempt.  It has been left here as a reminder.
 "au FileType python setlocal comments=:#,sf:\"\"\",m4:*,ef:\"\"\"
+au FileType python setlocal indentexpr=GetGooglePythonIndent(v:lnum)
 
 au BufRead,BufNewFile *.gemspec setlocal ft=ruby
 au BufRead,BufNewFile *.rb      setlocal ft=ruby
