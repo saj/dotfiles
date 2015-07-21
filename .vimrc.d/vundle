@@ -1,36 +1,10 @@
-if !(filereadable(expand('~/.vim/flags/disable-vundle')))
+if !(VimrcFlagAsserted('disable-vundle'))
 
   set rtp+=~/.vim/bundle/Vundle.vim
 
   call vundle#begin()
 
   Plugin 'gmarik/Vundle.vim'
-
-  func! VimrcInstalledBundles() abort
-    let l:installed_bundles = []
-    for bundle in g:vundle#bundles
-      if (isdirectory(bundle.rtpath))
-        call add(l:installed_bundles, bundle.name_spec)
-      endif
-    endfor
-    return l:installed_bundles
-  endf
-
-  func! VimrcBundleInstalled(bundle) abort
-    if (index(VimrcInstalledBundles(), a:bundle) > 0)
-      return 1
-    endif
-    return 0
-  endf
-
-  func! VimrcBundleInstall(bundle) abort
-    Plugin a:bundle
-
-    if (VimrcBundleInstalled(a:bundle))
-      let l:global = VimrcPluginCfgGlobal(a:bundle)
-      let {l:global} = 1
-    endif
-  endf
 
   call VimrcBundleInstall('mileszs/ack.vim')
   call VimrcBundleInstall('ConradIrwin/vim-bracketed-paste')
@@ -89,8 +63,6 @@ if !(filereadable(expand('~/.vim/flags/disable-vundle')))
   endif
 
   call vundle#end()
-
-  filetype plugin indent on
 
 endif
 
