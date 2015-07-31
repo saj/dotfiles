@@ -29,7 +29,7 @@ au BufRead,BufNewFile *.plist setlocal ft=xml
 au FileType procmail setlocal et sts=4 sw=4
 
 au BufRead,BufNewFile *.pp setlocal ft=puppet
-au FileType puppet setlocal noet fo-=t sw=2 ts=2
+au FileType puppet setlocal noet fo-=t sw=2 ts=2 tw=80
 
 au FileType python setlocal tw=80
 " With fo+=c, Vim's autoformatting will only consider text that matches
