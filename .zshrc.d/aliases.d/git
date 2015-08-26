@@ -18,4 +18,25 @@ gl() {
   fi
 }
 
+# Check out an arbitrary tree-ish to an ephemeral directory.  Spawn a subshell
+# in the ephemeral checkout.  The checkout will disappear when we exit the
+# subshell.  Must be run from inside a Git repository.
+git-squiz() {
+  local treeish="$1"
+  local checkout_dir="$(mktemp -d -t 'git-ephemeral-checkout')"
+
+  if [[ -z "${treeish}" ]]; then
+    echo "Missing mandatory <tree-ish>" >&2
+    return 1
+  fi
+
+  (
+    git archive --format=tar "${treeish}" | tar -C "${checkout_dir}" -xf -
+    cd "${checkout_dir}"
+    "${SHELL}"
+  )
+
+  rm -r "${checkout_dir}"
+}
+
 # vim:ft=zsh
