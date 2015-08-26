@@ -23,12 +23,13 @@ gl() {
 # subshell.  Must be run from inside a Git repository.
 git-squiz() {
   local treeish="$1"
-  local checkout_dir="$(mktemp -d -t 'git-ephemeral-checkout')"
 
   if [[ -z "${treeish}" ]]; then
     echo "Missing mandatory <tree-ish>" >&2
     return 1
   fi
+
+  local checkout_dir="$(mktemp -d -t 'git-ephemeral-checkout')"
 
   (
     git archive --format=tar "${treeish}" | tar -C "${checkout_dir}" -xf -
