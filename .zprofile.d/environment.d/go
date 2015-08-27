@@ -1,0 +1,14 @@
+__zprofile_go() {
+  local -r gopath="${HOME}/.go"
+
+  if [[ -e "${gopath}" ]]; then
+    export GOPATH="${gopath}"
+
+    __zprofile_lib_prepend_path 'PATH' "${gopath}/bin"
+  fi
+}
+
+__zprofile_go
+unfunction __zprofile_go
+
+# vim:ft=zsh
