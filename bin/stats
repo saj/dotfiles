@@ -1,0 +1,8 @@
+#!/usr/bin/env Rscript
+
+# Output the minima, maxima, and median for a list of numbers read from
+# standard input.
+#
+# Output is *not* intended ot be machine readable.
+
+summary (as.numeric (readLines ("stdin")))
