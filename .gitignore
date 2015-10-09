@@ -8,7 +8,10 @@
 *.o
 *.pyc
 
-# rbenv cruft
+# Python cruft
+/.python-version
+
+# Ruby cruft
 /.ruby-version
 
 # Archive cruft
