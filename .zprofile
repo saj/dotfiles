@@ -25,6 +25,8 @@ __zprofile_init() {
     . "${envrc}"
   done
 
+  . "${zprofiled}/path"
+
   __zprofile_lib_unfunction
   unfunction __zprofile_lib_unfunction
 }
