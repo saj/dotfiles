@@ -12,6 +12,8 @@ au FileType coffee setlocal et sts=2 sw=2 tw=79
 
 au BufRead,BufNewFile COMMIT_EDITMSG setlocal ft=gitcommit
 
+au FileType go setlocal noet ts=4
+
 "au BufRead,BufNewFile *.html setlocal ft=html
 au FileType html setlocal et sts=2 sw=2 fo=
 
