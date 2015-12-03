@@ -1,11 +1,27 @@
+# __zprofile_lib_prepend_path VARIABLE DIRECTORY
+#
+# Prepend DIRECTORY to the colon-separated content of the scalar export
+# VARIABLE and remove duplicates.  If DIRECTORY is not an existing
+# directory on the local filesystem, do nothing, successfully.
 __zprofile_lib_prepend_path() {
   local -r variable="$1"
   local -r directory="$2"
-  local -r directory_w_sep="${directory}${(P)variable:+':'}"
+  local -a old_path
+  local -a new_path
 
-  if [[ -d "${directory}" ]]; then
-    eval "export ${variable}=${directory_w_sep}${(P)variable}"
+  if [[ ! -d "${directory}" ]]; then
+    return 0
   fi
+
+  old_path=(${(Ps.:.)variable})
+  new_path=(${directory})
+  for d in "${old_path[@]}"; do
+    if [[ "${d}" != "${directory}" ]]; then
+      new_path+="${d}"
+    fi
+  done
+
+  eval "export ${variable}=${(j.:.)new_path}"
 }
 
 __zprofile_lib_unfunction() {
