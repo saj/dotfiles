@@ -8,19 +8,8 @@ __zprofile_lib_prepend_path() {
   fi
 }
 
-__zprofile_lib_append_path() {
-  local -r variable="$1"
-  local -r directory="$2"
-  local -r directory_w_sep="${(P)variable:+':'}${directory}"
-
-  if [[ -d "${directory}" ]]; then
-    eval "export ${variable}=${(P)variable}${directory_w_sep}"
-  fi
-}
-
 __zprofile_lib_unfunction() {
   unfunction __zprofile_lib_prepend_path
-  unfunction __zprofile_lib_append_path
 }
 
 # vim:ft=zsh
