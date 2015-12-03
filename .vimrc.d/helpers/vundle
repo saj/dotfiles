@@ -1,0 +1,31 @@
+if !(VimrcFlagAsserted('disable-vundle'))
+
+  func! VimrcInstalledBundles() abort
+    let l:installed_bundles = []
+    for bundle in g:vundle#bundles
+      if (isdirectory(bundle.rtpath))
+        call add(l:installed_bundles, bundle.name_spec)
+      endif
+    endfor
+    return l:installed_bundles
+  endf
+
+  func! VimrcBundleInstalled(bundle) abort
+    if (index(VimrcInstalledBundles(), a:bundle) > 0)
+      return 1
+    endif
+    return 0
+  endf
+
+  func! VimrcBundleInstall(bundle) abort
+    Plugin a:bundle
+
+    if (VimrcBundleInstalled(a:bundle))
+      let l:global = VimrcPluginCfgGlobal(a:bundle)
+      let {l:global} = 1
+    endif
+  endf
+
+endif
+
+" vim:ft=vim
