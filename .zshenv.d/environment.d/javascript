@@ -1,0 +1,18 @@
+__zshenv_javascript() {
+  local -r nvm_dir="${HOME}/.nvm"
+
+  if [[ -d "${nvm_dir}" ]]; then
+    export NVM_DIR="${nvm_dir}"
+
+    if __zshenv_homebrew_is_available; then
+      if __zshenv_homebrew_formula_installed 'nvm'; then
+        source "$(brew --prefix nvm)/nvm.sh"
+      fi
+    fi
+  fi
+}
+
+__zshenv_javascript
+unfunction __zshenv_javascript
+
+# vim:ft=zsh

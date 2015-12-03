@@ -1,0 +1,25 @@
+__zshenv_ruby() {
+  local -r GEM_USER_DIR="$(ruby -rubygems -e 'puts Gem.user_dir')"
+
+  if [[ -d "${GEM_USER_DIR}" ]]; then
+    __zshenv_lib_prepend_path 'PATH' "${GEM_USER_DIR}/bin"
+  fi
+}
+
+__zshenv_ruby
+unfunction __zshenv_ruby
+
+__zshenv_rbenv() {
+  local -r RBENV_BASE="${HOME}/.rbenv"
+
+  if [[ -d "${RBENV_BASE}" ]]; then
+    __zshenv_lib_prepend_path 'PATH' "${RBENV_BASE}/bin"
+
+    eval "$(rbenv init -)"
+  fi
+}
+
+__zshenv_rbenv
+unfunction __zshenv_rbenv
+
+# vim:ft=zsh

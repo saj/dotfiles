@@ -1,7 +1,7 @@
-__zprofile_lib_prepend_path 'PATH' "${HOME}/bin"
+__zshenv_lib_prepend_path 'PATH' "${HOME}/bin"
 
 while read binpath; do
-  __zprofile_lib_prepend_path 'PATH' "${binpath}"
+  __zshenv_lib_prepend_path 'PATH' "${binpath}"
 done <<<$(find "${HOME}" -mindepth 1 -maxdepth 1 -type d -name 'bin.*')
 
 # vim:ft=zsh

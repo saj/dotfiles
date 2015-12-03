@@ -1,17 +1,17 @@
-__zprofile_homebrew() {
+__zshenv_homebrew() {
   local -r homebrew_dir="${HOME}/.homebrew"
 
   if [[ -d "${homebrew_dir}" ]]; then
-    __zprofile_lib_prepend_path 'PATH' "${HOME}/.homebrew/bin"
+    __zshenv_lib_prepend_path 'PATH' "${HOME}/.homebrew/bin"
   fi
 }
 
-__zprofile_homebrew_is_available() {
+__zshenv_homebrew_is_available() {
   # TODO(saj)
   return 0
 }
 
-__zprofile_homebrew_formula_installed() {
+__zshenv_homebrew_formula_installed() {
   local -r formula="$1"
 
   if [[ "$(brew ls --versions "${formula}" 2>/dev/null | wc -l)" -gt 0 ]]; then
@@ -20,7 +20,7 @@ __zprofile_homebrew_formula_installed() {
   return 1
 }
 
-__zprofile_homebrew
-unfunction __zprofile_homebrew
+__zshenv_homebrew
+unfunction __zshenv_homebrew
 
 # vim:ft=zsh

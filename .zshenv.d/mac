@@ -1,0 +1,32 @@
+# Reset PATH.  Allow ~/.zshenv to build it from scratch.
+#
+# path_helper(8) on OS X does not behave as documented.  From the
+# manual:
+#
+#     The path_helper utility reads the contents of the files in the
+#     directories /etc/paths.d and /etc/manpaths.d and appends their
+#     contents to the PATH and MANPATH environment variables
+#     respectively.
+#
+# Paths read from /etc/paths and /etc/paths.d/* are actually
+# *prepended*, not appended, to PATH:
+#
+# http://www.opensource.apple.com/source/shell_cmds/shell_cmds-175/path_helper/path_helper.c
+#
+# path_helper(8) is invoked by the system-wide zshenv before ~/.zshenv
+# for all zsh shells, login or interactive.  This system-controlled path
+# initialisation is repeated for nested shells.  Because of the
+# behaviour noted above, nested shells will receive an inverted PATH.
+# Before ~/.zshenv, OS-supplied programs that were being shadowed by
+# user-local installations in the parent shell will no longer be
+# shadowed in the subshell.
+#
+# And so ~/.zshenv must again prefix user-local paths onto PATH.  This
+# action may result in duplicates in the subshell depending on what
+# paths were inherited from the parent.  Dropping a nuke avoids dupes.
+
+export PATH=''
+
+eval $(/usr/libexec/path_helper -s)
+
+# vim:ft=zsh
