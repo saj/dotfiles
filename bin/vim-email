@@ -8,7 +8,7 @@ set -e
 
 vim \
   -c 'setlocal ft=mail' \
-  -c '1,6s/^\(\(From\|To\|Cc\|Bcc\|Reply-To\):\)\([[:space:]]\+\)$/\1/' \
+  -c 'silent! 1,6s/^\(\(From\|To\|Cc\|Bcc\|Reply-To\):\)\([[:space:]]\+\)$/\1/e' \
   -i $HOME/.vim/info/email \
   +/^$ ++1 \
   $@
