@@ -1,10 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
 vim \
-  -c 'set et fo+=tw ft=mail noai nosi' \
-  -c 'setlocal spell' \
+  -c 'setlocal ft=mail' \
   -c '1,6s/^\(\(From\|To\|Cc\|Bcc\|Reply-To\):\)\([[:space:]]\+\)$/\1/' \
   -i $HOME/.vim/info/email +/^$ ++1 \
   $@

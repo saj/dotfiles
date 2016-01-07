@@ -19,6 +19,9 @@ au FileType html setlocal et sts=2 sw=2 fo=
 
 "au BufRead,BufNewFile *.json setlocal ft=json
 
+"Add trailing whitespace for format=flowed.
+au FileType mail setlocal et fo+=tw spell tw=72
+
 au BufRead,BufNewFile *.markdown setlocal ft=markdown
 au BufRead,BufNewFile *.md       setlocal ft=markdown
 au BufRead,BufNewFile *.mdown    setlocal ft=markdown
