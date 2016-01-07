@@ -10,5 +10,5 @@ vim \
   -c 'setlocal ft=mail' \
   -c 'silent! 1,6s/^\(\(From\|To\|Cc\|Bcc\|Reply-To\):\)\([[:space:]]\+\)$/\1/e' \
   -i $HOME/.vim/info/email \
-  +/^$ ++1 \
+  +/^$ +"normal o" +:start \
   $@
