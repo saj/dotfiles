@@ -1,13 +1,28 @@
 opendot() {
+  exec 3>&0
+  exec 0>&-
+
   local dot="$1"
+  local tmpdot="$(mktemp -t opendot)"
+  if [[ -z "${dot}" ]]; then
+    # Read from standard input.
+    cat - <&3 >"${tmpdot}"
+    dot="${tmpdot}"
+  fi
+
   local png="$(mktemp -t opendot)"
-  local newpng="${png}.png"
-  mv "$png" "$newpng"
-  png="$newpng"
-  dot -Tpng:quartz:quartz "$dot" >"$png"
-  open "$png"
+  local pngext="${png}.png"
+  mv "${png}" "${pngext}"
+  png="${pngext}"
+
+  # Rasterise the graph.
+  dot -Tpng:quartz:quartz "${dot}" >"${png}"
+  rm -f "${tmpdot}"
+
+  # Display the rastered graph to the user.
+  open "${png}"
   sleep 2
-  rm -f "$png"
+  rm -f "${png}"
 }
 
 # vim:ft=zsh
