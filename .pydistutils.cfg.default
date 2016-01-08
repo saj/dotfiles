@@ -1,4 +1,0 @@
-[install]
-install_data = ~/.python/$py_version_short
-install_lib = ~/.python/$py_version_short/lib/python/site-packages
-install_scripts = ~/.python/$py_version_short/bin
