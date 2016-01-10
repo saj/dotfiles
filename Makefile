@@ -9,6 +9,6 @@ all: .gvimrc .tmux.conf ssh
 	m4 .tmux.conf.m4 >.tmux.conf
 
 ssh:
-	make -C .ssh
+	$(MAKE) -C .ssh
 
 .PHONY: ssh
