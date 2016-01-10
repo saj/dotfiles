@@ -1,10 +1,9 @@
-TARGETS=config known_hosts
+all: config known_hosts
 
-all: $(TARGETS)
+.PHONY: all
 
 config.d/default:
-	if [ ! -e "$@" ]; then \
-	  mkdir -p "$$(dirname $@)" && \
+	if [[ ! -e "$@" ]]; then \
 	  touch "$@" && \
 	  chmod 600 "$@" ; \
 	fi
@@ -22,9 +21,3 @@ known_hosts: $(wildcard known_hosts.d/*)
 	fi
 	touch "$@"
 	chmod 400 "$@"
-
-clean:
-	rm -f $(TARGETS)
-
-.PHONY: all
-.PHONY: clean
