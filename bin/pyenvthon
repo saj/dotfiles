@@ -1,0 +1,97 @@
+#!/bin/bash
+
+# Run a pyenv-installed Python interpreter.
+#
+# This script was designed for non-interactive use by batch jobs.  It
+# requires neither an environment, nor any pyenv functions or shims to
+# be preloaded into the shell.
+#
+# Usage:
+#
+#     pyenvthon PYTHON-VERSION [ARGS ...]
+#
+# Where PYTHON-VERSION identifies a Python runtime installed by pyenv,
+# and ARGS is an optional list of command-line arguments to supply to
+# the interpreter.
+#
+# PYTHON-VERSION may be supplied in full form, as expected by pyenv, or
+# in an abbreviated MAJOR.MINOR form.  If supplied in MAJOR.MINOR form,
+# this script will automatically resolve the requested minor version to
+# the latest installed CPython runtime in the supplied minor series.
+
+set -u
+
+
+# $HOME may not be defined.
+export PYENV_ROOT=~/".pyenv"
+
+readonly PYTHON="${PYENV_ROOT}/shims/python"
+
+
+usage() {
+  local -r progname="${0##*/}"
+  echo "Usage: ${progname} PYTHON-VERSION [ARGS ...]" >&2
+}
+
+
+find_pyenv() {
+  local -ar pyenv_candidates=( \
+    "${PYENV_ROOT}/bin/pyenv" \
+    ~/".homebrew/bin/pyenv" \
+  )
+
+  for p in "${pyenv_candidates[@]}"; do
+    if [[ -x "${p}" ]]; then
+      echo "${p}"
+      return 0
+    fi
+  done
+
+  echo "pyenv executable not found" >&2
+  return 1
+}
+
+
+resolve_minor_to_cpython_runtime() {
+  local -r minor="$1"
+
+  local -r escaped_minor="$(sed -e 's!\.!\\.!g' <<<"${minor}")"
+
+  local -r pyenv="$(find_pyenv)"
+  [[ -z "${pyenv}" ]] && return 1
+
+  local -r runtime="$("${pyenv}" versions \
+    | sed -e 's/^[ \*]*//' \
+    | awk '{print $1}' \
+    | grep "^${escaped_minor}\\." \
+    | sort -r -n -t . -k 1,1 -k 2,2 -k 3,3 \
+    | head -n 1)"
+  if [[ -z "${runtime}" ]]; then
+    echo "No installed CPython runtimes for minor ${minor}" >&2
+    return 1
+  fi
+
+  echo "${runtime}"
+}
+
+
+main() {
+  if [[ $# -lt 1 ]]; then
+    usage
+    return 2
+  fi
+
+  local -r wanted_version="$1"; shift
+
+  if [[ "${wanted_version}" =~ ^[0-9]+\.[0-9]+$ ]]; then
+    local -r runtime="$(resolve_minor_to_cpython_runtime "${wanted_version}")"
+    [[ -z "${runtime}" ]] && return 1
+  else
+    local -r runtime="${wanted_version}"
+  fi
+
+  exec env "PYENV_VERSION=${runtime}" "${PYTHON}" "$@"
+}
+
+
+main "$@"
