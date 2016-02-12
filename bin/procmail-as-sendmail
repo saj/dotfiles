@@ -1,0 +1,51 @@
+#!/usr/bin/env python
+
+"""Deliver mail into procmail(1) using a sendmail(8) interface."""
+
+import argparse
+import os
+import subprocess
+import sys
+
+
+PROCMAIL_PATH = "procmail"
+
+
+class _NoopAction(argparse.Action):
+
+    def __call__(self, unused_parser, unused_namespace, unused_values,
+                 unused_option_string=None):
+        pass
+
+
+def parse_args(args):
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-F", metavar="full_name", action=_NoopAction)
+    parser.add_argument("-f", dest="sender", metavar="sender")
+    parser.add_argument("recipients", metavar="recipient", nargs="*",
+                        action=_NoopAction)
+    return parser.parse_args(args)
+
+
+def get_procmailrc():
+    return os.environ.get("PROCMAILRC")
+
+
+def run_procmail(procmailrc, sender):
+    args = [PROCMAIL_PATH]
+    if sender:
+        args.extend(["-f", sender])
+    if procmailrc:
+        args.append(procmailrc)
+    return subprocess.call(args)
+
+
+def main(argv=None):
+    if not argv:
+        argv = sys.argv
+    args = parse_args(argv[1:])
+    return run_procmail(get_procmailrc(), args.sender)
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))
