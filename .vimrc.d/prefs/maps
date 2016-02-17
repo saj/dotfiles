@@ -23,9 +23,6 @@ cmap w!! w !sudo tee % >/dev/null
 " Don't force comments to start on column 1
 inoremap # X#
 
-" Shortcut to sign off on Debian changelogs (think 'Debian sign')
-imap \ds <ESC>o -- Saj Goonatilleke <sg@redu.cx>  <C-R>=strftime("%a, %d %b %Y %T %z")<ESC>
-
 " 'Scissor open' and 'scissor close' - I like to use these as visual
 " separators when interspersing code or terminal output with prose.
 imap \sco ---------------------------------- 8< ----------------------------------<ESC>0
