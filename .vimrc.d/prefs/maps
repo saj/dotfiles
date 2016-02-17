@@ -7,14 +7,6 @@ map Y y$
 " Quick word obliteration
 map <BS> bdw
 
-" Delete/yank from marker F to cursor and put in buffer F.  (F because
-" that's under my left index finger; don't clobber A, which I use out of
-" habit for other stuff.)  `silent' makes this work even when the marker
-" is set at a larger line number than what the current cursor is sitting
-" on -- Vim automatically flips them around.
-nmap df :silent 'f,.d f<CR>
-nmap yf :silent 'f,.y f<CR>
-
 " Delete to the end of the sentence
 nmap ds d/[.?!:]<CR>
 
