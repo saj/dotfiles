@@ -22,8 +22,9 @@
 set -u
 
 
-# $HOME may not be defined.
-export PYENV_ROOT=~/".pyenv"
+export HOME="$(echo ~)"
+
+export PYENV_ROOT="${HOME}/.pyenv"
 
 readonly PYTHON="${PYENV_ROOT}/shims/python"
 
@@ -37,7 +38,7 @@ usage() {
 find_pyenv() {
   local -ar pyenv_candidates=( \
     "${PYENV_ROOT}/bin/pyenv" \
-    ~/".homebrew/bin/pyenv" \
+    "${HOME}/.homebrew/bin/pyenv" \
   )
 
   for p in "${pyenv_candidates[@]}"; do
