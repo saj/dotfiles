@@ -15,17 +15,6 @@ lll() {
       less -inr
 }
 
-# List files recursively, ignoring metadatery crap.
-f() {
-  local p="$1"
-  [[ -z "${p}" ]] && p='.'
-  find "${p}" -mindepth 1 -not \( \
-      -name '.*.swp' -or \
-      -name '.DS_Store' -or \
-      -path "*.svn*" -or \
-      -path "*.git*" \)
-}
-
 # Make a directory then descend into it.
 mkcd() {
   if [[ $# -gt 1 ]]; then
