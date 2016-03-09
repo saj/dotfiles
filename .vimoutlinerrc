@@ -1,3 +1,8 @@
+" https://github.com/vim-scripts/VimOutliner/blob/master/vimoutlinerrc
+
 let maplocalleader = ',,'
+
+" Enable the smart paste plugin.
+let g:vo_modules_load = 'smart_paste'
 
 " vim:ft=vim
