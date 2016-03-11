@@ -20,6 +20,8 @@ enable-color-base16
 
 enable-color-solarized
 
+enable-fzf
+
 enable-modelines
 
 enable-syntastic

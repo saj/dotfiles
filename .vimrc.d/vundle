@@ -32,6 +32,10 @@ if !(VimrcFlagAsserted('disable-vundle'))
     call VimrcBundleInstall('altercation/vim-colors-solarized')
   endif
 
+  if (VimrcFlagAsserted('enable-fzf'))
+    call VimrcBundleInstall('junegunn/fzf')
+  endif
+
   if (VimrcFlagAsserted('enable-modelines'))
     call VimrcBundleInstall('saj/emodeline')
     call VimrcBundleInstall('ciaranm/securemodelines')
