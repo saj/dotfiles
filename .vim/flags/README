@@ -32,6 +32,8 @@ enable-lang-clojure
 
 enable-lang-coffeescript
 
+enable-lang-go
+
 enable-lang-markdown
 
 enable-lang-puppet
