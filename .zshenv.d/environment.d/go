@@ -2,9 +2,15 @@ __zshenv_go() {
   local -r gopath="${HOME}/.go"
 
   if [[ -e "${gopath}" ]]; then
-    export GOPATH="${gopath}"
+    if [[ -L "${gopath}" ]]; then
+      local -r canon_gopath="$(readlink "${gopath}")"
+    else
+      local -r canon_gopath="${gopath}"
+    fi
 
-    __zshenv_lib_prepend_path 'PATH' "${gopath}/bin"
+    export GOPATH="${canon_gopath}"
+
+    __zshenv_lib_prepend_path 'PATH' "${canon_gopath}/bin"
 
     # Enable vendoring; introduced in Go 1.5.
     export GO15VENDOREXPERIMENT=1
