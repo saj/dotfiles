@@ -1,0 +1,256 @@
+#!/usr/bin/python
+
+"""saj's weekly journal helper.
+
+Segment time into a series of weekly chunks, and open a journal file for the
+current week when invoked.
+
+A note from the author:
+
+I keep personalised notes on my progress and pitfalls as I work through my
+problems.  These notes I call my journal.  In the early 2010s, I settled on
+using VimOutliner and a simplified version of GTD to implement my journal.  This
+simple wrapper script is invoked from an interactive shell to quickly pop my
+journal open to a bookmark:  either its current position for input, or some time
+in the past for reflection.
+"""
+
+from __future__ import print_function
+
+import argparse
+import calendar
+import datetime
+import os
+import os.path
+import shutil
+import sys
+
+
+class Error(Exception):
+    pass
+
+
+class MissingJournalError(Error):
+    pass
+
+
+class JournalManager(object):
+    """Manage a work journal maintained as a series of files.
+
+    A work journal is a continuous (unbounded) series of notes, chunked by week,
+    and roughly indexed by date.
+
+    This class will create and open journal files stored on the filesystem.  One
+    file will be created for each week.  Files are bucketed as follows:
+
+        journal_root/
+         |-> 2015/
+         |    `-> [...]
+         `-> 2016/
+              |-> 01/
+              |    `-> [...]
+              |-> 02/
+              |    |-> 01
+              |    |-> 08
+              |    |-> 15
+              |    |-> 22
+              |    `-> 29
+              `-> [...]
+
+    That is, by year, month, then the first day of the week.  Monday is defined
+    as the first day of the week.
+
+    Content for new journal files will be initialised from an optional
+    user-defined template file.
+    """
+
+    def __init__(self, journal_root, journal_template=None, editor=None,
+                 leaf_name_pattern="{day:02d}", today=None):
+        """Initialise a JournalManager.
+
+        Args:
+            journal_root: The absolute filesystem path to the root journal
+                directory.  All journal files will be bucketed beneath here.
+            journal_template: The absolute filesystem path to a journal
+                template.  If supplied, the contents of this file will be copied
+                to new journal files as they are created.
+            editor: Your preferred editor.  JournalManager will search your PATH
+                for this editor.  If not supplied, will default to the value of
+                the VISUAL or EDITOR environment variables (whichever is found
+                first), or "vi" as a fallback.
+            leaf_name_pattern: A Python string formatting specification that
+                will be used to name new journal files.  This spec should
+                include a field named 'day', which will be substituted with a
+                day of the month as a number between 1 and 31.
+            today: An optional Python date object that, if supplied, will
+                override the true value of today.
+
+        Raises:
+            ValueError
+        """
+        if not os.path.isabs(journal_root):
+            raise ValueError("journal_root not an absolute path: "
+                             "{}".format(journal_root))
+        self._journal_root = journal_root
+
+        self._journal_template = journal_template
+
+        if editor:
+            self._editor = editor
+        else:
+            editors = [os.environ.get("VISUAL"),
+                       os.environ.get("EDITOR"),
+                       "vi"]
+            self._editor = next(e for e in editors if e is not None)
+
+        self._leaf_name_pattern = leaf_name_pattern
+
+        if today:
+            self._today = today
+        else:
+            self._today = datetime.date.today()
+
+    def last_day(self, weekday, today=None):
+        """Return the date on which weekday last fell.
+
+        Args:
+           weekday: An integer representation of a weekday.  From 0 (Monday) to
+               6 (Sunday).
+
+        Returns:
+            A Python date object.
+        """
+        search_date = self._today
+        if today:
+            search_date = today
+        while True:
+            search_weekday = calendar.weekday(search_date.year,
+                                              search_date.month,
+                                              search_date.day)
+            if search_weekday == weekday:
+                return search_date
+            search_date = search_date - datetime.timedelta(days=1)
+
+    @property
+    def first_day_of_week(self):
+        return calendar.MONDAY
+
+    @property
+    def current_journal_date(self):
+        return self.last_day(self.first_day_of_week)
+
+    def get_bucket_path(self, date):
+        return os.path.join(self._journal_root,
+                            "{:04d}".format(date.year),
+                            "{:02d}".format(date.month))
+
+    @property
+    def bucket_mode(self):
+        mode = 0700
+        if os.path.isdir(self._journal_root):
+            mode = os.stat(self._journal_root).st_mode
+        return mode
+
+    def create_bucket(self, date):
+        bucket_path = self.get_bucket_path(date)
+        if not os.path.isdir(bucket_path):
+            os.makedirs(bucket_path, self.bucket_mode)
+        return bucket_path
+
+    def get_leaf_path(self, date):
+        bucket_path = self.get_bucket_path(date)
+        leaf_basename = self._leaf_name_pattern.format(day=date.day)
+        return os.path.join(bucket_path, leaf_basename)
+
+    @property
+    def leaf_mode(self):
+        mode = 0600
+        if os.path.isdir(self._journal_template):
+            mode = os.stat(self._journal_template).st_mode
+        return mode
+
+    def create_leaf(self, date):
+        self.create_bucket(date)
+        leaf_path = self.get_leaf_path(date)
+        if not os.path.isfile(leaf_path):
+            leaf_fd = os.open(leaf_path, os.O_WRONLY | os.O_CREAT,
+                              self.leaf_mode)
+            with os.fdopen(leaf_fd, "w") as leaf:
+                if self._journal_template:
+                    with open(self._journal_template, "r") as template:
+                        shutil.copyfileobj(template, leaf)
+        return leaf_path
+
+    def open_current(self):
+        journal_date = self.current_journal_date
+        leaf_path = self.create_leaf(journal_date)
+        os.execlp(self._editor, self._editor, leaf_path)
+
+    def open_historic(self, journal_date):
+        leaf_path = self.get_leaf_path(journal_date)
+        if not os.path.isfile(leaf_path):
+            raise MissingJournalError("no existing journal entry for date: "
+                                      "{}".format(journal_date))
+        os.execlp(self._editor, self._editor, leaf_path)
+
+    def open_by_week_offset(self, weeks_ago):
+        if weeks_ago == 0:
+            self.open_current()
+        else:
+            ago = self._today - datetime.timedelta(weeks=1) * weeks_ago
+            journal_date = self.last_day(self.first_day_of_week, today=ago)
+            self.open_historic(journal_date)
+
+
+class VimOutlinerJournalManager(JournalManager):
+    """Manage a work journal maintained as a series of VimOutliner files."""
+
+    def __init__(self, journal_root, journal_template=None, today=None):
+        super(VimOutlinerJournalManager, self).__init__(
+            journal_root,
+            journal_template=journal_template,
+            editor="vim",
+            leaf_name_pattern="{day:02d}.otl",
+            today=today)
+
+    def open_historic(self, journal_date):
+        """Open a historic journal entry in read-only mode.
+
+        We know we are using VimOutliner.  We know we are using Vim.  Thus, we
+        know which command-line flags to supply to vim to enforce a read-only
+        buffer.
+        """
+        leaf_path = self.get_leaf_path(journal_date)
+        if not os.path.isfile(leaf_path):
+            raise MissingJournalError("no existing journal entry for date: "
+                                      "{}".format(journal_date))
+        os.execlp(self._editor, self._editor, "-R", leaf_path)
+
+
+def parse_args(argv):
+    parser = argparse.ArgumentParser(
+        description="Open a weekly VimOutliner journal file.")
+    parser.add_argument("weeks_ago", metavar="NUM-WEEKS-AGO", type=int, default=0,
+                        nargs="?", help="Open the journal file from this many "
+                        "weeks ago.  If zero (default), open the journal file "
+                        "for the current week, creating it if it does not exist.")
+    return parser.parse_args(argv[1:])
+
+
+def main(argv=None):
+    if argv is None:
+        argv = sys.argv
+
+    args = parse_args(argv)
+    try:
+        manager = VimOutlinerJournalManager(
+            os.path.expanduser("~/Documents/journal"),
+            journal_template=os.path.expanduser("~/Documents/journal/template.otl"))
+        manager.open_by_week_offset(args.weeks_ago)
+    except Error as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))
