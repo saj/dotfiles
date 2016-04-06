@@ -1,5 +1,3 @@
-setopt noglobalrcs
-
 __zshrc_init() {
   local -r zshrcd=~"/.zshrc.d"
 
