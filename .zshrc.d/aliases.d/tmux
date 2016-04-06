@@ -4,7 +4,10 @@ alias tat='tmux attach-session -t'
 
 tls() {
   tmux list-sessions | while read session details; do
-    colour_yellow ; printf "%-30s" "${session%:}" ; colour_reset ; echo " ${details}"
+    colour_yellow
+    printf "%s" "${session%:}"
+    colour_reset
+    echo ": ${details}"
   done
 }
 
