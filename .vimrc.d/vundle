@@ -49,8 +49,10 @@ if !(VimrcFlagAsserted('disable-vundle'))
     call VimrcBundleInstall('vimoutliner/vimoutliner')
   endif
 
-  if (VimrcFlagAsserted('enable-youcompleteme'))
-    call VimrcBundleInstall('Valloric/YouCompleteMe')
+  if v:version > 703 || v:version == 703 && has("patch598")
+    if (VimrcFlagAsserted('enable-youcompleteme'))
+      call VimrcBundleInstall('Valloric/YouCompleteMe')
+    endif
   endif
 
   if (VimrcFlagAsserted('enable-lang-clojure'))
