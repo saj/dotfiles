@@ -20,9 +20,4 @@ inoremap # X#
 imap \sco --- 8< ---<ESC>0
 imap \scc --- >8 ---<ESC>0
 
-if has("spell")
-  set spelllang=en_au
-  set spellfile=~/.en.latin1.add
-endif
-
 " vim:ft=vim

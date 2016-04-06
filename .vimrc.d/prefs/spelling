@@ -1,0 +1,6 @@
+if has("spell")
+  set spelllang=en_au
+  set spellfile=~/.en.latin1.add
+endif
+
+" vim:ft=vim
