@@ -18,12 +18,12 @@ filetype plugin on
 filetype plugin indent on
 
 " Sundry user preferences
-for s:pref in glob('~/.vimrc.d/prefs/*', 0, 1)
+for s:pref in split(glob('~/.vimrc.d/prefs/*'), "\n")
   exec ':source ' . s:pref
 endfor
 
 " Plugin settings
-for s:plugin in glob('~/.vimrc.d/plugins/*', 0, 1)
+for s:plugin in split(glob('~/.vimrc.d/plugins/*'), "\n")
   exec ':source ' . s:plugin
 endfor
 
