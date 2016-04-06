@@ -1,3 +1,8 @@
+if v:version < 700
+  " All bets are off.
+  finish
+endif
+
 set nocompatible
 
 filetype off
