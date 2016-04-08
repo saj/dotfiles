@@ -3,6 +3,7 @@ __zshenv_homebrew() {
 
   if [[ -d "${homebrew_dir}" ]]; then
     __zshenv_lib_prepend_path 'PATH' "${HOME}/.homebrew/bin"
+    __zshenv_lib_prepend_path 'PATH' "${HOME}/.homebrew/sbin"
   fi
 }
 
