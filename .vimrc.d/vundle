@@ -7,6 +7,7 @@ if !(VimrcFlagAsserted('disable-vundle'))
   Plugin 'gmarik/Vundle.vim'
 
   call VimrcBundleInstall('mileszs/ack.vim')
+  call VimrcBundleInstall('rking/ag.vim')
   call VimrcBundleInstall('ConradIrwin/vim-bracketed-paste')
   call VimrcBundleInstall('sandeepcr529/Buffet.vim')
   call VimrcBundleInstall('tpope/vim-commentary.git')
