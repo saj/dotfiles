@@ -20,7 +20,7 @@ if !(VimrcFlagAsserted('disable-vundle'))
   call VimrcBundleInstall('tpope/vim-speeddating')
   call VimrcBundleInstall('godlygeek/tabular.git')
   call VimrcBundleInstall('tpope/vim-unimpaired')
-  call VimrcBundleInstall('maxbrunsfeld/vim-yankstack')
+  call VimrcBundleInstall('vim-scripts/YankRing.vim')
 
   " Opt-in bundles below here are too slow or are not used often enough
   " to warrant inclusion in the always-on list above.
