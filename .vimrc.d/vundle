@@ -68,6 +68,10 @@ if !(VimrcFlagAsserted('disable-vundle'))
     call VimrcBundleInstall('fatih/vim-go')
   endif
 
+  if (VimrcFlagAsserted('enable-lang-hcl'))
+    call VimrcBundleInstall('b4b4r07/vim-hcl')
+  endif
+
   if (VimrcFlagAsserted('enable-lang-markdown'))
     call VimrcBundleInstall('tpope/vim-markdown')
   endif

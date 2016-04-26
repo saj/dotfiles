@@ -36,6 +36,8 @@ enable-lang-coffeescript
 
 enable-lang-go
 
+enable-lang-hcl
+
 enable-lang-markdown
 
 enable-lang-puppet
