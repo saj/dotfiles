@@ -8,7 +8,6 @@ if !(VimrcFlagAsserted('disable-vundle'))
 
   call VimrcBundleInstall('mileszs/ack.vim')
   call VimrcBundleInstall('rking/ag.vim')
-  call VimrcBundleInstall('ConradIrwin/vim-bracketed-paste')
   call VimrcBundleInstall('sandeepcr529/Buffet.vim')
   call VimrcBundleInstall('tpope/vim-commentary.git')
   call VimrcBundleInstall('kana/vim-fakeclip')
