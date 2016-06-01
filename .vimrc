@@ -26,9 +26,3 @@ endfor
 for s:plugin in split(glob('~/.vimrc.d/plugins/*'), "\n")
   exec ':source ' . s:plugin
 endfor
-
-" Host-local .vimrc
-let s:local_vimrc = expand('~/.vimrc.') . substitute(system('hostname -f'), "\n$", "", '')
-if filereadable(s:local_vimrc)
-  :exec ":source " . s:local_vimrc
-endif
