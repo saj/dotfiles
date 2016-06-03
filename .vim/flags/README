@@ -41,3 +41,5 @@ enable-lang-hcl
 enable-lang-markdown
 
 enable-lang-puppet
+
+enable-lang-terraform

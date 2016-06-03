@@ -80,6 +80,10 @@ if !(VimrcFlagAsserted('disable-vundle'))
     call VimrcBundleInstall('rodjek/vim-puppet')
   endif
 
+  if (VimrcFlagAsserted('enable-lang-terraform'))
+    call VimrcBundleInstall('hashivim/vim-terraform')
+  endif
+
   call vundle#end()
 
 endif
