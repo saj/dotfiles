@@ -26,7 +26,7 @@ set smartcase
 set smartindent
 set softtabstop=4
 set tabstop=8
-set textwidth=72
+set textwidth=80
 set winaltkeys=no
 
 if (VimrcFlagAsserted('enable-modelines'))

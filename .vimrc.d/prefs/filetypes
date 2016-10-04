@@ -1,7 +1,7 @@
 "au BufRead,BufNewFile Makefile setlocal ft=make
 au FileType make setlocal noet ts=4
 
-au BufRead,BufNewFile README setlocal fo+=t spell tw=80
+au BufRead,BufNewFile README setlocal fo+=t spell
 
 au BufRead,BufNewFile TODO setlocal fo+=t
 
@@ -27,21 +27,20 @@ au BufRead,BufNewFile *.md       setlocal ft=markdown
 au BufRead,BufNewFile *.mdown    setlocal ft=markdown
 au BufRead,BufNewFile *.mkd      setlocal ft=markdown
 au BufRead,BufNewFile *.mkdn     setlocal ft=markdown
-au FileType markdown setlocal fo+=t spell tw=80
+au FileType markdown setlocal fo+=t spell
 
 au BufRead,BufNewFile *.plist setlocal ft=xml
 
 au FileType procmail setlocal et sts=4 sw=4
 
 au BufRead,BufNewFile *.pp setlocal ft=puppet
-au FileType puppet setlocal noet fo-=t sw=2 ts=2 tw=80
+au FileType puppet setlocal noet fo-=t sw=2 ts=2
 
-au FileType python setlocal tw=80
-" With fo+=c, Vim's autoformatting will only consider text that matches
-" the following setting.  Syntax highlighter classifiers are not
-" factored into the algorithm.  Unfortunately, this makes it difficult
-" (impossible?) to autoformat Python docstrings as proper comments.
-" This line was my last attempt.  It has been left here as a reminder.
+" With fo+=c, Vim's autoformatting will only consider text that matches the
+" following setting.  Syntax highlighter classifiers are not factored into the
+" algorithm.  Unfortunately, this makes it difficult (impossible?) to autoformat
+" Python docstrings as proper comments.  This line was my last attempt.  It has
+" been left here as a reminder.
 "au FileType python setlocal comments=:#,sf:\"\"\",m4:*,ef:\"\"\"
 au FileType python setlocal indentexpr=GetGooglePythonIndent(v:lnum)
 
