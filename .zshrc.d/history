@@ -10,13 +10,6 @@ export HIST_FIND_NO_DUPS=1
 export HIST_IGNORE_DUPS=0
 export SAVEHIST=1000
 
-bindkey '^r' history-incremental-search-backward
-
-# Fucking Debian - http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=383737
-(( ${+terminfo[cuu1]}  )) && bindkey -M viins "$terminfo[cuu1]" up-line-or-history
-(( ${+terminfo[kcuu1]} )) && bindkey -M viins "$terminfo[kcuu1]" up-line-or-history
-[[ "${terminfo[kcuu1]:-}" == ""* ]] && bindkey -M viins "${terminfo[kcuu1]/O/[}" up-line-or-history
-
 alias h='fc -fl -20'
 alias history='fc -fl 1'
 alias nohist='export SAVEHIST=0'

@@ -1,5 +1,12 @@
-# Use Vi bindings.
+# Use vi bindings.
 bindkey -v
+
+bindkey '^r' history-incremental-search-backward
+
+# Fucking Debian - http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=383737
+(( ${+terminfo[cuu1]}  )) && bindkey -M viins "$terminfo[cuu1]" up-line-or-history
+(( ${+terminfo[kcuu1]} )) && bindkey -M viins "$terminfo[kcuu1]" up-line-or-history
+[[ "${terminfo[kcuu1]:-}" == ""* ]] && bindkey -M viins "${terminfo[kcuu1]/O/[}" up-line-or-history
 
 # Hit v in command mode to open the current line in an editor.
 autoload -U edit-command-line
