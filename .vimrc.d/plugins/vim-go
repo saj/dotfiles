@@ -6,9 +6,6 @@ if (VimrcShouldConfigurePlugin('go'))
   let g:go_highlight_functions = 1
   let g:go_highlight_build_constraints = 1
 
-  au FileType go nnoremap <C-]> <Plug>(go-def-split)
-  au FileType go nnoremap K <Plug>(go-doc-split)
-
 endif
 
 " vim:ft=vim
