@@ -1,4 +1,4 @@
-alias amend='git commit --amend'
+alias amend='git commit --amend --date=now'
 alias commit='git commit'
 alias g='git'
 alias ga='git add'
