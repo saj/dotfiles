@@ -3,6 +3,9 @@ compinit
 
 setopt AUTO_LIST
 setopt LIST_PACKED
-setopt MENU_COMPLETE
+
+# In case of ambiguity, display a menu of matching completions, but do not add
+# the first match to the input buffer.
+setopt NOMENU_COMPLETE
 
 # vim:ft=zsh
