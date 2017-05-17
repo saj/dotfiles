@@ -1,0 +1,169 @@
+#!/usr/bin/env python
+
+"""Downsample screenshots taken on a Retina Mac.
+
+Requires Python 2.7 (or later) and the sips(1) program from macOS.
+"""
+
+from __future__ import absolute_import
+from __future__ import print_function
+from __future__ import unicode_literals
+
+import argparse
+import decimal
+import io
+import os
+import subprocess
+import sys
+
+
+# DPI_HIGH is a threshold that defines what it means to be 'High DPI'.  Input
+# images with a horizontal and vertical DPI equal to or greater than this value
+# will be subject to resampling.
+DPI_HIGH = 144
+
+# DPI_TARGET controls how an input image is resampled as a ratio of its original
+# horizontal and vertical DPI.  If the image's original DPI is higher than
+# DPI_TARGET, it will be resampled to an image with smaller pixel dimensions.
+DPI_TARGET = 72
+
+
+class Error(Exception):
+    pass
+
+
+class SipsError(Error):
+
+    def __init__(self, argv, stderr):
+        super(SipsError, self).__init__()
+
+        self.argv = argv
+        self.stderr = stderr
+
+    def __str__(self):
+        return "sips(1) failed: {}: {}".format(" ".join(self.argv),
+                                               self.stderr.splitlines()[0])
+
+
+class PropertyError(Error):
+    pass
+
+
+def exec_sips(args):
+
+    def inherit_env(env, name):
+        if name in os.environ:
+            env[name] = os.environ[name]
+
+    env = {"LC_ALL": "UTF-8"}
+    inherit_env(env, "HOME")
+    inherit_env(env, "PATH")
+    inherit_env(env, "TMPDIR")
+    inherit_env(env, "USER")
+
+    pipe = subprocess.PIPE
+    argv = ["sips"] + args
+    proc = subprocess.Popen(argv, stdout=pipe, stderr=pipe, env=env)
+    stdout, stderr = proc.communicate()
+    if proc.returncode != 0:
+        raise SipsError(argv, stderr.decode("utf-8"))
+    return stdout.decode("utf-8")
+
+
+def get_property(image_path, property_name):
+    output = exec_sips(["--getProperty", property_name, image_path])
+
+    # sips(1) output will be split over several lines.  The first line of output
+    # should contain the path of the image; this line is of no interest to us.
+    # The second line of output should contain the property value.
+    try:
+        line = output.splitlines()[1]
+    except IndexError:
+        raise PropertyError("property not found: {}".format(property_name))
+
+    fields = line.split(None, 1)
+    if fields[0][0:-1] != property_name:  # Strip trailing colon
+        raise PropertyError("property not found: {}".format(property_name))
+    return fields[1]
+
+
+def get_dpi_height(image_path):
+    return decimal.Decimal(get_property(image_path, "dpiHeight"))
+
+
+def get_dpi_width(image_path):
+    return decimal.Decimal(get_property(image_path, "dpiWidth"))
+
+
+def get_pixel_height(image_path):
+    return decimal.Decimal(get_property(image_path, "pixelHeight"))
+
+
+def get_pixel_width(image_path):
+    return decimal.Decimal(get_property(image_path, "pixelWidth"))
+
+
+def is_png(image_path):
+    image_format = get_property(image_path, "format")
+    return image_format == "png"
+
+
+def is_highdpi(image_path):
+    dpi_h = get_dpi_height(image_path)
+    dpi_w = get_dpi_width(image_path)
+    return dpi_h >= DPI_HIGH and dpi_w >= DPI_HIGH
+
+
+def resample(image_path, target_dpi):
+    orig_dpi_h = get_dpi_height(image_path)
+    orig_dpi_w = get_dpi_width(image_path)
+    orig_pixel_h = get_pixel_height(image_path)
+    orig_pixel_w = get_pixel_width(image_path)
+    h_factor = decimal.Decimal(target_dpi) / orig_dpi_h
+    w_factor = decimal.Decimal(target_dpi) / orig_dpi_w
+    new_pixel_h = int(orig_pixel_h * h_factor)
+    new_pixel_w = int(orig_pixel_w * w_factor)
+    exec_sips(["--resampleHeightWidth", str(new_pixel_h), str(new_pixel_w),
+               image_path])
+    exec_sips(["--setProperty", "dpiHeight", str(target_dpi),
+               "--setProperty", "dpiWidth", str(target_dpi),
+               image_path])
+
+
+def error(msg):
+    print(msg, file=sys.stderr)
+
+
+def main(argv=None):
+    if argv is None:
+        argv = sys.argv
+
+    parser = argparse.ArgumentParser(
+        description="Downsample screenshots taken on a Retina Mac.")
+    parser.add_argument("images", metavar="IMAGE", nargs="+",
+                        help="Filesystem path to a PNG image file.")
+    args = parser.parse_args(argv[1:])
+
+    seen_failure = False
+    for image_path in args.images:
+        try:
+            if not is_png(image_path):
+                error("{}: not a PNG image".format(image_path))
+                seen_failure = True
+                continue
+            if not is_highdpi(image_path):
+                error("{}: not a High DPI image - skipping".format(image_path))
+                continue
+            resample(image_path, DPI_TARGET)
+        except SipsError as exc:
+            error(exc)
+            seen_failure = True
+            continue
+
+    if seen_failure:
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))
