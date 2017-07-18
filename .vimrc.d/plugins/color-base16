@@ -1,6 +1,6 @@
 if (VimrcShouldConfigurePlugin('base16'))
 
-  colorscheme base16-monokai
+  colorscheme base16-eighties
 
 endif
 
