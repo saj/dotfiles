@@ -4,8 +4,7 @@ set -e
 
 gvim -f \
   -c 'set columns=80 linebreak' \
-  -c 'set background=light' \
   -c 'setlocal spell' \
-  -c 'set fo+=t noai nosi paste' \
+  -c 'set noai nosi paste' \
   -i $HOME/.vim/info/browser \
   "$@"
