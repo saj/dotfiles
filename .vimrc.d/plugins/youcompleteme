@@ -1,7 +1,15 @@
 if (VimrcShouldConfigurePlugin('youcompleteme'))
 
   let g:ycm_autoclose_preview_window_after_insertion = 1
-  "let g:ycm_filetype_whitelist = { '*': 1 }
+
+  let g:ycm_filetype_whitelist = {
+    \ 'go': 1,
+    \ 'make': 1,
+    \ 'python': 1,
+    \ 'sh': 1,
+    \ 'terraform': 1
+    \}
+
   "let g:ycm_filetype_blacklist = {
   "      \ 'notes' : 1,
   "      \ 'markdown' : 1,
