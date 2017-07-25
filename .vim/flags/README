@@ -30,6 +30,8 @@ enable-vim-outliner
 
 enable-youcompleteme
 
+enable-lang-asciidoc
+
 enable-lang-clojure
 
 enable-lang-coffeescript

@@ -56,6 +56,10 @@ if !(VimrcFlagAsserted('disable-vundle'))
     endif
   endif
 
+  if (VimrcFlagAsserted('enable-lang-asciidoc'))
+    call VimrcBundleInstall('saj/vim-asciidoc')
+  endif
+
   if (VimrcFlagAsserted('enable-lang-clojure'))
     call VimrcBundleInstall('vim-scripts/VimClojure')
   endif
