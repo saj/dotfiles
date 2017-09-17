@@ -43,7 +43,6 @@ au FileType puppet setlocal noet fo-=t sw=2 ts=2
 " Python docstrings as proper comments.  This line was my last attempt.  It has
 " been left here as a reminder.
 "au FileType python setlocal comments=:#,sf:\"\"\",m4:*,ef:\"\"\"
-au FileType python setlocal indentexpr=GetGooglePythonIndent(v:lnum)
 
 au BufRead,BufNewFile *.gemspec setlocal ft=ruby
 au BufRead,BufNewFile *.rb      setlocal ft=ruby

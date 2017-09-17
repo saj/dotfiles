@@ -35,4 +35,6 @@ endfunction
 let pyindent_nested_paren="&sw"
 let pyindent_open_paren="&sw"
 
+setlocal indentexpr=GetGooglePythonIndent(v:lnum)
+
 " vim:ft=vim
