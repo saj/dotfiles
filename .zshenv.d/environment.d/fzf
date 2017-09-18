@@ -3,13 +3,11 @@ __zshenv_fzf_fail_unless_output() {
 }
 
 __zshenv_fzf_list_git() {
-  git ls-tree -r --name-only HEAD 2>/dev/null \
-    | __zshenv_fzf_fail_unless_output
+  git ls-tree -r --name-only HEAD 2>/dev/null | __zshenv_fzf_fail_unless_output
 }
 
 __zshenv_fzf_list_ag() {
-  ag -g '' 2>/dev/null \
-    | __zshenv_fzf_fail_unless_output
+  ag -l 2>/dev/null | __zshenv_fzf_fail_unless_output
 }
 
 __zshenv_fzf_list_find() {
