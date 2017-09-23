@@ -9,7 +9,7 @@
 *.pyc
 
 # Python cruft
-/.python-version
+.python-version
 /venv
 
 # Ruby cruft
