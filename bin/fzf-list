@@ -1,0 +1,26 @@
+#!/bin/bash
+
+
+fail_on_empty() {
+  awk '{ print } END { if (!NR) { exit 1 } }'
+}
+
+
+list_git() {
+  git ls-tree -r --name-only HEAD 2>/dev/null | fail_on_empty
+}
+
+
+list_ag() {
+  ag -l 2>/dev/null | fail_on_empty
+}
+
+
+list_find() {
+  find . -path '*/\.*' -prune -o -type f -print -o -type l -print \
+    | sed 's/^..//' \
+    | fail_on_empty
+}
+
+
+list_git || list_ag || list_find
