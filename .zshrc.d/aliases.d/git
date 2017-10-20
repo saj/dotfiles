@@ -2,7 +2,6 @@ alias amend='git commit --amend'
 alias commit='git commit'
 alias g='git'
 alias ga='git add'
-alias gb='git branch --list -vv'
 alias gc='git checkout'
 alias gd='git diff'
 alias gdc='git diff --cached'
@@ -10,11 +9,19 @@ alias gs='git status'
 alias reflog='git log -g --abbrev-commit --pretty="format:%C(auto,yellow)%h%C(auto,reset) %C(auto,blue)%<(15,trunc)%cr%C(auto,reset) %gs"'
 alias stash='git stash'
 
+gb() {
+  if [ $# -eq 0 ]; then
+    git branch --list -vv
+  else
+    git branch "$@"
+  fi
+}
+
 gl() {
   if [ $# -eq 0 ]; then
     git log --color --oneline | head
   else
-    git log --oneline ${@}
+    git log --oneline "$@"
   fi
 }
 
