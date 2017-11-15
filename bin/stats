@@ -1,8 +1,29 @@
-#!/usr/bin/env Rscript
+#!/bin/sh
 
-# Output the minima, maxima, and median for a list of numbers read from
-# standard input.
+# Read a list of numbers from stdin -- one number per line -- and output the
+# sum, count, average, median, minimum, and maximum.
 #
-# Output is *not* intended to be machine readable.
+# The output format of this script may change in the future.
 
-summary (as.numeric (readLines ("stdin")))
+# https://unix.stackexchange.com/a/13779
+
+sort -n \
+  | awk '
+    BEGIN {
+      c = 0;
+      sum = 0;
+    }
+    $1 ~ /^[0-9]*(\.[0-9]*)?$/ {
+      a[c++] = $1;
+      sum += $1;
+    }
+    END {
+      ave = sum / c;
+      if ((c % 2) == 1) {
+        median = a[int(c/2)];
+      } else {
+        median = (a[c/2] + a[c/2-1]) / 2;
+      }
+      OFS="\t";
+      print sum, c, ave, median, a[0], a[c-1];
+    }'
