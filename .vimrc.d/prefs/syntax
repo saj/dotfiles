@@ -1,8 +1,8 @@
 syntax on
 set background=dark
 
-" autocmd InsertLeave * set nocul
-" autocmd InsertEnter * set cul
+autocmd InsertLeave * set nocul
+autocmd InsertEnter * set cul
 
 if (exists('c_comment_strings'))
   unlet c_comment_strings
