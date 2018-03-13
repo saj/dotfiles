@@ -5,7 +5,7 @@ set copyindent
 set cpoptions+=J
 set expandtab
 set foldmethod=indent
-set foldnestmax=3
+set foldnestmax=10
 set formatoptions=acnoqr
 set hidden
 set history=100
