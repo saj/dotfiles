@@ -7,10 +7,12 @@ set -o pipefail
 
 readonly SCRIPT_NAME="${0##*/}"
 
+
 usage() {
   echo -e "Usage:\n\t${SCRIPT_NAME} MAILDIR <MESSAGE"
   return 2
 }
+
 
 is_maildir() {
   local -r maildir="$1"
@@ -20,13 +22,13 @@ is_maildir() {
   return 0
 }
 
+
 generate_message_filename() {
   # http://cr.yp.to/proto/maildir.html
 
-  local -r now=($(date '+%s %N'))
+  local -r now=($(perl -MTime::HiRes -e '($secs, $usecs) = Time::HiRes::gettimeofday; printf("%d %d\n", $secs, $usecs)'))
   local -r secs="${now[0]}"
-  local -r nsecs="${now[1]}"
-  local -r usecs="$(printf '%06d' $((10#${nsecs} / 1000)))"
+  local -r usecs="${now[1]}"
 
   local -r pid="$$"
   local -r hostname="$(hostname -f)"
@@ -40,6 +42,7 @@ generate_message_filename() {
     echo "${basename}"
   fi
 }
+
 
 main() {
   if [[ $# -ne 1 ]]; then
@@ -57,5 +60,6 @@ main() {
   cat - >"${tmp_dst}" || return
   mv "${tmp_dst}" "${cur_dst}" || return
 }
+
 
 main "$@"
