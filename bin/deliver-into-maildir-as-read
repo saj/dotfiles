@@ -32,8 +32,7 @@ generate_message_filename() {
 
   local -r pid="$$"
   local -r hostname="$(hostname -f)"
-  local -r deliveries=0
-  local -r basename="${secs}.M${usecs}P${pid}Q${deliveries}.${hostname}"
+  local -r basename="${secs}.M${usecs}P${pid}.${hostname}"
 
   local -r flags="${1:-}"
   if [[ -n "${flags}" ]]; then
