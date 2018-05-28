@@ -1,0 +1,7 @@
+# Use a more visible colour for nulls.  Default is bright black (1;30), which
+# can be difficult to read on terminals with dark background colours.
+#
+# Support for JQ_COLORS was introduced after jq 1.5.3.
+export JQ_COLORS='0;33:0;39:0;39:0;39:0;32:1;39:1;39'
+
+# vim:ft=zsh
