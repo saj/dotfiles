@@ -1,6 +1,6 @@
 if (VimrcShouldConfigurePlugin('base16'))
 
-  colorscheme base16-eighties
+  colorscheme base16-tomorrow-night
 
 endif
 
