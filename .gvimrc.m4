@@ -7,7 +7,7 @@ divert`'dnl
 set columns=80
 set guicursor=a:blinkon0
 ifelse(os_name, `Darwin', `dnl
-set guifont=InputMonoNarrow-Thin:h14`'dnl
+set guifont=InputMonoNarrow-Thin:h18`'dnl
 ')dnl
 ifelse(os_name, `Linux', `dnl
 ')
