@@ -1,9 +1,5 @@
 __zshenv_rust() {
-  local -r CARGO_BIN_DIR="${HOME}/.cargo/bin"
-
-  if [[ -d "${CARGO_BIN_DIR}" ]]; then
-    __zshenv_lib_prepend_path 'PATH' "${CARGO_BIN_DIR}"
-  fi
+  __zshenv_lib_prepend_path 'PATH' "${HOME}/.cargo/bin"
 }
 
 __zshenv_rust

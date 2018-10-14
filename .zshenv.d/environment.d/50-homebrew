@@ -1,10 +1,6 @@
 __zshenv_homebrew() {
-  local -r homebrew_dir="${HOME}/.homebrew"
-
-  if [[ -d "${homebrew_dir}" ]]; then
-    __zshenv_lib_prepend_path 'PATH' "${HOME}/.homebrew/bin"
-    __zshenv_lib_prepend_path 'PATH' "${HOME}/.homebrew/sbin"
-  fi
+  __zshenv_lib_prepend_path 'PATH' "${HOME}/.homebrew/bin"
+  __zshenv_lib_prepend_path 'PATH' "${HOME}/.homebrew/sbin"
 }
 
 __zshenv_homebrew_is_available() {
