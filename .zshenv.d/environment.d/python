@@ -1,7 +1,7 @@
 __zshenv_python() {
   local -r USER_BASE="$(python -c 'import site; print site.USER_BASE')"
 
-  if [[ -d "${USER_BASE}" ]]; then
+  if [[ -n "${USER_BASE}" && -d "${USER_BASE}" ]]; then
     __zshenv_lib_prepend_path 'PATH' "${USER_BASE}/bin"
   fi
 }
