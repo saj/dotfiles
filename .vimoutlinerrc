@@ -3,6 +3,6 @@
 let maplocalleader = ',,'
 
 " Enable the smart paste plugin.
-let g:vo_modules_load = 'smart_paste'
+let g:vo_modules_load = 'clock:smart_paste'
 
 " vim:ft=vim
