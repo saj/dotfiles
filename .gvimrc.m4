@@ -7,8 +7,9 @@ divert`'dnl
 set columns=80
 set guicursor=a:blinkon0
 ifelse(os_name, `Darwin', `dnl
-set guifont=InputMonoNarrow-Thin:h18`'dnl
-set columnspace=-1
+set guifont=FiraCode-Light:h18
+set macligatures
+set columnspace=-1`'dnl
 ')dnl
 ifelse(os_name, `Linux', `dnl
 ')
