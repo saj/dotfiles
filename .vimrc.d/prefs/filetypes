@@ -34,9 +34,6 @@ au BufRead,BufNewFile *.plist setlocal ft=xml
 
 au FileType procmail setlocal et sts=4 sw=4
 
-au BufRead,BufNewFile *.pp setlocal ft=puppet
-au FileType puppet setlocal noet fo-=t sw=2 ts=2
-
 " With fo+=c, Vim's autoformatting will only consider text that matches the
 " following setting.  Syntax highlighter classifiers are not factored into the
 " algorithm.  Unfortunately, this makes it difficult (impossible?) to autoformat
