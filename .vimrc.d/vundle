@@ -6,6 +6,11 @@ if !(VimrcFlagAsserted('disable-vundle'))
 
   Plugin 'gmarik/Vundle.vim'
 
+  let s:vundle_private_path = expand('~/.vimrc.d/vundle-private')
+  if (filereadable(s:vundle_private_path))
+    exec ':source ' . s:vundle_private_path
+  endif
+
   call VimrcBundleInstall('mileszs/ack.vim')
   call VimrcBundleInstall('rking/ag.vim')
   call VimrcBundleInstall('sandeepcr529/Buffet.vim')
