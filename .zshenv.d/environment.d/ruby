@@ -15,21 +15,5 @@ __zshenv_rbenv
 unfunction __zshenv_rbenv_init
 unfunction __zshenv_rbenv
 
-__zshenv_ruby_gem_user_dir() {
-  ruby -r rubygems -e 'puts Gem.user_dir' 2>/dev/null
-}
-
-__zshenv_ruby() {
-  local -r gem_user_dir="$(__zshenv_memoise __zshenv_ruby_gem_user_dir)"
-
-  if [[ -n "${gem_user_dir}" && -d "${gem_user_dir}" ]]; then
-    __zshenv_lib_prepend_path 'PATH' "${gem_user_dir}/bin"
-  fi
-}
-
-__zshenv_ruby
-unfunction __zshenv_ruby_gem_user_dir
-unfunction __zshenv_ruby
-
 
 # vim:ft=zsh
