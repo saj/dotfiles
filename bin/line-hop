@@ -1,0 +1,93 @@
+#!/usr/bin/env python
+
+from __future__ import absolute_import
+from __future__ import print_function
+from __future__ import unicode_literals
+
+import argparse
+import itertools
+import math
+import sys
+
+
+def main(args=None):
+    parser = argparse.ArgumentParser(
+        description="Sequentially distribute the lines read from standard input "
+        "into one or more output files.")
+    parser.add_argument(
+        "prefix", metavar="PREFIX",
+        help="Write output to files named with this prefix.  Files will be "
+        "suffixed with an integer starting from zero.")
+    parser.add_argument(
+        "num_parts", metavar="N", type=int,
+        help="Number of output files to distribute over.  Each output file will "
+        "receive roughly 1/N of the input volume by line count.")
+    parser.add_argument(
+        "--input", metavar="PATH",
+        help="Read input from the named path.  (Defaults to standard input.)")
+
+    if args is None:
+        args = sys.argv
+    args = parser.parse_args(args[1:])
+
+    if args.num_parts < 1:
+        print("N must be 1 or more", file=sys.stderr)
+        return 2
+
+    input_file = sys.stdin
+    if args.input:
+        input_file = open(args.input, "r")
+
+    with input_file:
+        hop(input_file, args.prefix, args.num_parts)
+
+
+class _OutputFileCollection(object):
+
+    def __init__(self, prefix, num_parts):
+        self._prefix = prefix
+        self._num_parts = num_parts
+        self._files = []
+
+    def cycle(self):
+        return itertools.cycle(self._files)
+
+    def _close(self):
+        for f in self._files:
+            f.close()
+        self._files = []
+
+    def _suffix_width(self):
+        return int(math.ceil(math.log10(self._num_parts)))
+
+    def __enter__(self):
+        excs = (IOError, OSError)
+        try:
+            for i in range(self._num_parts):
+                suffix = str(i).zfill(self._suffix_width())
+                f = open("{}{}".format(self._prefix, suffix), "w")
+                self._files.append(f)
+        except excs:
+            try:
+                self._close()
+            except excs:
+                pass
+            raise
+        return self
+
+    def __exit__(self, unused_exc_type, unused_exc_val, unused_exc_tb):
+        self._close()
+        return False
+
+
+def hop(input_file, output_prefix, num_parts):
+    with _OutputFileCollection(output_prefix, num_parts) as output:
+        for o in output.cycle():
+            line = input_file.readline()
+            if line == "":
+                break
+            o.write(line)
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))
