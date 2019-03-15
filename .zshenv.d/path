@@ -1,7 +1,7 @@
 __zshenv_lib_prepend_path 'PATH' "${HOME}/bin"
 
-while read binpath; do
+while IFS= read -r -d '' binpath; do
   __zshenv_lib_prepend_path 'PATH' "${binpath}"
-done <<<$(find "${HOME}" -mindepth 1 -maxdepth 1 -type d -name 'bin.*')
+done < <(find "${HOME}" -mindepth 1 -maxdepth 1 -type d -name 'bin.*' -print0)
 
 # vim:ft=zsh
