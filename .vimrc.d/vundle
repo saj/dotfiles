@@ -11,7 +11,6 @@ if !(VimrcFlagAsserted('disable-vundle'))
     exec ':source ' . s:vundle_private_path
   endif
 
-  call VimrcBundleInstall('rking/ag.vim')
   call VimrcBundleInstall('tpope/vim-commentary.git')
   call VimrcBundleInstall('kana/vim-fakeclip')
   call VimrcBundleInstall('michaeljsmith/vim-indent-object')
