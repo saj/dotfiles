@@ -37,6 +37,7 @@ if !(VimrcFlagAsserted('disable-vundle'))
 
   if (VimrcFlagAsserted('enable-fzf'))
     call VimrcBundleInstall('junegunn/fzf')
+    call VimrcBundleInstall('junegunn/fzf.vim')
   endif
 
   if (VimrcFlagAsserted('enable-modelines'))
