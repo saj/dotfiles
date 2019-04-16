@@ -1,4 +1,0 @@
---pager=less -XFR
---type-set=cfengine=.cf
---type-set=nagios=.cfg
---type-set=puppet=.pp
