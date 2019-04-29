@@ -3,26 +3,27 @@
 
 divert(-1)
 
-dnl  This divert(-1)...divert`'dnl m4 pattern is used to suppress spurious, but
+dnl  This divert(-1)...divert[]dnl m4 pattern is used to suppress spurious, but
 dnl  syntactically harmless, blank lines in our output.
 
 changequote(`[', `]')
 
-define([os_name], patsubst(esyscmd([uname -s]), [
-]))
+define([newline], [
+])
 
-define([tmux_major_version], patsubst(esyscmd([tmux -V | sed 's/^tmux //' | awk -F . '{print $1}']), [
-]))
+define([os_name], patsubst(esyscmd([uname -s]), newline))
 
-define([tmux_minor_version], patsubst(esyscmd([tmux -V | sed 's/^tmux //' | awk -F . '{print $2}']), [
-]))
+define([tmux_major_version], patsubst(esyscmd([tmux -V | sed 's/^tmux //' | awk -F . '{print $1}']), newline))
 
-dnl  Feature flag: default-path (removed in tmux 1.9)
-ifelse(tmux_major_version, [1], [
-ifelse(patsubst(esyscmd([test "]tmux_minor_version[" -lt 9; echo $?]), [
-]), [0], [
-define([tmux_has_feature_default_path], [1])
-]]))
+define([tmux_minor_version], patsubst(esyscmd([tmux -V | sed 's/^tmux //' | awk -F . '{print $2}']), newline))
+
+dnl  neww -c ... (superseded default-path in tmux 1.9)
+define([feat_new_window_accepts_c_flag],
+  [ifelse(tmux_major_version, [1],
+    [ifelse(patsubst(esyscmd([test "]tmux_minor_version[" -lt 9; echo $?]), newline), [0],
+      [0],
+      [1])],
+    [1])])
 
 divert[]dnl
 ifelse(os_name, [Darwin], [dnl
@@ -61,15 +62,12 @@ unbind %
 unbind '"'
 
 # Use these instead.
-ifdef([tmux_has_feature_default_path], [dnl
-bind - split-window -v
-], [dnl
+ifelse(feat_new_window_accepts_c_flag, [1], [dnl
 bind - split-window -v -c '#{pane_current_path}'
-])dnl
-ifdef([tmux_has_feature_default_path], [dnl
-bind \ split-window -h
-], [dnl
 bind \ split-window -h -c '#{pane_current_path}'
+], [dnl
+bind - split-window -v
+bind \ split-window -h
 ])dnl
 
 # It can be VERY frustrating to hit this key by accident.  (By default, 
@@ -79,10 +77,10 @@ unbind Space
 
 bind C-a last-window
 unbind c
-ifdef([tmux_has_feature_default_path], [dnl
-bind c new-window
-], [dnl
+ifelse(feat_new_window_accepts_c_flag, [1], [dnl
 bind c new-window -c '#{pane_current_path}'
+], [dnl
+bind c new-window
 ])dnl
 
 ifelse(os_name, [Darwin], [dnl
