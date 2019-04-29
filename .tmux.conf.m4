@@ -11,16 +11,17 @@ changequote(`[', `]')
 define([newline], [
 ])
 
-define([os_name], patsubst(esyscmd([uname -s]), newline))
+define([shellchomp], [patsubst(esyscmd([$1]), newline)])
 
-define([tmux_major_version], patsubst(esyscmd([tmux -V | sed 's/^tmux //' | awk -F . '{print $1}']), newline))
+define([os_name], shellchomp([uname -s]))
 
-define([tmux_minor_version], patsubst(esyscmd([tmux -V | sed 's/^tmux //' | awk -F . '{print $2}']), newline))
+define([tmux_major_version], shellchomp([tmux -V | sed 's/^tmux //' | awk -F . '{print $1}']))
+define([tmux_minor_version], shellchomp([tmux -V | sed 's/^tmux //' | awk -F . '{print $2}']))
 
 dnl  neww -c ... (superseded default-path in tmux 1.9)
 define([feat_new_window_accepts_c_flag],
   [ifelse(tmux_major_version, [1],
-    [ifelse(patsubst(esyscmd([test "]tmux_minor_version[" -lt 9; echo $?]), newline), [0],
+    [ifelse(shellchomp([test "]tmux_minor_version[" -lt 9; echo $?]), [0],
       [0],
       [1])],
     [1])])
