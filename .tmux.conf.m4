@@ -26,6 +26,15 @@ define([feat_new_window_accepts_c_flag],
       [1])],
     [1])])
 
+dnl  -style options (added in tmux 1.9)
+dnl  -fg, -bg, and -attr options used previously (removed in tmux 2.9)
+define([feat_style_options],
+  [ifelse(tmux_major_version, [1],
+    [ifelse(shellchomp([test "]tmux_minor_version[" -lt 9; echo $?]), [0],
+      [0],
+      [1])],
+    [1])])
+
 divert[]dnl
 ifelse(os_name, [Darwin], [dnl
 set  -g  default-command "reattach-to-user-namespace -l zsh"
@@ -35,15 +44,24 @@ set  -g  default-terminal "screen-256color"
 set  -gs escape-time 0
 set  -g  history-limit 10000
 
+set  -g  status-left '#[fg=cyan]#S '
+set  -g  status-right ''
+ifelse(feat_style_options, [1], [dnl
+set  -g  status-style bg=black,fg=white
+], [dnl
 set  -g  status-bg black
 set  -g  status-fg white
-set  -g  status-left '#[fg=cyan]#S'
-set  -g  status-right ''
+])dnl
 
+ifelse(feat_style_options, [1], [dnl
+setw -g  window-status-style bg=black,fg=red
+setw -g  window-status-current-style bg=black,fg=green
+], [dnl
 setw -g  window-status-bg black
+setw -g  window-status-fg red
 setw -g  window-status-current-bg black
 setw -g  window-status-current-fg green
-setw -g  window-status-fg red
+])dnl
 
 # Old GNU screen habits die hard.
 set -g prefix C-a
