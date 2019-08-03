@@ -1,7 +1,6 @@
-# This configuration must remain backwards compatible with tmux 1.6.
-# (I still have EL6 machines with tmux installed from EPEL.)
-
 divert(-1)
+dnl  This configuration must remain backwards compatible with tmux 1.6.  (I
+dnl  still have EL6 machines with tmux installed from EPEL.)
 
 dnl  This divert(-1)...divert[]dnl m4 pattern is used to suppress spurious, but
 dnl  syntactically harmless, blank lines in our output.
@@ -43,6 +42,9 @@ set  -g  default-terminal "screen-256color"
 
 set  -gs escape-time 0
 set  -g  history-limit 10000
+
+set  -g  set-titles on
+set  -g  set-titles-string '#H:#S'
 
 set  -g  status-left '#[fg=cyan]#S '
 set  -g  status-right ''
