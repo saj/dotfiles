@@ -82,13 +82,20 @@ bind l select-pane -R
 unbind %
 unbind '"'
 
-# Use these instead.
+# Before we bind something else to the 's' key, relocate the existing key bind
+# to a different key.  With this layout, 'q' and 'w' have a similar function:
+# the former chooses between sessions, the latter chooses between windows.
+unbind s
+unbind q
+bind q choose-tree -s
+
+# Use vi-style split bindings instead.
 ifelse(feat_new_window_accepts_c_flag, [1], [dnl
-bind - split-window -v -c '#{pane_current_path}'
-bind \ split-window -h -c '#{pane_current_path}'
+bind s split-window -v -c '#{pane_current_path}'
+bind v split-window -h -c '#{pane_current_path}'
 ], [dnl
-bind - split-window -v
-bind \ split-window -h
+bind s split-window -v
+bind v split-window -h
 ])dnl
 
 # It can be VERY frustrating to hit this key by accident.  (By default, 
