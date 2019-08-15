@@ -1,0 +1,74 @@
+#!/usr/bin/env pyenvthon-3.7
+
+"""
+Remove all Docker container images from the local machine.
+
+Any container images currently in use will result in removal errors; these
+errors are ignored.
+"""
+
+import sys
+
+from itertools import islice
+from subprocess import DEVNULL, PIPE, Popen, CalledProcessError, run
+
+
+def _exec(argv, check=True):
+    return run(argv, stdin=DEVNULL, check=check)
+
+
+def _exec_output(argv):
+    with Popen(argv, bufsize=1, universal_newlines=True,
+               stdin=DEVNULL, stdout=PIPE) as proc:
+        for l in iter(proc.stdout.readline, ""):
+            yield l.rstrip("\n")
+
+    rc = proc.returncode
+    if rc != 0:
+        raise CalledProcessError(proc.returncode, argv)
+
+
+def _docker_image_ls():
+    return islice(_exec_output(["docker", "image", "ls", "--no-trunc"]),
+                  1, None)  # first line is always a heading
+
+
+def _image_ids():
+    """Return an iterator over removable image IDs.
+
+    An image ID is a string value that will be in one of two forms:
+
+    1. "<repo>:<tag>"
+    2. "sha256:<content-id>"
+
+    Either form may be passed verbatim to 'docker image rm' for removal.  The
+    second form is returned only for unnamed images.  The first form is
+    preferred because it simplifies the task of removing aliased images:  image
+    IDs that are referenced in multiple repos cannot be removed by ID.
+    """
+    for line in _docker_image_ls():
+        cols = line.split()
+        repo, tag, image_id = cols[0], cols[1], cols[2]
+        if repo == "<none>":
+            yield image_id
+        else:
+            yield f"{repo}:{tag}"
+
+
+def _remove_images(image_ids):
+    for image_id in image_ids:
+        _exec(["docker", "image", "rm", image_id], check=False)
+
+
+def main(unused_argv=None):
+    _remove_images(_image_ids())
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main(sys.argv))
+    except CalledProcessError as exc:
+        print(str(exc), file=sys.stderr)
+        sys.exit(1)
+
+# vim:ft=python
