@@ -163,7 +163,7 @@ class _JournalManager:
     @property
     def leaf_mode(self):
         mode = 0o600
-        if os.path.isdir(self._journal_template):
+        if os.path.isfile(self._journal_template):
             mode = os.stat(self._journal_template).st_mode
         return mode
 
