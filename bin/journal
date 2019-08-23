@@ -137,6 +137,10 @@ class _JournalManager:
     def current_journal_date(self):
         return self.last_day(self.first_day_of_week)
 
+    def relative_week_to_journal_date(self, weeks_ago):
+        ago = self._today - datetime.timedelta(weeks=1) * weeks_ago
+        return self.last_day(self.first_day_of_week, today=ago)
+
     def get_bucket_path(self, date):
         return os.path.join(self._journal_root,
                             "{:04d}".format(date.year),
@@ -184,6 +188,10 @@ class _JournalManager:
         leaf_path = self.create_leaf(journal_date)
         os.execlp(self._editor, self._editor, leaf_path)
 
+    def open_future(self, journal_date):
+        leaf_path = self.create_leaf(journal_date)
+        os.execlp(self._editor, self._editor, leaf_path)
+
     def open_historic(self, journal_date):
         leaf_path = self.get_leaf_path(journal_date)
         if not os.path.isfile(leaf_path):
@@ -194,10 +202,10 @@ class _JournalManager:
     def open_by_week_offset(self, weeks_ago):
         if weeks_ago == 0:
             self.open_current()
+        elif weeks_ago < 0:
+            self.open_future(self.relative_week_to_journal_date(weeks_ago))
         else:
-            ago = self._today - datetime.timedelta(weeks=1) * weeks_ago
-            journal_date = self.last_day(self.first_day_of_week, today=ago)
-            self.open_historic(journal_date)
+            self.open_historic(self.relative_week_to_journal_date(weeks_ago))
 
 
 class _VimOutlinerJournalManager(_JournalManager):
@@ -211,12 +219,7 @@ class _VimOutlinerJournalManager(_JournalManager):
                          today=today)
 
     def open_historic(self, journal_date):
-        """Open a historic journal entry in read-only mode.
-
-        We know we are using VimOutliner.  We know we are using Vim.  Thus, we
-        know which command-line flags to supply to vim to enforce a read-only
-        buffer.
-        """
+        """Open a historic journal entry in vim in a read-only buffer."""
         leaf_path = self.get_leaf_path(journal_date)
         if not os.path.isfile(leaf_path):
             raise _MissingJournalError("no existing journal entry for date: "
@@ -227,10 +230,13 @@ class _VimOutlinerJournalManager(_JournalManager):
 def _parse_args(argv):
     parser = argparse.ArgumentParser(
         description="Open a weekly VimOutliner journal file.")
-    parser.add_argument("weeks_ago", metavar="NUM-WEEKS-AGO", type=int, default=0,
-                        nargs="?", help="Open the journal file from this many "
-                        "weeks ago.  If zero (default), open the journal file "
-                        "for the current week, creating it if it does not exist.")
+    parser.add_argument(
+        "weeks_ago", metavar="NUM-WEEKS-AGO", type=int, default=0, nargs="?",
+        help="Open the journal file from this many weeks ago.  When zero "
+        "(default), open the journal file for the current week, creating it if "
+        "it does not exist.  A negative value will open the journal file for a "
+        "future week, creating it if it does not exist.  A positive value will "
+        "open an existing journal file in read-only mode.")
     return parser.parse_args(argv[1:])
 
 
