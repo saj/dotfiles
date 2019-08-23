@@ -3,6 +3,9 @@ let mapleader = "\<Space>"
 " Remove delay when transitioning from insert to command mode.
 set timeoutlen=1000 ttimeoutlen=0
 
+map <leader>y "*y
+map <leader>p "*p
+
 " This should be default behaviour!  (Matches D behaviour.)
 map Y y$
 
