@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env pyenvthon-3.7
 
 """saj's weekly journal helper.
 
@@ -15,8 +15,6 @@ journal open to a bookmark:  either its current position for input, or some time
 in the past for reflection.
 """
 
-from __future__ import print_function
-
 import argparse
 import calendar
 import datetime
@@ -30,11 +28,11 @@ class Error(Exception):
     pass
 
 
-class MissingJournalError(Error):
+class _MissingJournalError(Error):
     pass
 
 
-class JournalManager(object):
+class _JournalManager:
     """Manage a work journal maintained as a series of files.
 
     A work journal is a continuous (unbounded) series of notes, chunked by week,
@@ -66,7 +64,7 @@ class JournalManager(object):
 
     def __init__(self, journal_root, journal_template=None, editor=None,
                  leaf_name_pattern="{day:02d}", today=None):
-        """Initialise a JournalManager.
+        """Initialise a journal manager.
 
         Args:
             journal_root: The absolute filesystem path to the root journal
@@ -74,9 +72,9 @@ class JournalManager(object):
             journal_template: The absolute filesystem path to a journal
                 template.  If supplied, the contents of this file will be copied
                 to new journal files as they are created.
-            editor: Your preferred editor.  JournalManager will search your PATH
-                for this editor.  If not supplied, will default to the value of
-                the VISUAL or EDITOR environment variables (whichever is found
+            editor: Your preferred editor.  A bare name will result in a PATH
+                search.  If not supplied, will default to the value of the
+                VISUAL or EDITOR environment variables (whichever is found
                 first), or "vi" as a fallback.
             leaf_name_pattern: A Python string formatting specification that
                 will be used to name new journal files.  This spec should
@@ -146,7 +144,7 @@ class JournalManager(object):
 
     @property
     def bucket_mode(self):
-        mode = 0700
+        mode = 0o700
         if os.path.isdir(self._journal_root):
             mode = os.stat(self._journal_root).st_mode
         return mode
@@ -164,7 +162,7 @@ class JournalManager(object):
 
     @property
     def leaf_mode(self):
-        mode = 0600
+        mode = 0o600
         if os.path.isdir(self._journal_template):
             mode = os.stat(self._journal_template).st_mode
         return mode
@@ -189,8 +187,8 @@ class JournalManager(object):
     def open_historic(self, journal_date):
         leaf_path = self.get_leaf_path(journal_date)
         if not os.path.isfile(leaf_path):
-            raise MissingJournalError("no existing journal entry for date: "
-                                      "{}".format(journal_date))
+            raise _MissingJournalError("no existing journal entry for date: "
+                                       "{}".format(journal_date))
         os.execlp(self._editor, self._editor, leaf_path)
 
     def open_by_week_offset(self, weeks_ago):
@@ -202,16 +200,15 @@ class JournalManager(object):
             self.open_historic(journal_date)
 
 
-class VimOutlinerJournalManager(JournalManager):
+class _VimOutlinerJournalManager(_JournalManager):
     """Manage a work journal maintained as a series of VimOutliner files."""
 
     def __init__(self, journal_root, journal_template=None, today=None):
-        super(VimOutlinerJournalManager, self).__init__(
-            journal_root,
-            journal_template=journal_template,
-            editor="vim",
-            leaf_name_pattern="{day:02d}.otl",
-            today=today)
+        super().__init__(journal_root,
+                         journal_template=journal_template,
+                         editor="vim",
+                         leaf_name_pattern="{day:02d}.otl",
+                         today=today)
 
     def open_historic(self, journal_date):
         """Open a historic journal entry in read-only mode.
@@ -222,12 +219,12 @@ class VimOutlinerJournalManager(JournalManager):
         """
         leaf_path = self.get_leaf_path(journal_date)
         if not os.path.isfile(leaf_path):
-            raise MissingJournalError("no existing journal entry for date: "
-                                      "{}".format(journal_date))
+            raise _MissingJournalError("no existing journal entry for date: "
+                                       "{}".format(journal_date))
         os.execlp(self._editor, self._editor, "-R", leaf_path)
 
 
-def parse_args(argv):
+def _parse_args(argv):
     parser = argparse.ArgumentParser(
         description="Open a weekly VimOutliner journal file.")
     parser.add_argument("weeks_ago", metavar="NUM-WEEKS-AGO", type=int, default=0,
@@ -241,9 +238,9 @@ def main(argv=None):
     if argv is None:
         argv = sys.argv
 
-    args = parse_args(argv)
+    args = _parse_args(argv)
     try:
-        manager = VimOutlinerJournalManager(
+        manager = _VimOutlinerJournalManager(
             os.path.expanduser("~/Documents/journal"),
             journal_template=os.path.expanduser("~/Documents/journal/template.otl"))
         manager.open_by_week_offset(args.weeks_ago)
