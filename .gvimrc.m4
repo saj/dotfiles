@@ -11,6 +11,7 @@ set guifont=FiraCode-Light:h18
 set columnspace=-1`'dnl
 ')dnl
 ifelse(os_name, `Linux', `dnl
-')
+set guifont=Fira\ Code\ 10
+')dnl
 set guioptions=egmrt
 set lines=40

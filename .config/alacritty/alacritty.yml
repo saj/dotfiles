@@ -15,12 +15,11 @@ scrolling:
 tabspaces: 8
 
 font:
-  # I use 4K monitors without any scaling.  Workaround my poor eyesight.
-  size: 18.0
-  use_thin_strokes: true
+  size: 10.0
+  use_thin_strokes: false
   normal:
     family: Fira Code
-    style: Light
+    style: Regular
 
 draw_bold_text_with_bright_colors: false
 
