@@ -17,9 +17,13 @@ gb() {
   fi
 }
 
+compdef _git gb=git-branch
+
 gl() {
   git log --color --oneline "$@" | head
 }
+
+compdef _git gl=git-log
 
 # Check out an arbitrary tree-ish to an ephemeral directory.  Spawn a subshell
 # in the ephemeral checkout.  The checkout will disappear when we exit the
