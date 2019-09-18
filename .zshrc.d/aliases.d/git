@@ -10,7 +10,7 @@ alias reflog='git log -g --abbrev-commit --pretty="format:%C(auto,yellow)%h%C(au
 alias stash='git stash'
 
 gb() {
-  if [ $# -eq 0 ]; then
+  if [[ $# -eq 0 ]]; then
     git branch --list -vv
   else
     git branch "$@"
@@ -18,11 +18,7 @@ gb() {
 }
 
 gl() {
-  if [ $# -eq 0 ]; then
-    git log --color --oneline | head
-  else
-    git log --oneline "$@"
-  fi
+  git log --color --oneline "$@" | head
 }
 
 # Check out an arbitrary tree-ish to an ephemeral directory.  Spawn a subshell
