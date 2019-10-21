@@ -1,7 +1,10 @@
 #!/usr/bin/env pyenvthon-3.7
 
 """
-Remove all Docker container images from the local machine.
+Remove scratch Docker container images from the local machine.
+
+See _WHITELISTED_REPOS for a list of blessed images that this script will never
+remove.
 
 Any container images currently in use will result in removal errors; these
 errors are ignored.
@@ -11,6 +14,15 @@ import sys
 
 from itertools import islice
 from subprocess import DEVNULL, PIPE, Popen, CalledProcessError, run
+
+
+# Some of these images are 'uuuge.  I usually don't mind using a slightly
+# outdated image for testing purposes.  Retain these images as a cache.
+_WHITELISTED_REPOS = set([
+    "alpine",
+    "debian",
+    "ruby",
+])
 
 
 def _exec(argv, check=True):
@@ -49,7 +61,9 @@ def _image_ids():
     for line in _docker_image_ls():
         cols = line.split()
         repo, tag, image_id = cols[0], cols[1], cols[2]
-        if repo == "<none>":
+        if repo in _WHITELISTED_REPOS:
+            continue
+        if repo == "<none>" or tag == "<none>":
             yield image_id
         else:
             yield f"{repo}:{tag}"
