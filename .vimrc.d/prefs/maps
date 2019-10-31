@@ -9,9 +9,6 @@ map <leader>p "*p
 " This should be default behaviour!  (Matches D behaviour.)
 map Y y$
 
-" Quick word obliteration
-map <BS> bdw
-
 " Delete to the end of the sentence
 nmap ds d/[.?!:]<CR>
 
