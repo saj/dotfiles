@@ -21,6 +21,7 @@ from subprocess import DEVNULL, PIPE, Popen, CalledProcessError, run
 _WHITELISTED_REPOS = set([
     "alpine",
     "debian",
+    "golang",
     "ruby",
 ])
 
