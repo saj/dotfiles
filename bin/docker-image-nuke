@@ -61,7 +61,7 @@ def _image_ids():
     for line in _docker_image_ls():
         cols = line.split()
         repo, tag, image_id = cols[0], cols[1], cols[2]
-        if repo in _WHITELISTED_REPOS:
+        if repo in _WHITELISTED_REPOS and tag != "<none>":
             continue
         if repo == "<none>" or tag == "<none>":
             yield image_id
