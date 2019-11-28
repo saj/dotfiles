@@ -14,8 +14,9 @@ define([shellchomp], [patsubst(esyscmd([$1]), newline)])
 
 define([os_name], shellchomp([uname -s]))
 
-define([tmux_major_version], shellchomp([tmux -V | sed 's/^tmux //' | awk -F . '{print $1}']))
-define([tmux_minor_version], shellchomp([tmux -V | sed 's/^tmux //' | awk -F . '{print $2}']))
+define([tmux_version], shellchomp([tmux -V | sed 's/^tmux //']))
+define([tmux_major_version], shellchomp([echo ']tmux_version[' | awk -F . '{print $1}']))
+define([tmux_minor_version], shellchomp([echo ']tmux_version[' | awk -F . '{print $2}']))
 
 dnl  choose-tree (added in tmux 1.7)
 define([feat_choose_tree],
