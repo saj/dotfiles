@@ -17,6 +17,14 @@ define([os_name], shellchomp([uname -s]))
 define([tmux_major_version], shellchomp([tmux -V | sed 's/^tmux //' | awk -F . '{print $1}']))
 define([tmux_minor_version], shellchomp([tmux -V | sed 's/^tmux //' | awk -F . '{print $2}']))
 
+dnl  choose-tree (added in tmux 1.7)
+define([feat_choose_tree],
+  [ifelse(tmux_major_version, [1],
+    [ifelse(shellchomp([test "]tmux_minor_version[" -lt 7; echo $?]), [0],
+      [0],
+      [1])],
+    [1])])
+
 dnl  neww -c ... (superseded default-path in tmux 1.9)
 define([feat_new_window_accepts_c_flag],
   [ifelse(tmux_major_version, [1],
@@ -87,7 +95,9 @@ unbind '"'
 # the former chooses between sessions, the latter chooses between windows.
 unbind s
 unbind q
+ifelse(feat_choose_tree, [1], [dnl
 bind q choose-tree -s
+])dnl
 
 # Use vi-style split bindings instead.
 ifelse(feat_new_window_accepts_c_flag, [1], [dnl
