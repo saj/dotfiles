@@ -1,7 +1,11 @@
-__zshenv_lib_prepend_path 'PATH' "${HOME}/bin"
+() {
+  setopt localoptions extendedglob
 
-while IFS= read -r -d '' binpath; do
-  __zshenv_lib_prepend_path 'PATH' "${binpath}"
-done < <(find "${HOME}" -mindepth 1 -maxdepth 1 -type d -name 'bin.*' -print0)
+  __zshenv_lib_prepend_path 'PATH' ~/bin
+
+  for binpath in ~/bin.[a-z0-9-]##(/); do
+    __zshenv_lib_prepend_path 'PATH' "${binpath}"
+  done
+}
 
 # vim:ft=zsh
