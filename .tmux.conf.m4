@@ -43,6 +43,7 @@ define([feat_style_options],
       [1])],
     [1])])
 
+divert[]dnl
 set  -g  default-terminal "screen-256color"
 
 set  -gs escape-time 0
