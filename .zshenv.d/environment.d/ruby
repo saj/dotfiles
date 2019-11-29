@@ -1,5 +1,27 @@
+# Taken from the output of 'rbenv init -' with modifications:
+#   - Do not rehash on init.  This is slow (~60ms).
+#   - Drop shell completions.  I don't need them.
+#
 __zshenv_rbenv_init() {
-  rbenv init - 2>/dev/null
+  local -r rbenv_base="${1:?}"
+
+  __zshenv_lib_prepend_path 'PATH' "${rbenv_base}/shims"
+  export RBENV_SHELL=zsh
+
+  rbenv() {
+    local command
+    command="${1:-}"
+    if [ "$#" -gt 0 ]; then
+      shift
+    fi
+
+    case "$command" in
+    rehash|shell)
+      eval "$(rbenv "sh-$command" "$@")";;
+    *)
+      command rbenv "$command" "$@";;
+    esac
+  }
 }
 
 () {
@@ -7,7 +29,7 @@ __zshenv_rbenv_init() {
 
   if [[ -d "${rbenv_base}" ]]; then
     __zshenv_lib_prepend_path 'PATH' "${rbenv_base}/bin"
-    eval "$(__zshenv_memoise __zshenv_rbenv_init)"
+    __zshenv_rbenv_init "${rbenv_base}"
   fi
 }
 
