@@ -1,0 +1,3 @@
+export SHSTASH_ROOT=~/stash
+
+# vim:ft=zsh
