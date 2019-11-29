@@ -12,17 +12,38 @@ __zshenv_python_user_base() {
 
 unfunction __zshenv_python_user_base
 
+# Taken from the output of 'pyenv init -' with modifications:
+#   - Do not rehash on init.  This is horrifically slow (~100ms).
+#
 __zshenv_pyenv_init() {
-  pyenv init - 2>/dev/null
+  local -r pyenv_base="${1:?}"
+
+  __zshenv_lib_prepend_path 'PATH' "${pyenv_base}/shims"
+  export PYENV_SHELL=zsh
+
+  pyenv() {
+    local command
+    command="${1:-}"
+    if [ "$#" -gt 0 ]; then
+      shift
+    fi
+
+    case "$command" in
+    rehash|shell)
+      eval "$(pyenv "sh-$command" "$@")";;
+    *)
+      command pyenv "$command" "$@";;
+    esac
+  }
 }
 
 () {
-  local -r pyenv_base="${HOME}/.pyenv"
+  local -r pyenv_base=~/.pyenv
 
   if [[ -d "${pyenv_base}" ]]; then
     export PYENV_ROOT="${pyenv_base}"
     __zshenv_lib_prepend_path 'PATH' "${pyenv_base}/bin"
-    eval "$(__zshenv_memoise __zshenv_pyenv_init)"
+    __zshenv_pyenv_init "${pyenv_base}"
   fi
 }
 
