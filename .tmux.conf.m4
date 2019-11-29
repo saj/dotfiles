@@ -43,10 +43,6 @@ define([feat_style_options],
       [1])],
     [1])])
 
-divert[]dnl
-ifelse(os_name, [Darwin], [dnl
-set  -g  default-command "reattach-to-user-namespace -l zsh"
-])dnl
 set  -g  default-terminal "screen-256color"
 
 set  -gs escape-time 0
