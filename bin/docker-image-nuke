@@ -1,4 +1,4 @@
-#!/usr/bin/env pyenvthon-3.8
+#!/usr/bin/env python3
 
 """
 Remove scratch Docker container images from the local machine.
