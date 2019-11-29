@@ -1,17 +1,3 @@
-__zshenv_python_user_base() {
-  python -c 'import site; print site.USER_BASE' 2>/dev/null
-}
-
-() {
-  local -r user_base="$(__zshenv_memoise __zshenv_python_user_base)"
-
-  if [[ -n "${user_base}" && -d "${user_base}" ]]; then
-    __zshenv_lib_prepend_path 'PATH' "${user_base}/bin"
-  fi
-}
-
-unfunction __zshenv_python_user_base
-
 # Taken from the output of 'pyenv init -' with modifications:
 #   - Do not rehash on init.  This is horrifically slow (~100ms).
 #
