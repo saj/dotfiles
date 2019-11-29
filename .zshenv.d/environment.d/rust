@@ -1,8 +1,5 @@
-__zshenv_rust() {
-  __zshenv_lib_prepend_path 'PATH' "${HOME}/.cargo/bin"
+() {
+  __zshenv_lib_prepend_path 'PATH' ~/.cargo/bin
 }
-
-__zshenv_rust
-unfunction __zshenv_rust
 
 # vim:ft=zsh

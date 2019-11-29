@@ -2,7 +2,7 @@ __zshenv_python_user_base() {
   python -c 'import site; print site.USER_BASE' 2>/dev/null
 }
 
-__zshenv_python() {
+() {
   local -r user_base="$(__zshenv_memoise __zshenv_python_user_base)"
 
   if [[ -n "${user_base}" && -d "${user_base}" ]]; then
@@ -10,15 +10,13 @@ __zshenv_python() {
   fi
 }
 
-__zshenv_python
 unfunction __zshenv_python_user_base
-unfunction __zshenv_python
 
 __zshenv_pyenv_init() {
   pyenv init - 2>/dev/null
 }
 
-__zshenv_pyenv() {
+() {
   local -r pyenv_base="${HOME}/.pyenv"
 
   if [[ -d "${pyenv_base}" ]]; then
@@ -28,8 +26,6 @@ __zshenv_pyenv() {
   fi
 }
 
-__zshenv_pyenv
 unfunction __zshenv_pyenv_init
-unfunction __zshenv_pyenv
 
 # vim:ft=zsh

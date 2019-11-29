@@ -2,8 +2,8 @@ __zshenv_rbenv_init() {
   rbenv init - 2>/dev/null
 }
 
-__zshenv_rbenv() {
-  local -r rbenv_base="${HOME}/.rbenv"
+() {
+  local -r rbenv_base=~/.rbenv
 
   if [[ -d "${rbenv_base}" ]]; then
     __zshenv_lib_prepend_path 'PATH' "${rbenv_base}/bin"
@@ -11,9 +11,6 @@ __zshenv_rbenv() {
   fi
 }
 
-__zshenv_rbenv
 unfunction __zshenv_rbenv_init
-unfunction __zshenv_rbenv
-
 
 # vim:ft=zsh

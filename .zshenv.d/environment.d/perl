@@ -1,5 +1,5 @@
-__zshenv_perl() {
-  local -r LOCAL_LIB="${HOME}/perl5"
+() {
+  local -r LOCAL_LIB=~/perl5
 
   if [[ -d "${LOCAL_LIB}" ]]; then
     # I am not a Perl person.  I have no idea what these knobs actually
@@ -12,8 +12,5 @@ __zshenv_perl() {
     __zshenv_lib_prepend_path 'PATH' "${LOCAL_LIB}/bin"
   fi
 }
-
-__zshenv_perl
-unfunction __zshenv_perl
 
 # vim:ft=zsh

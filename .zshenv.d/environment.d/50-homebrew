@@ -1,8 +1,3 @@
-__zshenv_homebrew() {
-  __zshenv_lib_prepend_path 'PATH' "${HOME}/.homebrew/bin"
-  __zshenv_lib_prepend_path 'PATH' "${HOME}/.homebrew/sbin"
-}
-
 __zshenv_homebrew_is_available() {
   # TODO(saj)
   return 0
@@ -17,7 +12,9 @@ __zshenv_homebrew_formula_installed() {
   return 1
 }
 
-__zshenv_homebrew
-unfunction __zshenv_homebrew
+() {
+  __zshenv_lib_prepend_path 'PATH' ~/.homebrew/bin
+  __zshenv_lib_prepend_path 'PATH' ~/.homebrew/sbin
+}
 
 # vim:ft=zsh

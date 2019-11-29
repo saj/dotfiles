@@ -1,6 +1,8 @@
-__zshenv_init() {
-  local -r zshrcd=~"/.zshrc.d"
-  local -r zshenvd=~"/.zshenv.d"
+setopt noglobalrcs
+
+() {
+  local -r zshrcd=~/.zshrc.d
+  local -r zshenvd=~/.zshenv.d
 
   . "${zshenvd}/lib"
 
@@ -35,10 +37,5 @@ __zshenv_init() {
   __zshenv_lib_unfunction
   unfunction __zshenv_lib_unfunction
 }
-
-setopt noglobalrcs
-
-__zshenv_init
-unfunction __zshenv_init
 
 # vim:ft=zsh
