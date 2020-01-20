@@ -22,6 +22,7 @@ _WHITELISTED_REPOS = set([
     "alpine",
     "debian",
     "golang",
+    "python",
     "ruby",
 ])
 
