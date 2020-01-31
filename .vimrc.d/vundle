@@ -27,7 +27,7 @@ if !(VimrcFlagAsserted('disable-vundle'))
   " to warrant inclusion in the always-on list above.
 
   if (VimrcFlagAsserted('enable-color-base16'))
-    call VimrcBundleInstall('saj/base16-vim')
+    call VimrcBundleInstall('chriskempson/base16-vim')
   endif
 
   if (VimrcFlagAsserted('enable-color-solarized'))
