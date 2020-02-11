@@ -20,7 +20,7 @@ gb() {
 compdef _git gb=git-branch
 
 gl() {
-  git log --color --oneline "$@" | head
+  git log --color --decorate --oneline "$@" | head
 }
 
 compdef _git gl=git-log
