@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+
+"""
+Read YAML from stdin, transcode, and write JSON to stdout.
+
+Avoid large inputs.  Decoded input must fit within memory.
+"""
+
+import json
+import sys
+import yaml
+
+json.dump(yaml.load(sys.stdin, Loader=yaml.SafeLoader), sys.stdout)
