@@ -11,8 +11,8 @@ export HISTSIZE=1000
 export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S  '
 export SAVEHIST=1000
 
-alias h='fc -fl -20'
-alias history='fc -fl 1'
+alias h='fc -l -Di -20'
+alias history='fc -l -Di 1'
 alias nohist='export SAVEHIST=0'
 
 # vim:ft=zsh
