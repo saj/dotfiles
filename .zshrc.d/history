@@ -1,13 +1,13 @@
 setopt EXTENDED_HISTORY
+setopt HIST_FCNTL_LOCK
+setopt HIST_FIND_NO_DUPS
 setopt HIST_REDUCE_BLANKS
 setopt HIST_VERIFY
+unsetopt HIST_IGNORE_DUPS
 
 export HISTFILE=${HOME}/.history
 export HISTSIZE=1000
 export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S  '
-export HIST_FCNTL_LOCK=1
-export HIST_FIND_NO_DUPS=1
-export HIST_IGNORE_DUPS=0
 export SAVEHIST=1000
 
 alias h='fc -fl -20'
