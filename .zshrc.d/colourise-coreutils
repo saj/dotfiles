@@ -2,8 +2,8 @@
 __ls_force_colour_opts() { echo '--color=force'; }
 __ls_colour_opts() { echo ''; }
 case "$(uname -s)" in
-  Darwin) export CLICOLOR=true ;;
-  Linux)  __ls_colour_opts() { echo '--color=auto' ; } ;;
+  *BSD|Darwin) export CLICOLOR=true ;;
+  Linux)       __ls_colour_opts() { echo '--color=auto' ; } ;;
 esac
 
 # grep
