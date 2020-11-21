@@ -1,10 +1,8 @@
 () {
-  setopt localoptions extendedglob
+  setopt LOCAL_OPTIONS EXTENDED_GLOB NULL_GLOB
 
-  __zshenv_lib_prepend_path 'PATH' ~/bin
-
-  for binpath in ~/bin.[a-z0-9-]##(/); do
-    __zshenv_lib_prepend_path 'PATH' "${binpath}"
+  for p in ~/bin ~/bin.[a-z0-9-]##(/); do
+    __zshenv_lib_prepend_path 'PATH' "${p}"
   done
 }
 
