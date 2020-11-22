@@ -11,9 +11,6 @@
     export GOPATH="${canon_gopath}"
 
     __zshenv_lib_prepend_path 'PATH' "${canon_gopath}/bin"
-
-    # Enable vendoring; introduced in Go 1.5.
-    export GO15VENDOREXPERIMENT=1
   fi
 }
 
