@@ -1,17 +1,21 @@
+# https://github.com/golang/go/wiki/GOPATH
+
 () {
+  # Go defaults to ~/go, which is not to my taste.  This symlink, if it exists,
+  # can be used to point the go command elsewhere on the filesystem.
   local -r gopath=~/.go
 
-  if [[ -e "${gopath}" ]]; then
-    if [[ -L "${gopath}" ]]; then
-      local -r canon_gopath="$(readlink "${gopath}")"
-    else
-      local -r canon_gopath="${gopath}"
-    fi
-
-    export GOPATH="${canon_gopath}"
-
-    __zshenv_lib_prepend_path 'PATH' "${canon_gopath}/bin"
+  if [[ -L "${gopath}" ]]; then
+    local -r canon_gopath="$(readlink "${gopath}")"
+  elif [[ -d "${gopath}" ]]; then
+    local -r canon_gopath="${gopath}"
+  else
+    return 0
   fi
+
+  export GOPATH="${canon_gopath}"
+
+  __zshenv_lib_prepend_path 'PATH' "${canon_gopath}/bin"
 }
 
 # vim:ft=zsh
