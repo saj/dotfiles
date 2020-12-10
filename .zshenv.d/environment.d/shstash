@@ -1,3 +1,11 @@
-export SHSTASH_ROOT=~/stash
+# https://github.com/saj/shstash
+
+() {
+  local -r preferred_root=~/s/stash
+
+  if [[ -d "${preferred_root}" ]]; then
+    export SHSTASH_ROOT="${preferred_root}"
+  fi
+}
 
 # vim:ft=zsh
