@@ -48,7 +48,7 @@ au BufRead,BufNewFile *.rb      setlocal ft=ruby
 au BufRead,BufNewFile *.ru      setlocal ft=ruby
 au BufRead,BufNewFile Gemfile   setlocal ft=ruby
 au BufRead,BufNewFile Rakefile  setlocal ft=ruby
-au FileType ruby setlocal noet sw=2 ts=2
+au FileType ruby setlocal et sts=2 sw=2
 
 au FileType sh setlocal et sts=2 sw=2
 
