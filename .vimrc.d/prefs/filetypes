@@ -32,6 +32,8 @@ au FileType markdown setlocal fo+=t spell
 
 au BufRead,BufNewFile *.plist setlocal ft=xml
 
+au BufRead,BufNewFile *.pp setlocal ft=puppet
+
 au FileType procmail setlocal et sts=4 sw=4
 
 " With fo+=c, Vim's autoformatting will only consider text that matches the
