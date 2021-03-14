@@ -9,11 +9,11 @@ unsetopt HIST_IGNORE_DUPS
 if __zshrc_is_null HISTFILE; then
   unset HISTFILE
 elif __zshrc_is_unset HISTFILE; then
-  export HISTFILE=${HOME}/.history
+  HISTFILE=${HOME}/.history
 fi
-export HISTSIZE=1000
-export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S  '
-export SAVEHIST=1000
+HISTSIZE=1000
+HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S  '
+SAVEHIST=1000
 
 alias h='fc -l -Di -20'
 alias history='fc -l -Di 1'
