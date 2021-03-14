@@ -1,6 +1,8 @@
 () {
   local -r zshrcd=~"/.zshrc.d"
 
+  . "${zshrcd}/lib"
+
   . "${zshrcd}/colours"
   . "${zshrcd}/colourise-coreutils"
 
@@ -11,7 +13,7 @@
   . "${zshrcd}/pushd"
 
   case "$(uname -s)"; in
-    "Darwin") [[ -e "${zshrcd}/mac" ]]   && . "${zshrcd}/mac"   ;;
+    "Darwin") [[ -e "${zshrcd}/mac"   ]] && . "${zshrcd}/mac"   ;;
     "Linux")  [[ -e "${zshrcd}/linux" ]] && . "${zshrcd}/linux" ;;
   esac
 
@@ -30,6 +32,9 @@
   for aliasesrc in "${zshrcd}/aliases.d"/*; do
     . "${aliasesrc}"
   done
+
+  __zshrc_lib_unfunction
+  unfunction __zshrc_lib_unfunction
 }
 
 # vim:ft=zsh

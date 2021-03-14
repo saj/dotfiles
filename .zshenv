@@ -6,12 +6,8 @@ setopt noglobalrcs
   . "${zshenvd}/lib"
 
   case "$(uname -s)"; in
-    "Darwin")
-      [[ -e "${zshenvd}/mac" ]] && . "${zshenvd}/mac"
-      ;;
-    "Linux")
-      [[ -e "${zshenvd}/linux" ]] && . "${zshenvd}/linux"
-      ;;
+    "Darwin") [[ -e "${zshenvd}/mac"   ]] && . "${zshenvd}/mac"   ;;
+    "Linux")  [[ -e "${zshenvd}/linux" ]] && . "${zshenvd}/linux" ;;
   esac
 
   local host hostrc

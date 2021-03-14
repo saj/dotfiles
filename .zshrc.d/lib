@@ -1,0 +1,11 @@
+__zshrc_is_set()   { [[ ${(P)+1} -ne 0 ]] ; }
+__zshrc_is_unset() { [[ ${(P)+1} -eq 0 ]] ; }
+__zshrc_is_null()  { __zshrc_is_set "$1" && [[ -z "${(P)1}" ]] ; }
+
+__zshrc_lib_unfunction() {
+  unfunction __zshrc_is_null
+  unfunction __zshrc_is_set
+  unfunction __zshrc_is_unset
+}
+
+# vim:ft=zsh
