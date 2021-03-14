@@ -30,9 +30,4 @@ alias c='cd'
 alias mk='mkdir'
 alias p='pwd'
 
-# Debian packages ack as ack-grep.  A Kanji converter won out.
-if which ack-grep >/dev/null 2>&1; then
-  alias ack="`which ack-grep`"
-fi
-
 # vim:ft=zsh
