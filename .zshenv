@@ -1,7 +1,6 @@
 setopt noglobalrcs
 
 () {
-  local -r zshrcd=~/.zshrc.d
   local -r zshenvd=~/.zshenv.d
 
   . "${zshenvd}/lib"
