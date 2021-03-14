@@ -1,6 +1,0 @@
-alias wt='worldtime --colours'
-alias utc='wt --tz=UTC'
-alias mtv='wt --tz=US/Pacific'
-alias worldclock='watch --no-title -n 1 worldtime'
-
-# vim:ft=zsh
