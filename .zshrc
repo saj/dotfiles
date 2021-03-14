@@ -1,4 +1,4 @@
-__zshrc_init() {
+() {
   local -r zshrcd=~"/.zshrc.d"
 
   . "${zshrcd}/colours"
@@ -31,8 +31,5 @@ __zshrc_init() {
     . "${aliasesrc}"
   done
 }
-
-__zshrc_init
-unfunction __zshrc_init
 
 # vim:ft=zsh
