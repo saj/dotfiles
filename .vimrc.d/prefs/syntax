@@ -1,5 +1,6 @@
 syntax on
 set background=dark
+colorscheme desolate
 
 set breakindent
 
