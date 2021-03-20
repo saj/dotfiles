@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 uuidgen | cut -d - -f 1 | tr '[A-Z]' '[a-z]'

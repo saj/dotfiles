@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # The macOS distribution of Python 2 does not provide a python2 executable.
 # Fake it.

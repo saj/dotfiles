@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Write out paths to Maildir cur/new directories.  These directories
 # contain mail messages.
