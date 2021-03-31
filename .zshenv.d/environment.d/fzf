@@ -1,4 +1,4 @@
-export FZF_DEFAULT_COMMAND="${HOME}/bin/fzf-list"
+export FZF_DEFAULT_COMMAND="${HOME}/bin/fuzzy-list-files"
 export FZF_DEFAULT_OPTS="--bind=ctrl-h:toggle-all,ctrl-l:toggle+down"
 
 # vim:ft=zsh
