@@ -5,13 +5,14 @@
 #
 # Distributed under terms of the MIT license.
 #
+# https://github.com/aperezdc/zsh-fzy
+#
+# This file was slightly modified to suit my personal preferences.
+# Mistakes or omissions are my own.  <sg@redu.cx>
+#
 
-ZSH_FZY_TMUX="${0:A:h}/fzy-tmux"
-ZSH_FZY=$(command -v fzy)
-if [[ -z ${ZSH_FZY} ]] ; then
-	echo 'fzy is not installed. See https://github.com/jhawthorn/fzy'
-	return 1
-fi
+ZSH_FZY="$(command -v fzy)"
+[[ -z "${ZSH_FZY}" ]] && return 0
 
 function fzy-history-default-command
 {
@@ -30,11 +31,6 @@ function fzy-cd-default-command
 {
 	command find -L . \( -path '*/\.*' -o -fstype dev -o -fstype proc \) -prune \
 		-o -type d -print 2> /dev/null | sed 1d | cut -b3-
-}
-
-function fzy-proc-default-command
-{
-	command ps -ef | sed 1d
 }
 
 function __fzy_cmd
@@ -76,11 +72,7 @@ function __fzy_cmd
 		cmd=("fzy-${widget}-default-command")
 	fi
 
-	if zstyle -t :fzy:tmux enabled && [[ -n ${TMUX} ]] ; then
-		"${cmd[@]}" | "${ZSH_FZY_TMUX}" -- "${args[@]}" "$@"
-	else
-		"${cmd[@]}" | "${ZSH_FZY}" "${args[@]}" "$@"
-	fi
+	"${cmd[@]}" | "${ZSH_FZY}" "${args[@]}" "$@"
 }
 
 function __fzy_fsel
@@ -89,11 +81,6 @@ function __fzy_fsel
 		echo -n "${(q)item} "
 	done
 	echo
-}
-
-function __fzy_psel
-{
-	__fzy_cmd proc | awk '{print $2}' | tr '\n' ' '
 }
 
 function fzy-file-widget
@@ -123,15 +110,15 @@ function fzy-history-widget
 	zle reset-prompt
 }
 
-function fzy-proc-widget
-{
-	emulate -L zsh
-	zle -I
-	LBUFFER="${LBUFFER}$(__fzy_psel)"
-	zle reset-prompt
-}
-
 zle -N fzy-file-widget
 zle -N fzy-cd-widget
 zle -N fzy-history-widget
-zle -N fzy-proc-widget
+
+bindkey '^f'  fzy-file-widget
+bindkey '^[c' fzy-cd-widget
+bindkey '^r'  fzy-history-widget
+
+zstyle :fzy:file    command "${HOME}/bin/fuzzy-list-files"
+zstyle :fzy:file    lines   '20'
+zstyle :fzy:cd      lines   '20'
+zstyle :fzy:history lines   '20'
