@@ -16,7 +16,7 @@ ZSH_FZY="$(command -v fzy)"
 
 function fzy-history-default-command
 {
-	builtin fc -l -n -r 1
+	builtin fc -l -n -r 1 | sort | uniq
 }
 
 function fzy-file-default-command
