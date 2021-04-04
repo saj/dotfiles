@@ -14,11 +14,6 @@
 ZSH_FZY="$(command -v fzy)"
 [[ -z "${ZSH_FZY}" ]] && return 0
 
-function fzy-history-default-command
-{
-	builtin fc -l -n -r 1 | sort | uniq
-}
-
 function fzy-file-default-command
 {
 	command find -L . \( -path '*/\.*' -o -fstype dev -o -fstype proc \) -prune \
@@ -99,26 +94,12 @@ function fzy-cd-widget
 	zle reset-prompt
 }
 
-function fzy-history-widget
-{
-	emulate -L zsh
-	zle -I
-	local S=$(__fzy_cmd history -q "${LBUFFER//$/\\$}")
-	if [[ -n $S ]] ; then
-		LBUFFER=$S
-	fi
-	zle reset-prompt
-}
-
 zle -N fzy-file-widget
 zle -N fzy-cd-widget
-zle -N fzy-history-widget
 
 bindkey '^f'  fzy-file-widget
 bindkey '^[c' fzy-cd-widget
-bindkey '^r'  fzy-history-widget
 
-zstyle :fzy:file    command "${HOME}/bin/fuzzy-list-files"
-zstyle :fzy:file    lines   '20'
-zstyle :fzy:cd      lines   '20'
-zstyle :fzy:history lines   '20'
+zstyle :fzy:file command "${HOME}/bin/fuzzy-list-files"
+zstyle :fzy:file lines   '20'
+zstyle :fzy:cd   lines   '20'

@@ -1,6 +1,8 @@
 # Use vi bindings.
 bindkey -v
 
+bindkey '^r' history-incremental-search-backward
+
 # Hit v in command mode to open the current line in an editor.
 autoload -U edit-command-line
 zle -N edit-command-line
