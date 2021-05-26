@@ -36,8 +36,8 @@ if (VimrcFlagAsserted('enable-modelines'))
   set modeline
 endif
 
-" Matches alphabetically-labelled ordered lists -- a. a) -- and 
-" unordered lists that use a dash.
-set formatlistpat=^\\s*\\(\\([A-Za-z]\\\\|[0-9]\\{1,2\\}\\)[\\]:\\.)}\\t]\\\\|-\\)\\s*
+" Matches alphabetically-labelled ordered lists -- a. a) -- and unordered lists
+" that use a dash/minus-hyphen or asterisk.
+set formatlistpat=^\\s*\\(\\([A-Za-z]\\\\|[0-9]\\{1,2\\}\\)[\\]:\\.)}\\t]\\\\|[-*]\\)\\s*
 
 " vim:ft=vim
