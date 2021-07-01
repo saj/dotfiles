@@ -1,3 +1,7 @@
+__zshenv_python3_user_base() {
+  python3 -c 'import site; print(site.USER_BASE)'
+}
+
 # Taken from the output of 'pyenv init -' with modifications:
 #   - Do not rehash on init.  This is horrifically slow (~100ms).
 #
@@ -24,8 +28,11 @@ __zshenv_pyenv_init() {
 }
 
 () {
-  local -r pyenv_base=~/.pyenv
+  if command -v python3 >/dev/null; then
+    __zshenv_lib_prepend_path 'PATH' "$(__zshenv_memoise __zshenv_python3_user_base)/bin"
+  fi
 
+  local -r pyenv_base=~/.pyenv
   if [[ -d "${pyenv_base}" ]]; then
     export PYENV_ROOT="${pyenv_base}"
     __zshenv_lib_prepend_path 'PATH' "${pyenv_base}/bin"
@@ -33,6 +40,7 @@ __zshenv_pyenv_init() {
   fi
 }
 
+unfunction __zshenv_python3_user_base
 unfunction __zshenv_pyenv_init
 
 # vim:ft=zsh

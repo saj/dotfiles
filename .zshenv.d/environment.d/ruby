@@ -26,7 +26,6 @@ __zshenv_rbenv_init() {
 
 () {
   local -r rbenv_base=~/.rbenv
-
   if [[ -d "${rbenv_base}" ]]; then
     __zshenv_lib_prepend_path 'PATH' "${rbenv_base}/bin"
     __zshenv_rbenv_init "${rbenv_base}"
