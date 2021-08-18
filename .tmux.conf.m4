@@ -120,8 +120,8 @@ bind c new-window
 ])dnl
 
 ifelse(os_name, [Darwin], [dnl
-bind C-c run "tmux save-buffer - | reattach-to-user-namespace pbcopy"
-bind C-v run "reattach-to-user-namespace pbpaste | tmux load-buffer - && tmux paste-buffer"
+bind C-c run "tmux save-buffer - | pbcopy"
+bind C-v run "pbpaste | tmux load-buffer - && tmux paste-buffer"
 
 ])dnl
 bind r source-file ~/.tmux.conf
