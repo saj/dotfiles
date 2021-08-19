@@ -1,9 +1,0 @@
-#!/bin/sh
-
-set -e
-
-gvim -f \
-  -c 'set columns=120 fo+=t ft=moin noai nosi paste' \
-  -c 'setlocal spell' \
-  -i $HOME/.vim/info/moin \
-  "$@"
