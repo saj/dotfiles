@@ -29,4 +29,8 @@ export PATH=''
 
 eval $(/usr/libexec/path_helper -s)
 
+# macports:
+__zshenv_lib_prepend_path 'PATH' /opt/local/sbin
+__zshenv_lib_prepend_path 'PATH' /opt/local/bin
+
 # vim:ft=zsh
