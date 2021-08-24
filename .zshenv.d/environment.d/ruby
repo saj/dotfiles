@@ -1,3 +1,7 @@
+__zshenv_ruby_user_dir() {
+  ruby -e 'puts Gem.user_dir'
+}
+
 # Taken from the output of 'rbenv init -' with modifications:
 #   - Do not rehash on init.  This is slow (~60ms).
 #   - Drop shell completions.  I don't need them.
@@ -24,18 +28,31 @@ __zshenv_rbenv_init() {
   }
 }
 
+__zshenv_insert_ruby_user_path() {
+  command -v ruby >/dev/null || return 0
+  __zshenv_lib_prepend_path 'PATH' "$(__zshenv_memoise __zshenv_ruby_user_dir)/bin"
+
+  # for bundler:
+  export GEM_HOME="$(__zshenv_memoise __zshenv_ruby_user_dir)"
+}
+
 __zshenv_insert_rbenv_path() {
   local -r rbenv_base=~/.rbenv
   [[ -d "${rbenv_base}" ]] || return 0
   __zshenv_lib_prepend_path 'PATH' "${rbenv_base}/bin"
   __zshenv_rbenv_init "${rbenv_base}"
+
+  unset GEM_HOME
 }
 
 () {
+  __zshenv_insert_ruby_user_path
   __zshenv_insert_rbenv_path
 }
 
 unfunction __zshenv_insert_rbenv_path
+unfunction __zshenv_insert_ruby_user_path
 unfunction __zshenv_rbenv_init
+unfunction __zshenv_ruby_user_dir
 
 # vim:ft=zsh
