@@ -24,14 +24,18 @@ __zshenv_rbenv_init() {
   }
 }
 
-() {
+__zshenv_insert_rbenv_path() {
   local -r rbenv_base=~/.rbenv
-  if [[ -d "${rbenv_base}" ]]; then
-    __zshenv_lib_prepend_path 'PATH' "${rbenv_base}/bin"
-    __zshenv_rbenv_init "${rbenv_base}"
-  fi
+  [[ -d "${rbenv_base}" ]] || return 0
+  __zshenv_lib_prepend_path 'PATH' "${rbenv_base}/bin"
+  __zshenv_rbenv_init "${rbenv_base}"
 }
 
+() {
+  __zshenv_insert_rbenv_path
+}
+
+unfunction __zshenv_insert_rbenv_path
 unfunction __zshenv_rbenv_init
 
 # vim:ft=zsh
