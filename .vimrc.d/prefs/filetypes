@@ -33,6 +33,7 @@ au FileType markdown setlocal fo+=t spell
 au BufRead,BufNewFile *.plist setlocal ft=xml
 
 au BufRead,BufNewFile *.pp setlocal ft=puppet
+au FileType puppet setlocal iskeyword+=:
 
 au FileType procmail setlocal et sts=4 sw=4
 
