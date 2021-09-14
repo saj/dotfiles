@@ -1,71 +1,71 @@
-au BufRead,BufNewFile GNUmakefile* setlocal ft=make
-au FileType make setlocal noet ts=4
+autocmd BufRead,BufNewFile GNUmakefile* setlocal ft=make
+autocmd FileType make setlocal noet ts=4
 
-au BufRead,BufNewFile README setlocal fo+=t spell
+autocmd BufRead,BufNewFile README setlocal fo+=t spell
 
-au BufRead,BufNewFile TODO setlocal fo+=t
+autocmd BufRead,BufNewFile TODO setlocal fo+=t
 
-au BufRead,BufNewFile *.aug setlocal ft=augeas
-au FileType augeas setlocal et sts=2 sw=2
+autocmd BufRead,BufNewFile *.aug setlocal ft=augeas
+autocmd FileType augeas setlocal et sts=2 sw=2
 
-au FileType coffee setlocal et sts=2 sw=2 tw=79
+autocmd FileType coffee setlocal et sts=2 sw=2 tw=79
 
-au BufRead,BufNewFile COMMIT_EDITMSG setlocal ft=gitcommit
-au FileType gitcommit setlocal tw=72
+autocmd BufRead,BufNewFile COMMIT_EDITMSG setlocal ft=gitcommit
+autocmd FileType gitcommit setlocal tw=72
 
-au FileType go setlocal noet ts=2
+autocmd FileType go setlocal noet ts=2
 
-"au BufRead,BufNewFile *.html setlocal ft=html
-au FileType html setlocal et fo= sts=2 sw=2
+"autocmd BufRead,BufNewFile *.html setlocal ft=html
+autocmd FileType html setlocal et fo= sts=2 sw=2
 
-"au BufRead,BufNewFile *.json setlocal ft=json
+"autocmd BufRead,BufNewFile *.json setlocal ft=json
 
-"Add trailing whitespace for format=flowed.
-au FileType mail setlocal et fo+=tw spell tw=72
+" Add trailing whitespace for format=flowed.
+autocmd FileType mail setlocal et fo+=tw spell tw=72
 
-au BufRead,BufNewFile *.markdown setlocal ft=markdown
-au BufRead,BufNewFile *.md       setlocal ft=markdown
-au BufRead,BufNewFile *.mdown    setlocal ft=markdown
-au BufRead,BufNewFile *.mkd      setlocal ft=markdown
-au BufRead,BufNewFile *.mkdn     setlocal ft=markdown
-au FileType markdown setlocal fo+=t spell
+autocmd BufRead,BufNewFile *.markdown setlocal ft=markdown
+autocmd BufRead,BufNewFile *.md       setlocal ft=markdown
+autocmd BufRead,BufNewFile *.mdown    setlocal ft=markdown
+autocmd BufRead,BufNewFile *.mkd      setlocal ft=markdown
+autocmd BufRead,BufNewFile *.mkdn     setlocal ft=markdown
+autocmd FileType markdown setlocal fo+=t spell
 
-au BufRead,BufNewFile *.plist setlocal ft=xml
+autocmd BufRead,BufNewFile *.plist setlocal ft=xml
 
-au BufRead,BufNewFile *.pp setlocal ft=puppet
-au FileType puppet setlocal iskeyword+=:
+autocmd BufRead,BufNewFile *.pp setlocal ft=puppet
+autocmd FileType puppet setlocal iskeyword+=:
 
-au FileType procmail setlocal et sts=4 sw=4
+autocmd FileType procmail setlocal et sts=4 sw=4
 
-au BufRead,BufNewFile SConscript setlocal ft=python
+autocmd BufRead,BufNewFile SConscript setlocal ft=python
 
 " With fo+=c, Vim's autoformatting will only consider text that matches the
 " following setting.  Syntax highlighter classifiers are not factored into the
 " algorithm.  Unfortunately, this makes it difficult (impossible?) to autoformat
 " Python docstrings as proper comments.  This line was my last attempt.  It has
 " been left here as a reminder.
-"au FileType python setlocal comments=:#,sf:\"\"\",m4:*,ef:\"\"\"
+"autocmd FileType python setlocal comments=:#,sf:\"\"\",m4:*,ef:\"\"\"
 
-au BufRead,BufNewFile *.gemspec setlocal ft=ruby
-au BufRead,BufNewFile *.rb      setlocal ft=ruby
-au BufRead,BufNewFile *.ru      setlocal ft=ruby
-au BufRead,BufNewFile Gemfile   setlocal ft=ruby
-au BufRead,BufNewFile Rakefile  setlocal ft=ruby
-au FileType ruby setlocal et sts=2 sw=2
+autocmd BufRead,BufNewFile *.gemspec setlocal ft=ruby
+autocmd BufRead,BufNewFile *.rb      setlocal ft=ruby
+autocmd BufRead,BufNewFile *.ru      setlocal ft=ruby
+autocmd BufRead,BufNewFile Gemfile   setlocal ft=ruby
+autocmd BufRead,BufNewFile Rakefile  setlocal ft=ruby
+autocmd FileType ruby setlocal et sts=2 sw=2
 
-au FileType sh setlocal et sts=2 sw=2
+autocmd FileType sh setlocal et sts=2 sw=2
 
-au BufRead,BufNewFile *.tex setlocal ft=tex
-au FileType tex setlocal et fo=acnoqrtw sts=2 sw=2
+autocmd BufRead,BufNewFile *.tex setlocal ft=tex
+autocmd FileType tex setlocal et fo=acnoqrtw sts=2 sw=2
 
-au FileType vim setlocal et sts=2 sw=2
+autocmd FileType vim setlocal et sts=2 sw=2
 
-au FileType votl setlocal noet sw=2 ts=2
+autocmd FileType votl setlocal noet sw=2 ts=2
 
-au FileType xml setlocal et fo= sts=2 sw=2
+autocmd FileType xml setlocal et fo= sts=2 sw=2
 
-au FileType yaml setlocal et sts=2 sw=2
+autocmd FileType yaml setlocal et sts=2 sw=2
 
-au FileType zsh setlocal et sts=2 sw=2
+autocmd FileType zsh setlocal et sts=2 sw=2
 
 " vim:ft=vim
