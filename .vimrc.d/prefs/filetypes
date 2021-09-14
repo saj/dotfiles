@@ -1,3 +1,6 @@
+augroup saj_filetypes
+autocmd!
+
 autocmd BufRead,BufNewFile GNUmakefile* setlocal ft=make
 autocmd FileType make setlocal noet ts=4
 
@@ -67,5 +70,7 @@ autocmd FileType xml setlocal et fo= sts=2 sw=2
 autocmd FileType yaml setlocal et sts=2 sw=2
 
 autocmd FileType zsh setlocal et sts=2 sw=2
+
+augroup END
 
 " vim:ft=vim
