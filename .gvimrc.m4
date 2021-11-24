@@ -4,7 +4,7 @@ define(`os_name', patsubst(esyscmd(`uname -s'), `
 '))
 
 divert`'dnl
-set columns=80
+set columns=120
 set guicursor=a:blinkon0
 ifelse(os_name, `Darwin', `dnl
 set guifont=FiraCode-Light:h18
