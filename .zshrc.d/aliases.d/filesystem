@@ -27,7 +27,6 @@ mkcd() {
 
 alias '..'='cd ..'
 alias c='cd'
-alias mk='mkdir'
 alias p='pwd'
 
 # vim:ft=zsh
