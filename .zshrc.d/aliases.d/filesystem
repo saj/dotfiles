@@ -25,6 +25,10 @@ mkcd() {
   mkdir -p "${dir}" && cd "${dir}"
 }
 
+touchx() {
+  touch -- "$@" && chmod a+x "$@"
+}
+
 alias '..'='cd ..'
 alias c='cd'
 alias p='pwd'
