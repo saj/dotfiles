@@ -1,5 +1,10 @@
-__ls_base_opts() { echo '-F'; }
-__ls_long_opts() { echo '-lh'; }
+__ls_base_opts() { echo '-F' ; }
+case "$(__zshrc_memoise __zshrc_platform)" in
+  *bsd)   __ls_base_opts() { echo '-FI' ; } ;;
+  darwin) __ls_base_opts() { echo '-FI' ; } ;;
+esac
+
+__ls_long_opts() { echo '-lh' ; }
 
 l() {
   ls $(__ls_colour_opts) $(__ls_base_opts) "$@"

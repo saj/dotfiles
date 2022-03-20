@@ -1,8 +1,8 @@
 # These functions are consumed by aliases; grep for their names.
 
 # ls
-__ls_force_colour_opts() { echo '--color=force'; }
-__ls_colour_opts() { echo ''; }
+__ls_force_colour_opts() { echo '--color=force' ; }
+__ls_colour_opts() { echo '' ; }
 case "$(__zshrc_memoise __zshrc_platform)" in
   darwin)  export CLICOLOR=true ;;
   freebsd) export CLICOLOR=true ;;
