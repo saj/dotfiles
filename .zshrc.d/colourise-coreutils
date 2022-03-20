@@ -9,13 +9,4 @@ case "$(__zshrc_memoise __zshrc_platform)" in
   linux)   __ls_colour_opts() { echo '--color=auto' ; } ;;
 esac
 
-# grep
-__grep_force_colour_opts() { echo '--color=force'; }
-__grep_colour_opts() { echo ''; }
-case "$(__zshrc_memoise __zshrc_platform)" in
-  darwin)  __grep_colour_opts() { echo '--color=auto'; } ;;
-  freebsd) __grep_colour_opts() { echo '--color=auto'; } ;;
-  linux)   __grep_colour_opts() { echo '--color=auto'; } ;;
-esac
-
 # vim:ft=zsh
