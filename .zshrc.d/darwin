@@ -1,3 +1,4 @@
+# TODO(saj): move this elsewhere
 opendot() {
   exec 3>&0
   exec 0>&-
