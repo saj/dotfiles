@@ -2,7 +2,7 @@
   setopt LOCAL_OPTIONS EXTENDED_GLOB NULL_GLOB
 
   for p in ~/bin ~/bin.[a-z0-9-]##(/); do
-    __zshenv_lib_prepend_path 'PATH' "${p}"
+    __zshenv_prepend_path 'PATH' "${p}"
   done
 }
 

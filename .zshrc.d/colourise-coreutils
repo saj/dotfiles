@@ -3,16 +3,19 @@
 # ls
 __ls_force_colour_opts() { echo '--color=force'; }
 __ls_colour_opts() { echo ''; }
-case "$(uname -s)" in
-  *BSD|Darwin) export CLICOLOR=true ;;
-  Linux)       __ls_colour_opts() { echo '--color=auto' ; } ;;
+case "$(__zshrc_memoise __zshrc_platform)" in
+  darwin)  export CLICOLOR=true ;;
+  freebsd) export CLICOLOR=true ;;
+  linux)   __ls_colour_opts() { echo '--color=auto' ; } ;;
 esac
 
 # grep
 __grep_force_colour_opts() { echo '--color=force'; }
 __grep_colour_opts() { echo ''; }
-if grep --version 2>&1 | head -n 1 | grep -Fq 'GNU' ; then
-  __grep_colour_opts() { echo '--color=auto'; }
-fi
+case "$(__zshrc_memoise __zshrc_platform)" in
+  darwin)  __grep_colour_opts() { echo '--color=auto'; } ;;
+  freebsd) __grep_colour_opts() { echo '--color=auto'; } ;;
+  linux)   __grep_colour_opts() { echo '--color=auto'; } ;;
+esac
 
 # vim:ft=zsh

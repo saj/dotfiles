@@ -8,7 +8,7 @@ __zshenv_python3_user_base() {
 __zshenv_pyenv_init() {
   local -r pyenv_base="${1:?}"
 
-  __zshenv_lib_prepend_path 'PATH' "${pyenv_base}/shims"
+  __zshenv_prepend_path 'PATH' "${pyenv_base}/shims"
   export PYENV_SHELL=zsh
 
   pyenv() {
@@ -29,14 +29,14 @@ __zshenv_pyenv_init() {
 
 __zshenv_insert_python3_user_path() {
   command -v python3 >/dev/null || return 0
-  __zshenv_lib_prepend_path 'PATH' "$(__zshenv_memoise __zshenv_python3_user_base)/bin"
+  __zshenv_prepend_path 'PATH' "$(__zshenv_memoise __zshenv_python3_user_base)/bin"
 }
 
 __zshenv_insert_pyenv_path() {
   local -r pyenv_base=~/.pyenv
   [[ -d "${pyenv_base}" ]] || return 0
   export PYENV_ROOT="${pyenv_base}"
-  __zshenv_lib_prepend_path 'PATH' "${pyenv_base}/bin"
+  __zshenv_prepend_path 'PATH' "${pyenv_base}/bin"
   __zshenv_pyenv_init "${pyenv_base}"
 }
 

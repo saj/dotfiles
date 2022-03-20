@@ -15,7 +15,7 @@
 
   export GOPATH="${canon_gopath}"
 
-  __zshenv_lib_prepend_path 'PATH' "${canon_gopath}/bin"
+  __zshenv_prepend_path 'PATH' "${canon_gopath}/bin"
 }
 
 # vim:ft=zsh

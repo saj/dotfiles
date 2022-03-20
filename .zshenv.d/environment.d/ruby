@@ -9,7 +9,7 @@ __zshenv_ruby_user_dir() {
 __zshenv_rbenv_init() {
   local -r rbenv_base="${1:?}"
 
-  __zshenv_lib_prepend_path 'PATH' "${rbenv_base}/shims"
+  __zshenv_prepend_path 'PATH' "${rbenv_base}/shims"
   export RBENV_SHELL=zsh
 
   rbenv() {
@@ -30,7 +30,7 @@ __zshenv_rbenv_init() {
 
 __zshenv_insert_ruby_user_path() {
   command -v ruby >/dev/null || return 0
-  __zshenv_lib_prepend_path 'PATH' "$(__zshenv_memoise __zshenv_ruby_user_dir)/bin"
+  __zshenv_prepend_path 'PATH' "$(__zshenv_memoise __zshenv_ruby_user_dir)/bin"
 
   # for bundler:
   export GEM_HOME="$(__zshenv_memoise __zshenv_ruby_user_dir)"
@@ -39,7 +39,7 @@ __zshenv_insert_ruby_user_path() {
 __zshenv_insert_rbenv_path() {
   local -r rbenv_base=~/.rbenv
   [[ -d "${rbenv_base}" ]] || return 0
-  __zshenv_lib_prepend_path 'PATH' "${rbenv_base}/bin"
+  __zshenv_prepend_path 'PATH' "${rbenv_base}/bin"
   __zshenv_rbenv_init "${rbenv_base}"
 
   unset GEM_HOME

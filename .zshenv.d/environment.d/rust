@@ -1,5 +1,5 @@
 () {
-  __zshenv_lib_prepend_path 'PATH' ~/.cargo/bin
+  __zshenv_prepend_path 'PATH' ~/.cargo/bin
 }
 
 # vim:ft=zsh

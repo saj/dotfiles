@@ -9,7 +9,7 @@
     export PERL_LOCAL_LIB_ROOT="${LOCAL_LIB}${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}"
     export PERL_MB_OPT="--install_base \"${LOCAL_LIB}\""
     export PERL_MM_OPT="INSTALL_BASE=${LOCAL_LIB}"
-    __zshenv_lib_prepend_path 'PATH' "${LOCAL_LIB}/bin"
+    __zshenv_prepend_path 'PATH' "${LOCAL_LIB}/bin"
   fi
 }
 

@@ -11,14 +11,14 @@ ll() {
 
 # Page through a directory listing.
 lll() {
-  ls $(__ls_force_colour_opts) $(__ls_base_opts) $(__ls_long_opts) "$@" | \
-      less -inr
+  ls $(__ls_force_colour_opts) $(__ls_base_opts) $(__ls_long_opts) "$@" \
+    | less -inr
 }
 
 # Make a directory then descend into it.
 mkcd() {
   if [[ $# -gt 1 ]]; then
-    echo "One directory only, please" >&2
+    echo "one directory only, please" >&2
     return 1
   fi
   local dir="$1"

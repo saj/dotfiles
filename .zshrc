@@ -12,29 +12,13 @@
   . "${zshrcd}/prompt"
   . "${zshrcd}/pushd"
 
-  case "$(uname -s)"; in
-    "Darwin") [[ -e "${zshrcd}/mac"   ]] && . "${zshrcd}/mac"   ;;
-    "Linux")  [[ -e "${zshrcd}/linux" ]] && . "${zshrcd}/linux" ;;
-  esac
+  __zshrc_source_base "${zshrcd}" "$(__zshrc_memoise __zshrc_platform)"
+  __zshrc_source_base "${zshrcd}" "$(__zshrc_memoise __zshrc_hostname_s)"
+  __zshrc_source_base "${zshrcd}" "$(__zshrc_memoise __zshrc_hostname_f)"
+  __zshrc_source_base "${zshrcd}" 'aliases.d'
 
-  local host hostrc
-  for host in "$(hostname -s 2>/dev/null)" "$(hostname -f 2>/dev/null)"; do
-    if [[ -d "${zshrcd}/${host}" ]]; then
-      for hostrc in "${zshrcd}/${host}"/*; do
-        . "${hostrc}"
-      done
-    elif [[ -f "${zshrcd}/${host}" ]]; then
-      . "${zshrcd}/${host}"
-    fi
-  done
-
-  local aliasesrc
-  for aliasesrc in "${zshrcd}/aliases.d"/*; do
-    . "${aliasesrc}"
-  done
-
-  __zshrc_lib_unfunction
-  unfunction __zshrc_lib_unfunction
+  __zshrc_unfunction
+  unfunction __zshrc_unfunction
 }
 
 # vim:ft=zsh

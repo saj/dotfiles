@@ -1,11 +1,62 @@
+__zshrc_source() {
+  for name in "$@"; do
+    [[ -n "${name}" ]] || continue
+    [[ -e "${name}" ]] || continue
+    if [[ -d "${name}" ]]; then
+      for f in "${name}"/*; do
+        . "${f}"
+      done
+      continue
+    fi
+    . "${name}"
+  done
+}
+
+__zshrc_source_base() {
+  local dir="$1"
+  shift
+  [[ -d "${dir}" ]] || return 0
+  for name in "$@"; do
+    __zshrc_source "${dir}/${name}"
+  done
+}
+
 __zshrc_is_set()   { [[ ${(P)+1} -ne 0 ]] ; }
 __zshrc_is_unset() { [[ ${(P)+1} -eq 0 ]] ; }
 __zshrc_is_null()  { __zshrc_is_set "$1" && [[ -z "${(P)1}" ]] ; }
 
-__zshrc_lib_unfunction() {
+# __zshrc_memoise FUNCTION-NAME
+#
+# Cache and replay the output from FUNCTION-NAME, an expensive function.  Cached
+# output will never expire on its own accord, though cached output on the
+# filesystem may be safely unlinked at any time by hand.
+__zshrc_memoise() {
+  local -r funcname="${1:?}"
+  local -r cachedir="${zshrcd}/_evalcache"
+  local -r cache="${cachedir}/${funcname}"
+
+  mkdir -p -m 0700 "${cachedir}"
+
+  if [[ -r "${cache}" ]]; then
+    cat "${cache}"
+    return
+  fi
+
+  eval "${funcname}" | tee "${cache}"
+}
+
+__zshrc_platform()   { uname -s | tr A-Z a-z   ; }
+__zshrc_hostname_f() { hostname -f 2>/dev/null ; }
+__zshrc_hostname_s() { hostname -s 2>/dev/null ; }
+
+__zshrc_unfunction() {
+  unfunction __zshrc_source
+  unfunction __zshrc_source_base
   unfunction __zshrc_is_null
   unfunction __zshrc_is_set
   unfunction __zshrc_is_unset
+  unfunction __zshrc_memoise
+  unfunction __zshrc_platform
 }
 
 # vim:ft=zsh

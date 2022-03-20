@@ -1,9 +1,32 @@
-# __zshenv_lib_prepend_path VARIABLE DIRECTORY
+__zshenv_source() {
+  for name in "$@"; do
+    [[ -n "${name}" ]] || continue
+    [[ -e "${name}" ]] || continue
+    if [[ -d "${name}" ]]; then
+      for f in "${name}"/*; do
+        . "${f}"
+      done
+      continue
+    fi
+    . "${name}"
+  done
+}
+
+__zshenv_source_base() {
+  local dir="$1"
+  shift
+  [[ -d "${dir}" ]] || return 0
+  for name in "$@"; do
+    __zshenv_source "${dir}/${name}"
+  done
+}
+
+# __zshenv_prepend_path VARIABLE DIRECTORY
 #
 # Prepend DIRECTORY to the colon-separated content of the scalar export
 # VARIABLE and remove duplicates.  If DIRECTORY is not an existing
 # directory on the local filesystem, do nothing, successfully.
-__zshenv_lib_prepend_path() {
+__zshenv_prepend_path() {
   local -r variable="${1:?}"
   local -r directory="${2:?}"
   local -a old_path
@@ -44,9 +67,18 @@ __zshenv_memoise() {
   eval "${funcname}" | tee "${cache}"
 }
 
-__zshenv_lib_unfunction() {
-  unfunction __zshenv_lib_prepend_path
+__zshenv_platform()   { uname -s | tr A-Z a-z   ; }
+__zshenv_hostname_f() { hostname -f 2>/dev/null ; }
+__zshenv_hostname_s() { hostname -s 2>/dev/null ; }
+
+__zshenv_unfunction() {
+  unfunction __zshenv_source
+  unfunction __zshenv_source_base
+  unfunction __zshenv_prepend_path
   unfunction __zshenv_memoise
+  unfunction __zshenv_platform
+  unfunction __zshenv_hostname_f
+  unfunction __zshenv_hostname_s
 }
 
 # vim:ft=zsh
