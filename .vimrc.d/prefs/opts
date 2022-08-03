@@ -6,7 +6,7 @@ set cpoptions+=J
 set expandtab
 set foldmethod=indent
 set foldnestmax=10
-set formatoptions=acnoqr
+set formatoptions=cnoqr
 set hidden
 set history=100
 set ignorecase
