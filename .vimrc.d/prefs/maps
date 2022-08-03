@@ -1,15 +1,17 @@
 let mapleader = "\<Space>"
 
-" Remove delay when transitioning from insert to command mode.
+" remove delay when transitioning from insert to command mode
 set timeoutlen=1000 ttimeoutlen=0
 
+" yank to, and paste from, the system clipboard
 map <leader>y "*y
 map <leader>p "*p
 
-" This should be default behaviour!  (Matches D behaviour.)
+" yank from cursor to end of line; match behaviour of D
+" (vi yanks the whole line instead)
 map Y y$
 
-" Delete to the end of the sentence
+" delete to the end of the sentence
 nmap ds d/[.?!:]<CR>
 
 cmap w!! w !sudo tee % >/dev/null
@@ -17,8 +19,8 @@ cmap w!! w !sudo tee % >/dev/null
 " Don't force comments to start on column 1
 inoremap # X#
 
-" 'Scissor open' and 'scissor close' - I like to use these as visual
-" separators when interspersing code or terminal output with prose.
+" 'scissor open' and 'scissor close'
+" used as delimiters when interspersing source/output with prose
 imap \sco --- 8< ---<ESC>0
 imap \scc --- >8 ---<ESC>0
 
