@@ -16,9 +16,6 @@ nmap ds d/[.?!:]<CR>
 
 cmap w!! w !sudo tee % >/dev/null
 
-" Don't force comments to start on column 1
-inoremap # X#
-
 " 'scissor open' and 'scissor close'
 " used as delimiters when interspersing source/output with prose
 imap \sco --- 8< ---<ESC>0
