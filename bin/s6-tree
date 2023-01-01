@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# Write a text-based visualisation of the process tree
+# rooted at all s6-svscan processes owned by the caller.
+
+set -f
+
+# -U is an aesthetic convenience for the unix superuser.
+# The superuser may own a so-called super-supervisor:
+# an s6 supervision tree that supervises subordinate supervision trees.
+# Subordinate supervision trees may be owned by other users.
+# Without a user restriction on this pgrep, the superuser would see
+# one tree rooted at its own s6-svscan,
+# and many duplicate (nuisance) trees rooted at subordinate s6-svscans.
+pids="$(pgrep -U "$(id -ru)" s6-svscan)"
+[ -z "${pids}" ] && exit 1
+
+# shellcheck disable=SC2086
+# Avoid -g 3.  GNU watch(1) strips Unicode box-drawing codepoints.
+exec pstree ${pids}
