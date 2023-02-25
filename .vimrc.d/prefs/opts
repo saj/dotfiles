@@ -16,8 +16,9 @@ set noequalalways
 set nohlsearch
 set nostartofline
 set nowritebackup
-set nu
+set number
 set preserveindent
+set relativenumber
 set ruler
 set scrolloff=2
 set shiftwidth=4
