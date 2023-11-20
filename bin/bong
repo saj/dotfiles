@@ -1,0 +1,19 @@
+#!/usr/bin/env -S execlineb -W -S1
+
+# Send a desktop notification on macOS upon completion of a command.
+#
+# usage: bong COMMAND [ARG ...]
+
+# pick a sound from /System/Library/Sounds
+
+foreground { $@ }
+importas -i ? ?
+ifelse {
+  test $? -eq 0
+} {
+  osascript -e "display notification \"${1} finished\" with title \"bong\" sound name \"Purr\""
+}
+if {
+  osascript -e "display notification \"${1} failed: ? = ${?}\" with title \"bong 😭\" sound name \"Sosumi\""
+}
+exit $?
