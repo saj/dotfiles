@@ -1,5 +1,0 @@
-hyperfine() {
-  command hyperfine -S /bin/sh -s basic "$@"
-}
-
-# vim:ft=zsh
