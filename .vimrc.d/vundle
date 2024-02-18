@@ -74,6 +74,10 @@ if !(VimrcFlagAsserted('disable-vundle'))
     call VimrcBundleInstall('kchmck/vim-coffee-script')
   endif
 
+  if (VimrcFlagAsserted('enable-lang-execline'))
+    call VimrcBundleInstall('djpohly/vim-execline')
+  endif
+
   if (VimrcFlagAsserted('enable-lang-go'))
     call VimrcBundleInstall('govim/govim')
   endif

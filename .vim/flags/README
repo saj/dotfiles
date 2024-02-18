@@ -13,35 +13,23 @@ Supported flags
 
 disable-vundle:
 
-  Vundle (Vim plug-in manager) is enabled by default.  Assert this flag to
-  disable Vundle and *all* Vundle plugins.
+  Vundle (Vim plug-in manager) is enabled by default.
+  Assert this flag to disable Vundle and all Vundle plugins.
 
 enable-color-base16
-
 enable-color-solarized
-
 enable-fzf
-
 enable-modelines
-
 enable-syntastic
-
 enable-vim-outliner
-
 enable-youcompleteme
 
 enable-lang-asciidoc
-
 enable-lang-clojure
-
 enable-lang-coffeescript
-
+enable-lang-execline
 enable-lang-go
-
 enable-lang-hcl
-
 enable-lang-markdown
-
 enable-lang-puppet
-
 enable-lang-terraform
