@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cat "$@" | s6-tai64nlocal

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+tail -F "$@" | s6-tai64nlocal
