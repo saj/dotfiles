@@ -26,6 +26,10 @@ if !(VimrcFlagAsserted('disable-vundle'))
   " Opt-in bundles below here are too slow or are not used often enough
   " to warrant inclusion in the always-on list above.
 
+  if (VimrcFlagAsserted('enable-context'))
+    call VimrcBundleInstall('wellle/context.vim')
+  endif
+
   if (VimrcFlagAsserted('enable-fzf'))
     call VimrcBundleInstall('junegunn/fzf')
     call VimrcBundleInstall('junegunn/fzf.vim')
