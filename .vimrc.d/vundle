@@ -44,10 +44,6 @@ if !(VimrcFlagAsserted('disable-vundle'))
     call VimrcBundleInstall('ciaranm/securemodelines')
   endif
 
-  if (VimrcFlagAsserted('enable-syntastic'))
-    call VimrcBundleInstall('scrooloose/syntastic')
-  endif
-
   if (VimrcFlagAsserted('enable-vim-outliner'))
     call VimrcBundleInstall('vimoutliner/vimoutliner')
   endif
