@@ -16,7 +16,6 @@ disable-vundle:
   Vundle (Vim plug-in manager) is enabled by default.
   Assert this flag to disable Vundle and all Vundle plugins.
 
-enable-color-solarized
 enable-fzf
 enable-modelines
 enable-vim-outliner
