@@ -21,7 +21,6 @@ enable-color-solarized
 enable-fzf
 enable-modelines
 enable-vim-outliner
-enable-youcompleteme
 
 enable-lang-asciidoc
 enable-lang-clojure

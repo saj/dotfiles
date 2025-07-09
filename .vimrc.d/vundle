@@ -48,12 +48,6 @@ if !(VimrcFlagAsserted('disable-vundle'))
     call VimrcBundleInstall('vimoutliner/vimoutliner')
   endif
 
-  if v:version > 703 || v:version == 703 && has("patch598")
-    if (VimrcFlagAsserted('enable-youcompleteme'))
-      call VimrcBundleInstall('Valloric/YouCompleteMe')
-    endif
-  endif
-
   if (VimrcFlagAsserted('enable-lang-asciidoc'))
     call VimrcBundleInstall('saj/vim-asciidoc')
   endif
