@@ -44,14 +44,6 @@ if !(VimrcFlagAsserted('disable-vundle'))
     call VimrcBundleInstall('saj/vim-asciidoc')
   endif
 
-  if (VimrcFlagAsserted('enable-lang-clojure'))
-    call VimrcBundleInstall('guns/vim-clojure-static')
-    call VimrcBundleInstall('guns/vim-sexp')
-    call VimrcBundleInstall('tpope/vim-fireplace')
-    call VimrcBundleInstall('tpope/vim-sexp-mappings-for-regular-people')
-    call VimrcBundleInstall('venantius/vim-cljfmt')
-  endif
-
   if (VimrcFlagAsserted('enable-lang-execline'))
     call VimrcBundleInstall('djpohly/vim-execline')
   endif

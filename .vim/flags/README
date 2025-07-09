@@ -21,7 +21,6 @@ enable-modelines
 enable-vim-outliner
 
 enable-lang-asciidoc
-enable-lang-clojure
 enable-lang-execline
 enable-lang-go
 enable-lang-hcl
