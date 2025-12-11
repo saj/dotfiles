@@ -29,12 +29,11 @@ gl() {
 
 compdef _git gl=git-log
 
-# gl without decorations
 glo() {
   if [[ "$#" -eq 0 ]]; then
-    git log --oneline | head
+    git log --oneline --no-color --no-decorate | head
   else
-    git log --oneline "$@" | cat -
+    git log --oneline --no-color --no-decorate "$@"
   fi
 }
 
