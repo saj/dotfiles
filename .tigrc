@@ -1,0 +1,21 @@
+set split-view-height = 90%
+set split-view-width  = 70%
+set vertical-split = false
+
+set main-view = date:display=relative-compact \
+                id \
+                author:display=email-user \
+                commit-title:graph=no,refs=yes
+
+set refs-view = date:display=relative-compact \
+                ref \
+                author:display=email-user \
+                commit-title
+
+color cursor      default 10
+color title-focus default default
+color title-blur  8       default
+
+color date   default default
+color id     yellow  default
+color author blue    default
