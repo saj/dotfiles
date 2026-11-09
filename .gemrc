@@ -1,2 +1,7 @@
+---
+:ipv4_fallback_enabled: true
+:prevent_update_suggestion: false
+:verbose: false
+
 install: --user-install --no-document
 update:  --user-install --no-document
